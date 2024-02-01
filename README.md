@@ -1,2 +1,2 @@
 # NGO
-This is the project for CS305.
+This is the project for CS305. Testing
