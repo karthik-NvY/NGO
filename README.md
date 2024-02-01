@@ -1,4 +1,5 @@
 # NGO
-This is the project for CS305. Testing
-***Integrated testing***
+
+This is the project for CS305 Software engineering. Testing
+**_Integrated testing_**
 Collision test-1
