@@ -3,7 +3,4 @@
 This is the project for CS305 Software engineering. Testing
 **_Integrated testing_**
 Collision test-1
-Testing PR link
 Testing with evryone
-Doodh Nath changed this file.
-Nice to see this.
