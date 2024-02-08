@@ -9,7 +9,7 @@ TODO:
 
 const Users = require('../models/userSchema');
 const authenticationOTP = require('../../models/authenticationOTP');
-const transporter = require('../../services/emailTransporter');
+// const transporter = require('../../services/emailTransporter');
 const dotenv = require('dotenv');
 const limit = 60; //time limit for valid OTP
 
@@ -53,37 +53,7 @@ const sendOTP_userSignup = async (req,res) => {
 
                 await updateData.save();
 
-                const mailOptions = {
-                    from:process.env.EMAIL,
-                    to:email,
-                    subject:"Email Verification OTP",
-                    text:`Dear ${username},
-
-                            Thank you for registering with our platform! To complete the email verification process, please use the following One-Time Password (OTP):
-                            
-                            Your OTP: ${OTP}
-                            
-                            Please enter this OTP in the verification page to verify your account. If you did not request this OTP, please ignore this email.
-                            
-                            Thank you for choosing our service!
-                    
-                    Best regards,
-                    NGO SE`
-                }
-
-                transporter.sendMail(mailOptions,(error,info)=>{
-                    if(error){
-                        res.status(400).json({
-                            err:"OTP not sent!"
-                        });
-                    }
-                    else{
-                        // console.log("Email sent",info.response);
-                        res.status(200).json({
-                            message:"OTP sent"
-                        });
-                    }
-                });
+                /* Send the OTP to user */
             }
             else{
                 const newOTPData = new authenticationOTP({
@@ -94,37 +64,7 @@ const sendOTP_userSignup = async (req,res) => {
 
                 await newOTPData.save();
 
-                const mailOptions = {
-                    from:process.env.EMAIL,
-                    to:email,
-                    subject:"Email Verification OTP",
-                    text: `Dear ${username},
-
-                                Thank you for registering with our platform! To complete the email verification process, please use the following One-Time Password (OTP):
-                                
-                                Your OTP: ${OTP}
-                                
-                                Please enter this OTP in the verification page to verify your account. If you did not request this OTP, please ignore this email.
-                                
-                                Thank you for choosing our service!
-                        
-                        Best regards,
-                        NGO SE`
-                }
-
-                transporter.sendMail(mailOptions,(error,info)=>{
-                    if(error){
-                        res.status(400).json({
-                            err:"OTP not sent!"
-                        });
-                    }
-                    else{
-                        // console.log("Email sent",info.response);
-                        res.status(200).json({
-                            message:"OTP sent"
-                        });
-                    }
-                });
+                /* Send the OTP to user */
             }
         }
 
