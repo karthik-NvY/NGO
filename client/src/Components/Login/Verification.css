@@ -1,0 +1,79 @@
+
+
+body {
+    background-image: url("../Assets/causecraft_pic.png");
+    background-size: cover;
+
+  }
+body img{
+    display: flex;
+    margin:auto;
+    margin-top:50px;
+}
+
+.container {
+text-align: center;
+margin: auto;
+margin-top:44px;
+display: flex;
+flex-direction: column;
+background-color: #dccdc1;
+}
+
+
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 280px;
+    height: 40px;
+    background-color: #eaeaea;
+    border-radius: 20px;
+
+    
+}
+
+.input input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color:#797979;
+    text-align: center;
+    font-size: 19px;
+}
+
+
+
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 50px;
+    color: #fff;
+    background-color: #3f7f9b;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+.resend-otp{
+    display: block;
+    padding-left: 62px ;
+    margin-top: 127px;
+    margin:auto;
+    color: #545454;
+    font-size: 18px;
+}
+
+.resend-otp span{
+   
+    color: blue;
+    cursor: pointer;
+    
+
+}

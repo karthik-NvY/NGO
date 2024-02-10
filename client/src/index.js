@@ -4,12 +4,14 @@ import './index.css';
 import { LoginSignup } from './Components/Login/LoginSignup';
 import reportWebVitals from './reportWebVitals';
 import Login from './Components/Login/Login';
+import Verification  from './Components/Login/Verification'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <LoginSignup />
+    {/* <LoginSignup /> */}
     {/* <Login /> */}
+    <Verification />
   </React.StrictMode>
 );
 
