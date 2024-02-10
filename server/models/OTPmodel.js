@@ -2,19 +2,27 @@
 const mongoose = require('mongoose');
 const mailSender = require('../helpers/senderHelper');
 
+// Expire time for OTP.
+const minutes = 5
+
+
+// Schema for OTP.
 const otpSchema = new mongoose.Schema({
+  // Email. 
   email: {
     type: String,
     required: true,
   },
+  // OTP record.
   otp: {
     type: String,
     required: true,
   },
+  // OTP creation time.
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 60 * 5,
+    expires: 60 * minutes,
   },
 });
 
