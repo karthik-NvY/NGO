@@ -6,7 +6,7 @@ TODO:
 3.If the password in incorrect error 401
 */
 
-const Users = require('../models/userSchema');
+const Users = require('../models/emailsModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
