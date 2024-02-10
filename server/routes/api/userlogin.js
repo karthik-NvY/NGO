@@ -6,7 +6,7 @@ TODO:
 3.If the password in incorrect error 401
 */
 
-const Users = require('../models/emailsModel');
+const Users = require('../../models/emailsModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
@@ -24,7 +24,7 @@ const userLogin = async (req, res) => {
             });
         }
 
-        const user = await Users.findOne({ email });
+        const user = await Users.findOne({ email: email });
 
         if (!user) {
             return res.status(400).json({
@@ -42,13 +42,13 @@ const userLogin = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ email: user.email }, process.env.JWT_KEY, { expiresIn: '30m' });
+        // const token = jwt.sign({ email: user.email }, process.env.JWT_KEY, { expiresIn: '30m' });
 
-        res.cookie("token", token, { httpOnly: true });
+        // res.cookie("token", token, { httpOnly: true });
 
         return res.status(200).json({
             success: true,
-            token,
+            // token,
             email: user.email,
             message: 'User login successful'
         });
