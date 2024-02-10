@@ -7,9 +7,8 @@ TODO:
 4.Signup success when user OTP verification is done.  
 */
 
-const Users = require('../models/userSchema');
-const authenticationOTP = require('../../models/authenticationOTP');
-// const transporter = require('../../services/emailTransporter');
+const Users = require('../../models/emailModel');
+const authenticationOTP = require('../../models/OTPmodel');
 const dotenv = require('dotenv');
 const limit = 60; //time limit for valid OTP
 
@@ -18,11 +17,11 @@ dotenv.config();
 //function to send OTP during user signup
 const sendOTP_userSignup = async (req,res) => {
     //TODO-1
-    const {firstName,lastName,email} = req.body;
+    const {name,email} = req.body;
 
-    if(!firstName || !email){
+    if(!name || !email){
         res.status(400).json({
-            err: "Please provide your firstName/email."
+            err: "Please provide your name/email."
         });
     }
 
@@ -37,7 +36,6 @@ const sendOTP_userSignup = async (req,res) => {
         }
         else{
             //TODO-3
-            const username = firstName + " " + lastName;
             const OTP = Math.floor(100000+Math.random()*900000);
             const otpCreationTime = new Date();
             
@@ -46,7 +44,7 @@ const sendOTP_userSignup = async (req,res) => {
             if(existingEmail){
                 const updateData = await authenticationOTP.findByIdAndUpdate({_id:existingEmail._id},{
                     otp:OTP,
-                    otpCreationTime: otpCreationTime
+                    createdAt: otpCreationTime
                 },{
                     new:true
                 });
@@ -59,7 +57,7 @@ const sendOTP_userSignup = async (req,res) => {
                 const newOTPData = new authenticationOTP({
                     email: email,
                     otp:OTP,
-                    otpCreationTime: otpCreationTime
+                    createdAt: otpCreationTime
                 });
 
                 await newOTPData.save();
@@ -79,11 +77,11 @@ const sendOTP_userSignup = async (req,res) => {
 //function to handle registration of user
 const userSignup = async (req,res) => {
     //TODO-1
-    const {firstName,lastName,email,otp,submitTime} = req.body;
+    const {name,email,password,otp,submitTime} = req.body;
 
-    if(!otp || !email){
+    if(!otp){
         res.status(400).json({
-            error: "Enter your OTP"
+            err: "Enter your OTP"
         });
     }
 
@@ -93,9 +91,9 @@ const userSignup = async (req,res) => {
         const timeDifference = ((submitTime - userExists.otpCreationTime)/1000);
         if(timeDifference<=limit && (userExists.otp === otp)){
             const newUser = new Users({
-                firstName: firstName,
-                lastName: lastName,
-                email: email
+                name: name,
+                email: email,
+                password: password
             });
             
             //saving the newUser credentials in the database
@@ -110,9 +108,9 @@ const userSignup = async (req,res) => {
             res.status(200).json({
                 message:"User registration successfully done",
                 id: existingUser._id,
-                firstName: existingUser.firstName,
-                lastName: existingUser.lastName,
+                name: name,
                 email: email,
+                password: password,
                 userToken: token,
             });
         }
@@ -123,7 +121,7 @@ const userSignup = async (req,res) => {
         }
     } catch (error) {
         res.status(400).json({
-            err:"Invalid OTP",
+            err:"Internal error",
             error
         });
     }
