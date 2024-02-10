@@ -24,13 +24,13 @@
     "helmet": "^3.21.3",
     "jest": "^25.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.2",
+    "mongoose": "^5.13.22",
     "morgan": "^1.9.1",
     "redis": "^3.0.2",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "nodemon": "^2.0.2"
   }
 }

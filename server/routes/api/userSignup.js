@@ -7,7 +7,7 @@ TODO:
 4.Signup success when user OTP verification is done.  
 */
 
-const Users = require('../../models/emailModel');
+const Users = require('../../models/emailsModel');
 const authenticationOTP = require('../../models/OTPmodel');
 const dotenv = require('dotenv');
 const limit = 60; //time limit for valid OTP
@@ -18,7 +18,7 @@ dotenv.config();
 const sendOTP_userSignup = async (req,res) => {
     //TODO-1
     const {name,email} = req.body;
-
+    
     if(!name || !email){
         res.status(400).json({
             err: "Please provide your name/email."
@@ -27,9 +27,9 @@ const sendOTP_userSignup = async (req,res) => {
 
     try {
         const userExists = await Users.findOne({email:email});
-
         //TODO-2
         if(userExists){
+            
             res.status(400).json({
                 err: "User already exists in our database"
             });
@@ -54,19 +54,23 @@ const sendOTP_userSignup = async (req,res) => {
                 /* Send the OTP to user */
             }
             else{
-                const newOTPData = new authenticationOTP({
-                    email: email,
-                    otp:OTP,
-                    createdAt: otpCreationTime
-                });
 
-                await newOTPData.save();
+       //----- RECHECK THIS PART OF CREATING AND SAVING NEW INSTANCE----
+
+                // const newOTPData = authenticationOTP({
+                //     email: email,
+                //     otp:OTP,
+                //     createdAt: otpCreationTime
+                // });
+
+                //await newOTPData.save();
 
                 /* Send the OTP to user */
             }
         }
 
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             err: "Invalid Details.",
             error
@@ -90,6 +94,9 @@ const userSignup = async (req,res) => {
         const userExists = await authenticationOTP.findOne({email:email});
         const timeDifference = ((submitTime - userExists.otpCreationTime)/1000);
         if(timeDifference<=limit && (userExists.otp === otp)){
+
+        //----- RECHECK THIS PART AFTER CREATING METHOD generateAuthToken----
+            /*
             const newUser = new Users({
                 name: name,
                 email: email,
@@ -99,19 +106,21 @@ const userSignup = async (req,res) => {
             //saving the newUser credentials in the database
             const userData = await newUser.save();
             
+            
             //finding the user with the given email id
             const existingUser = await Users.findOne({email:email});
 
             //token generation
             const token = await existingUser.generateAuthToken();
+            */
 
             res.status(200).json({
                 message:"User registration successfully done",
-                id: existingUser._id,
+            //  id: existingUser._id,
                 name: name,
                 email: email,
                 password: password,
-                userToken: token,
+            //  userToken: token,
             });
         }
         else{
@@ -120,6 +129,7 @@ const userSignup = async (req,res) => {
             });
         }
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             err:"Internal error",
             error
