@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.22",
     "morgan": "^1.9.1",
@@ -27,6 +28,7 @@
     "otp-generator": "^4.0.1"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "dotenv": "^8.6.0",
     "nodemon": "^2.0.2"
   }
