@@ -1,10 +1,11 @@
-// models/otpModel.js
+/*
+  File contins schema for OTPs.
+*/
 const mongoose = require('mongoose');
-const mailSender = require('../helpers/senderHelper');
+const sendVerificationEmail = require('../services/mailer'); // Function for sending mail.
 
 // Expire time for OTP.
 const minutes = 5
-
 
 // Schema for OTP.
 const otpSchema = new mongoose.Schema({
@@ -26,27 +27,15 @@ const otpSchema = new mongoose.Schema({
   },
 });
 
-// async function sendVerificationEmail(email, otp) {
-//   try {
-//     const mailResponse = await mailSender(
-//       email,
-//       "Verification Email",
-//       `<h1>Please confirm your OTP</h1>
-//        <p>Here is your OTP code: ${otp}</p>`
-//     );
-//     console.log("Email sent successfully");
-//   } 
-//   catch (error) {
-//     console.log("Error occurred while sending email: ", error);
-//     throw error;
-//   }
-// }
-// otpSchema.pre("save", async function (next) {
-//   console.log("New document saved to the database");
-//   if (this.isNew) {
-//     await sendVerificationEmail(this.email, this.otp);
-//   }
-//   next();
-// });
+// After making a new entry or updating old entry, this middleware runs.
+otpSchema.post(["save", "updateOne"], async function (next) {
+  if (this.isNew) {
+    console.log("New document saved to the database");
+  }
+  else{
+    console.log("Document updated in the database");
+  }
+  await sendVerificationEmail(this.email, this.otp); // Sends OTP mail.
+});
 
-module.exports = mongoose.model("OTP", otpSchema);
+module.exports = mongoose.model("authenticationOTP", otpSchema);

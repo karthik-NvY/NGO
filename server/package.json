@@ -1,35 +1,25 @@
 {
   "name": "NGO hosting Service",
   "version": "1.0.0",
-  "description": "Web Application that enables users to host their independent NGO services.",
+  "description": "NGO hosting service",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "test",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": [
-    "Node Projects",
-    "Backend"
-  ],
+  "keywords": [],
   "author": "Team 02",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "helmet": "^3.21.3",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.22",
-    "morgan": "^1.9.1",
-    "redis": "^3.0.2",
-    "uuid": "^7.0.2"
-    "lodash": "^4.17.21",
-    "nodemailer": "^6.9.8",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.2",
+    "nodemailer": "^6.9.9",
     "otp-generator": "^4.0.1"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "dotenv": "^8.6.0",
-    "nodemon": "^2.0.2"
+    "dotenv": "^16.4.4",
+    "nodemon": "^3.0.3"
   }
 }

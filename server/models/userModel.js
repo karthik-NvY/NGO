@@ -1,3 +1,6 @@
+/*
+    File contains schema for users.
+*/
 const mongoose = require('mongoose')
 
 // Schema for users.
@@ -21,4 +24,4 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('users', userSchema)
+module.exports = mongoose.model('Users', userSchema) // Export user schema
