@@ -10,6 +10,7 @@ TODO:
 const Users = require('../../models/emailsModel');
 const authenticationOTP = require('../../models/OTPmodel');
 const dotenv = require('dotenv');
+const generateToken = require('../../utils/generateToken');
 const limit = 60; //time limit for valid OTP
 
 dotenv.config();
@@ -17,7 +18,7 @@ dotenv.config();
 //function to send OTP during user signup
 const sendOTP_userSignup = async (req,res) => {
     //TODO-1
-    const {name,email} = req.body;
+    const {name,email,password} = req.body;
     
     if(!name || !email){
         res.status(400).json({
@@ -94,9 +95,7 @@ const userSignup = async (req,res) => {
         const userExists = await authenticationOTP.findOne({email:email});
         const timeDifference = ((submitTime - userExists.otpCreationTime)/1000);
         if(timeDifference<=limit && (userExists.otp === otp)){
-
-        //----- RECHECK THIS PART AFTER CREATING METHOD generateAuthToken----
-            /*
+            
             const newUser = new Users({
                 name: name,
                 email: email,
@@ -104,23 +103,15 @@ const userSignup = async (req,res) => {
             });
             
             //saving the newUser credentials in the database
-            const userData = await newUser.save();
+            await newUser.save();
             
-            
-            //finding the user with the given email id
-            const existingUser = await Users.findOne({email:email});
-
-            //token generation
-            const token = await existingUser.generateAuthToken();
-            */
-
             res.status(200).json({
                 message:"User registration successfully done",
             //  id: existingUser._id,
                 name: name,
                 email: email,
                 password: password,
-            //  userToken: token,
+                userToken: generateToken(newUser._id),
             });
         }
         else{
