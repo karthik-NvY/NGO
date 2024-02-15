@@ -18,7 +18,7 @@ dotenv.config();
 //function to send OTP during user signup
 const sendOTP_userSignup = async (req,res) => {
     //TODO-1
-    const {name,email,password} = req.body;
+    const {name,email} = req.body;
     
     if(!name || !email){
         res.status(400).json({
