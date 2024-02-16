@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 // import LoginSignup  from './Components/Login/LoginSignup.jsx';
 // import Verification  from './Components/Login/Verification';
-import HomePage from './Components/Dashboard/HomePage';
+import WelcomePage from './Components/Dashboard/WelcomePage';
 import Footer from './Components/Dashboard/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     {/* <LoginSignup /> */}
     {/* <Verification /> */}
-    < HomePage />
+    < WelcomePage />
     {/* < Footer /> */}
   </React.StrictMode>
 );

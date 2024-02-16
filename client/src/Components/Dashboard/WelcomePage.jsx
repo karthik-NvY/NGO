@@ -1,9 +1,9 @@
 import React from 'react';
-import './HomePage.css';
+import './WelcomePage.css';
 import HomePageLogo from "./Assets/HomePageLogo.png";
 import { Link } from 'react-router-dom'
 
-function HomePage() {
+function WelcomePage() {
   return (
     <div>
         <div className="container">
@@ -107,4 +107,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default WelcomePage
