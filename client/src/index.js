@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import { LoginSignup } from './Components/Login/LoginSignup';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import './index.css';
+
+
+
+
 import reportWebVitals from './reportWebVitals';
+// import LoginSignup  from './Components/Login/LoginSignup.jsx';
+// import Verification  from './Components/Login/Verification';
+import HomePage from './Components/Dashboard/HomePage';
+import Footer from './Components/Dashboard/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <LoginSignup />
+    {/* <LoginSignup /> */}
+    {/* <Verification /> */}
+    < HomePage />
+    {/* < Footer /> */}
   </React.StrictMode>
 );
 
