@@ -7,7 +7,7 @@ import causecraft_logo from "../Assets/causecraft_logo.png";
 function Verification() {
   return (
     <div>
-      <img src={causecraft_logo} alt="background img" />
+      {/* <img src={causecraft_logo} alt="background img" /> */}
       <div className="container">
         <h1>Verification</h1>
         <h2>Please Enter the OTP to verify your account</h2>

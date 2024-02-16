@@ -3,39 +3,37 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     height: 100vh;
     background: linear-gradient(#2A00B7, #42006C);
+    overflow: hidden;
 }
-
-.big_container{
+.big_container {
     display: flex;
     background-color: #dccdc1;
 }
 
 .causecraft {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: 55%;
     height: 80%;
-    
+     /* Add padding to separate content from the edge */
 }
 
-
-/* design for container of login and sign up box  */
-.container{
+.container {
     padding: 19px;
     display: flex;
     flex-direction: column;
     border-style: solid;
     border-radius: 12px;
     border: #2A00B7;
-    
-    width: 120vh;
-    margin: 50px 0px ;
-    margin-left: 50px;
-    margin-right: 50px;
-    background:#dccdc1;
+    width: 50%; /* Set width to 50% to match causecraft */
+    max-width: 500px; /* Limit max width for larger screens */
+    margin: 50px 0px;
+    margin-left: 20px; /* Adjust margin for spacing between causecraft and container */
+    margin-right: 20px; /* Adjust margin for spacing between causecraft and container */
+    background: #dccdc1;
     padding-bottom: 30px;
-
 }
+
 
 .header{
     display: flex;
@@ -81,8 +79,8 @@ body {
     
 }
 
-.input img{
-    margin: 0 30px;
+.icon {
+    margin: 0 10px;
     width: 50px;
 
 

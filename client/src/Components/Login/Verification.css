@@ -1,23 +1,51 @@
 
 
-body {
-    background-image: url("../Assets/causecraft_pic.png");
-    background-size: cover;
 
+
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
+  
+  body {
+    background-image: url("../Assets/causecraft_pic.png");  /* Replace 'your-image.jpg' with the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  
 body img{
     display: flex;
     margin:auto;
     margin-top:50px;
 }
-
+/* 
 .container {
 text-align: center;
 margin: auto;
+width: 1800px;
 margin-top:44px;
 display: flex;
 flex-direction: column;
 background-color: #dccdc1;
+}
+ */
+ .container {
+  text-align: center;
+  margin: auto;
+  margin-top: 184px;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 800px; /* Set maximum width if necessary */
+  height: 400px; /* Adjust the height as needed */
+
+  background-color: rgba(220, 205, 193, 0.7); 
+  padding: 20px; /* Add padding for better spacing */
+  box-sizing: border-box; /* Include padding and border in the width */
+  border-radius: 2rem;
 }
 
 
@@ -25,6 +53,7 @@ background-color: #dccdc1;
     display: flex;
     align-items: center;
     margin: auto;
+    margin-bottom: 2rem;
     width: 280px;
     height: 40px;
     background-color: #eaeaea;
@@ -45,35 +74,32 @@ background-color: #dccdc1;
 }
 
 
-
-.submit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 220px;
-    height: 50px;
-    color: #fff;
-    background-color: #3f7f9b;
-    border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
-    cursor: pointer;
+.submit {
+  display: block; /* Change display to block to make it a block-level element */
+  width: 220px;
+  height: 50px;
+  color: #fff;
+  background-color: #3f7f9b;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  margin: 10px auto; /* Adjust margin for spacing */
 }
 
-
-.resend-otp{
-    display: block;
-    padding-left: 62px ;
-    margin-top: 127px;
-    margin:auto;
-    color: #545454;
-    font-size: 18px;
+.resend-otp {
+  display: block;
+  margin: auto; /* Center the element horizontally */
+  margin-top: 20px; /* Adjust margin for spacing */
+  margin-bottom: 10px; /* Add margin bottom to create space between submit and resend-otp */
+  color: #545454;
+  font-size: 18px;
+  text-align: center; /* Center the text */
 }
 
-.resend-otp span{
-   
-    color: blue;
-    cursor: pointer;
-    
-
+.resend-otp span {
+  color: blue;
+  cursor: pointer;
 }
