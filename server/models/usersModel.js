@@ -1,3 +1,6 @@
+/*
+    File contains schema for users.
+*/
 const mongoose = require('mongoose');
 
 const userInfoSchema = new mongoose.Schema({
@@ -30,4 +33,4 @@ const userInfoSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('User', userInfoSchema)
+module.exports = mongoose.model('Users', userInfoSchema)

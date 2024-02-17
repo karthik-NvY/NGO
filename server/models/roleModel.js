@@ -1,3 +1,8 @@
+/*
+    File contains schema for Roles of every user in every ngo.
+    File contains schema for list of features for every ngo.
+*/
+
 const mongoose = require('mongoose');
 
 const roleSchema = new mongoose.Schema({
@@ -12,6 +17,7 @@ const roleSchema = new mongoose.Schema({
         required : true,
         trim: true
     },
+    // role of the particular user in the particular ngo
     position:{
         type: String,
         required : true,
@@ -22,7 +28,7 @@ const roleSchema = new mongoose.Schema({
 })
 
 const ngo_featureSchema = new mongoose.Schema({
-
+    // identifying feature of the ngo
     feature_id: {
         type: Number,
         required: true,
@@ -35,5 +41,5 @@ const ngo_featureSchema = new mongoose.Schema({
     }
 
 })
-module.exports = mongoose.model('role', roleSchema)
-module.exports = mongoose.model('ngofeature', ngo_featureSchema)
+module.exports = mongoose.model('Roles', roleSchema)
+module.exports = mongoose.model('NgoFeatures', ngo_featureSchema)

@@ -1,3 +1,7 @@
+/*
+     File contains schema for ngo 
+*/
+
 const mongoose = require('mongoose');
 
 const ngoInfoSchema = new mongoose.Schema({
@@ -13,6 +17,7 @@ const ngoInfoSchema = new mongoose.Schema({
         required : true,
         trim: true
     },
+    // admin of the ngo
     admin: {
         type: String,
         required : true,
@@ -21,4 +26,4 @@ const ngoInfoSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('Ngo', ngoInfoSchema)
+module.exports = mongoose.model('Ngos', ngoInfoSchema)
