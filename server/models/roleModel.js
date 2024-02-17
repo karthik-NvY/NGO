@@ -6,12 +6,13 @@
 const mongoose = require('mongoose');
 
 const roleSchema = new mongoose.Schema({
-
+    //id of the user
     user_id: {
         type: Number,
         required: true,
         trim: true,
     },
+    // id of the ngo
     ngo_id: {
         type: Number,
         required : true,
@@ -34,6 +35,7 @@ const ngo_featureSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    // id of the ngo
     ngo_id: {
         type: Number,
         required : true,

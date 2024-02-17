@@ -5,13 +5,14 @@
 const mongoose = require('mongoose');
 
 const ngoInfoSchema = new mongoose.Schema({
-
+    // id of the ngo
     ngo_id: {
         type: Number,
         required : true,
         unique: true,
         trim: true,
     },
+    // name of the ngo
     name: {
         type: String,
         required : true,
