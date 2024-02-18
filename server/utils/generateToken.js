@@ -1,3 +1,6 @@
+/*
+TODO : Generate authentication token using JsonWebToken(JWT)
+*/
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id) => {
