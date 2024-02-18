@@ -1,0 +1,96 @@
+/* Profilepage.css */
+
+.body {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   width: 100vw;
+ }
+ 
+ .container {
+   display: flex;
+   flex-direction: column;
+   flex: 1;
+   height: 100vh;
+   width: 100vw;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ .header-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+   background-color: #f0f0f0;
+ }
+ 
+ .header-logo img {
+   max-height: 50px; /* Set the maximum height of the logo */
+ }
+ 
+ .header-home {
+   font-weight: bold;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   border: 2px solid black;
+   border-radius: 2rem;
+ }
+ 
+ .header-home button {
+   background: none;
+   border: none;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   font-size: 1.5rem;
+ }
+ 
+ .header-home button img {
+   max-height: 40px; /* Set the maximum height of the home icon */
+   margin-right: 5px; /* Add spacing between the icon and text */
+ }
+ 
+ .middle-container {
+   flex: 3;
+   background-color: skyblue;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 2rem;
+ }
+ 
+ .footer-container {
+   flex: 6;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   background-color: white;
+ }
+ 
+ /* Additional styling for footer buttons */
+ .footer-button {
+   padding: 10px;
+   cursor: pointer;
+   background-color: rgb(150, 147, 147); /* Grey background color */
+   color: black;
+   border: none;
+   border-radius: 1rem; /* Adjusted border-radius */
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 20px;
+   transition-duration: 0.4s;
+   margin: 4px 2px;
+   cursor: pointer;
+   width: 300px;
+ }
+ 
+ .footer-button:hover {
+   background-color: white;
+   color: black;
+   border: 1px solid rgb(67, 134, 236);
+ }
+ 
