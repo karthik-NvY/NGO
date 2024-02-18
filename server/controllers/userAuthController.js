@@ -11,6 +11,7 @@ TODO
 	| -- const user = await Users.findOne({ email: email });
 */
 const Users = require('../models/userModel'); // User database model.
+const generateToken = require('../utils/generateToken');
 
 // Class contains methods for authentication.
 class userAuth{
@@ -44,6 +45,7 @@ class userAuth{
 	        return res.status(201).json({	             
 		            success: true,
 		            newUser,
+					userToken: generateToken(newUser._id),
 		            message:"User registration successfully done"
 	            });
 	    } 
@@ -78,10 +80,9 @@ class userAuth{
 	            });
 	        }
 
-	        //const passwordMatch = await bcrypt.compare(password, user.password);
-	        // We have not stored hashed passwords yet.
-
-	        const passwordMatch = (user.password == password)
+	        
+			//Matching the user entered password with his original password stored in the database
+	        const passwordMatch = await user.matchPassword(password);
 
 	        // Checks if password is correct
 	        if (!passwordMatch) {
@@ -93,6 +94,7 @@ class userAuth{
 	        return res.status(200).json({
 	            success: true,
 	            email: user.email,
+				userToken: generateToken(user._id),
 	            message: 'User login successful'
 	        });
 	    } 
