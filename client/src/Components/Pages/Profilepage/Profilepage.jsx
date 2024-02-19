@@ -25,19 +25,36 @@ export const Profilepage = () => {
         
         
 
+        <div className="rest-body-container">
+
         
-        <div className="middle-container">
+        <div className="username-container">
           <p>{UserName}</p>
         </div>
 
-      
+      <div className="profile-container">
+        <img src={profile_icon} alt="Profile icon" className='profile-icon'  />
+      </div>
+       
+       <div className="footer-container">
 
-        <div className="footer-container">
+        <div className="footer-button-container">
           <div className="footer-button">As a volunteer in NGOs</div>
           <div className="footer-button">As a donor in NGOs</div>
           <div className="footer-button">As an executive in NGOs</div>
         </div>
-        
+
+        <div className="list-container">
+          <li><a href="" className='ngo-name'>abc</a></li>
+          <li><a href="" className='ngo-name'>abc</a></li>
+          <li><a href="" className='ngo-name'>abc</a></li>
+          <li><a href="" className='ngo-name'>abc</a></li>
+          
+             
+        </div>
+
+        </div>
+        </div>
       </div>
     </div>
   );

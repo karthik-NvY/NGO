@@ -1,96 +1,152 @@
 /* Profilepage.css */
 
 .body {
-   display: flex;
-   flex-direction: column;
-   height: 100vh;
-   width: 100vw;
- }
- 
- .container {
-   display: flex;
-   flex-direction: column;
-   flex: 1;
-   height: 100vh;
-   width: 100vw;
-   margin: 0;
-   padding: 0;
- }
- 
- .header-container {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   padding: 10px;
-   background-color: #f0f0f0;
- }
- 
- .header-logo img {
-   max-height: 50px; /* Set the maximum height of the logo */
- }
- 
- .header-home {
-   font-weight: bold;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   border: 2px solid black;
-   border-radius: 2rem;
- }
- 
- .header-home button {
-   background: none;
-   border: none;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   font-size: 1.5rem;
- }
- 
- .header-home button img {
-   max-height: 40px; /* Set the maximum height of the home icon */
-   margin-right: 5px; /* Add spacing between the icon and text */
- }
- 
- .middle-container {
-   flex: 3;
-   background-color: skyblue;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-size: 2rem;
- }
- 
- .footer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 10px; */
+  background-color: #f4f0f0d4;
+  height: 10%;
+}
+
+.header-logo img {
+  max-height: 50px;
+}
+
+.header-home {
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 2rem;
+}
+
+.header-home button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  background-color: rgb(172, 169, 160);
+  border-radius: 2rem;
+}
+
+.header-home button img {
+  max-height: 35px;
+  margin-right: 5px;
+}
+
+.rest-body-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.username-container {
+  flex: 3;
+  background-color: skyblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+}
+
+.profile-container {
+  position: absolute;
+  left: 7%;
+  transform: translate(-50%, 50%);
+}
+
+.profile-icon {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 50%; */
+  /* overflow: hidden; */
+}
+
+.profile-icon img {
+  width: 400%;
+  height: 400%;
+  object-fit: cover;
+}
+
+.footer-container
+{
+   display:flex;
+   flex: row;
    flex: 6;
-   display: flex;
-   flex-direction: column;
-   justify-content: space-evenly;
-   align-items: center;
    background-color: white;
- }
+
+}
+.footer-button-container {
+  flex: 6;
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-right: 2px solid black;
  
- /* Additional styling for footer buttons */
- .footer-button {
-   padding: 10px;
-   cursor: pointer;
-   background-color: rgb(172, 169, 160); /* Grey background color */
-   color: black;
-   border: none;
-   border-radius: 1rem; /* Adjusted border-radius */
-   text-align: center;
+}
+
+.list-container
+{
+  flex: 6;
+  display: flex;
+  width: 30%;
+  border-left: 2px solid black;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ngo-name
+{
    text-decoration: none;
-   display: inline-block;
-   font-size: 20px;
-   transition-duration: 0.4s;
-   margin: 4px 2px;
-   cursor: pointer;
-   width: 300px;
- }
- 
- .footer-button:hover {
-   background-color: white;
+   font-size: 2rem;
    color: black;
-   border: 1px solid rgb(67, 134, 236);
- }
- 
+}
+
+/* Additional styling for footer buttons */
+.footer-button {
+  padding: 10px;
+  cursor: pointer;
+  background-color: rgb(172, 169, 160);
+  color: black;
+  border: none;
+  border-radius: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  transition-duration: 0.4s;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 300px;
+}
+
+.footer-button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid rgb(67, 134, 236);
+}
