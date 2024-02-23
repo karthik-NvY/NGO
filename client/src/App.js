@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginSignup from "./Components/Pages/Login/LoginSignup.jsx";
 import Verification from "./Components/Pages/Login/Verification";
 import WelcomePage from './Components/Pages/Dashboard/WelcomePage';
+import Homepage from './Components/Pages/Homepage/Homepage';
+import Profilepage from './Components/Pages/Profilepage/Profilepage';
 // import Footer from './Components/Dashboard/Footer';
 
 function App() {

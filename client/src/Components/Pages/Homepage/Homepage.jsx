@@ -3,7 +3,7 @@ import causecraft_logo from '../../Assets/causecraft_logo.png';
 import profile_icon from '../../Assets/user-icon.webp';
 import './Homepage.css'
 
-export const Homepage = () => {
+const Homepage = () => {
   return (
     <>
     {/* <div className='Homepage-body'> */}
@@ -62,3 +62,7 @@ export const Homepage = () => {
       </>
   )
 }
+
+
+
+export  default Homepage;
