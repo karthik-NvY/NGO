@@ -28,13 +28,13 @@ const Profilepage = () => {
   }, []);
 
   return (
-    <div className='body'>
-      <div className="container">
-        <div className="header-container">
-          <div className="header-logo">
+    <div className='profilepage-body'>
+      <div className="profilepage-container">
+        <div className="profilepage-header-container">
+          <div className="profilepage-header-logo">
             <img src={causecraft_logo} alt="Causecraft Logo" />
           </div>
-          <div className="header-home">
+          <div className="profilepage-header-home">
             <button>
               <img src={home_icon} alt="Home Icon" />
               Home
@@ -42,43 +42,43 @@ const Profilepage = () => {
           </div>
         </div>
 
-        <div className="rest-body-container">
-          <div className="username-container">
+        <div className="profilepage-rest-body-container">
+          <div className="profilepage-username-container">
             <p>
               {/* {loading ? 'Loading...' : userData?.username} */}
               Username
-              </p>
+            </p>
           </div>
 
-          <div className="profile-container">
-            <img src={profile_icon} alt="Profile icon" className='profile-icon' />
+          <div className="profilepage-profile-container">
+            <img src={profile_icon} alt="Profile icon" className='profilepage-profile-icon' />
           </div>
 
-          <div className="footer-container">
-            <div className="footer-button-container">
+          <div className="profilepage-footer-container">
+            <div className="profilepage-footer-button-container">
               <div
-                className={`footer-button ${activeButton === 'volunteer' ? 'active' : ''}`}
+                className={`profilepage-footer-button ${activeButton === 'volunteer' ? 'active' : ''}`}
                 onClick={() => handleButtonClick('volunteer')}
               >
                 As a volunteer in NGOs
               </div>
               <div
-                className={`footer-button ${activeButton === 'donor' ? 'active' : ''}`}
+                className={`profilepage-footer-button ${activeButton === 'donor' ? 'active' : ''}`}
                 onClick={() => handleButtonClick('donor')}
               >
                 As a donor in NGOs
               </div>
               <div
-                className={`footer-button ${activeButton === 'executive' ? 'active' : ''}`}
+                className={`profilepage-footer-button ${activeButton === 'executive' ? 'active' : ''}`}
                 onClick={() => handleButtonClick('executive')}
               >
                 As an executive in NGOs
               </div>
             </div>
 
-            <div className="list-container">
+            <div className="profilepage-list-container">
               {userData && userData[`${activeButton}NGOs`].map((ngo) => (
-                <div key={ngo.id} className="content-item">
+                <div key={ngo.id} className="profilepage-content-item">
                   {ngo.name}
                 </div>
               ))}
@@ -90,4 +90,4 @@ const Profilepage = () => {
   );
 };
 
-export default Profilepage
+export default Profilepage;
