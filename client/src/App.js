@@ -1,9 +1,9 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginSignup from "./Components/Login/LoginSignup.jsx";
-import Verification from "./Components/Login/Verification";
-import WelcomePage from './Components/Dashboard/WelcomePage';
+import LoginSignup from "./Components/Pages/Login/LoginSignup.jsx";
+import Verification from "./Components/Pages/Login/Verification";
+import WelcomePage from './Components/Pages/Dashboard/WelcomePage';
 // import Footer from './Components/Dashboard/Footer';
 
 function App() {

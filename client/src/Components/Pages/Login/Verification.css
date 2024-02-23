@@ -36,7 +36,7 @@ background-color: #dccdc1;
 }
  */
  .container-verification {
-  background-image: url("../Assets/causecraft_pic.png"); 
+  background-image: url("../../Assets/causecraft_pic.png"); 
 
   text-align: center;
   /* width: 80%; Adjust the width as needed */

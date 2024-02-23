@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordLine, RiLockPasswordFill } from "react-icons/ri";
 
-import causecraft_icon from "../Assets/causecraft_pic.png";
+import causecraft_icon from "../../Assets/causecraft_pic.png";
 // import Verification from "./Verification"; // Import the Verification component
 
 export const LoginSignup = () => {

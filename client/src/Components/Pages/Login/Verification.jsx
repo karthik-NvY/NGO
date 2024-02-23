@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./Verification.css";
 
-import causecraft_logo from "../Assets/causecraft_logo.png";
+import causecraft_logo from "../../Assets/causecraft_logo.png";
 
 function Verification() {
   return (
