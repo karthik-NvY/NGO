@@ -17,13 +17,14 @@ function App() {
             <Route path="/signup" element={<LoginSignup />} />
             <Route path="/login" element={<LoginSignup />} />
             <Route path="/verification" element={<Verification />} />
+            <Route path="/profile" element = {<Profilepage/> } />
+            <Route path="/home" element = {<Homepage/> } />
             {/* <Route path="" element={<Contact />} /> */}
             {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>
       
-   
-  );
+);
 }
 
 export default App;
