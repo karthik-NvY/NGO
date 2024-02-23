@@ -1,15 +1,18 @@
 
-html, body {
+/* html, body {
     height: 100%; /* Ensure html and body have a defined height */
-    margin: 0;
+    /* margin: 0;
     padding: 0;
-}
+} */ 
 
-.container {
+
+
+.container-welcome {
     margin: 0;
     padding: 0;
     background-color: #d5d8d6;
-    height: 100px; /* 12% of the height of the body */
+    height: 100vw; /* 12% of the height of the body */
+    width: 100%;
 }
 
 .nav-bar{
@@ -24,34 +27,42 @@ html, body {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
 .login{
+    text-decoration: none;
     margin:20px;
     padding:20px 40px;
     background-color: #0cc0df;
-    border-radius: 42px;
+    border-radius: 52px;
     font-size: 19px;
     text-align: center;
     cursor: pointer;
+    color: black;
 }
 
 .signup{
+    text-decoration: none;
     margin:20px;
-    padding:20px 40px;
+    padding:20px 30px;
     background-color: #0cc0df;
-    border-radius: 42px;
+    border-radius: 52px;
     font-size: 19px;
     text-align: center;
     cursor: pointer;
+    color: black;
     }
     
 
 
-body img {
+/* body img {
     margin-top: 0px;
     opacity: 0.7;
     height: 100px; /* 12% of the height of the body */
-}
 
+.logo img {
+    opacity: 0.7;
+    height: 80px;
+}
 
 .main-container{
     display: flex;

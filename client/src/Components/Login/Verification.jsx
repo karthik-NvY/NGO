@@ -6,17 +6,17 @@ import causecraft_logo from "../Assets/causecraft_logo.png";
 
 function Verification() {
   return (
-    <div>
-      {/* <img src={causecraft_logo} alt="background img" /> */}
-      <div className="container">
+   
+     
+      <div className="container-verification">
         <h1>Verification</h1>
         <h2>Please Enter the OTP to verify your account</h2>
-        <div className="input">
+        <div className="input-verification">
           <input type="text" />
         </div>
-        <div className="submit-container">
+        <div className="submit-container-verification">
           {/* Buttons to toggle between Register and Login */}
-          <div className="submit">
+          <div className="submit-verification">
             <span>Verify OTP</span>
           </div>
 
@@ -28,7 +28,7 @@ function Verification() {
           </div>
         </div>
       </div>
-    </div>
+  
   );
 }
 

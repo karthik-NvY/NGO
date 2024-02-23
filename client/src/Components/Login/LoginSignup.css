@@ -1,35 +1,39 @@
-body {
+/* body {
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
     height: 100vh;
     background: linear-gradient(#2A00B7, #42006C);
-    overflow: hidden;
-}
+    
+} */
 .big_container {
     display: flex;
     background-color: #dccdc1;
+    /* overflow: hidden; */
+    height: 100vh;
 }
 
-.causecraft {
+.causecraft img{
     display: flex;
     flex-direction: column;
-    width: 55%;
-    height: 80%;
+    width: 50vw;
+    height: 100vh;
      /* Add padding to separate content from the edge */
 }
 
+
 .container {
-    padding: 19px;
+    /* padding: 19px; */
     display: flex;
     flex-direction: column;
     border-style: solid;
-    border-radius: 12px;
+    border: 15px solid black;
     border: #2A00B7;
     width: 50%; /* Set width to 50% to match causecraft */
     max-width: 500px; /* Limit max width for larger screens */
-    margin: 50px 0px;
-    margin-left: 20px; /* Adjust margin for spacing between causecraft and container */
-    margin-right: 20px; /* Adjust margin for spacing between causecraft and container */
+    margin: 50px ;
+
+    /* margin-left: 20px; Adjust margin for spacing between causecraft and container */
+    /* margin-right: 20px; Adjust margin for spacing between causecraft and container */
     background: #dccdc1;
     padding-bottom: 30px;
 }
@@ -60,19 +64,19 @@ body {
 
 }
 
-.inputs{
+.inputs-login{
     margin-top: 55px;
     display: flex;
     flex-direction: column;
     gap:25px;
 
 }
-.input{
+.input-login{
     display: flex;
     align-items: center;
     margin: auto;
-    width: 480px;
-    height: 80px;
+    width: 320px;
+    height: 40px;
     background-color: #eaeaea;
     border-radius: 26px;
 
@@ -86,9 +90,9 @@ body {
 
 }
 
-.input input{
+.input-login input{
     height: 50px;
-    width: 400px;
+    width: 200px;
     background: transparent;
     border: none;
     outline: none;
@@ -111,14 +115,14 @@ body {
 
 }
 
-.submit-container{
+.submit-container-login{
     display: flex;
     gap: 30px;
     margin: 60px auto;
 
 }
 
-.submit{
+.submit-login{
     display: flex;
     justify-content: center;
     align-items: center;

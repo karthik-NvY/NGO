@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom'
 
 function WelcomePage() {
   return (
-    <div>
-        <div className="container">
+      <div className="container-welcome">
             <div className="nav-bar">
                 <div className="logo">
                     <img src={HomePageLogo} alt="Home-page-logo" />
                 </div>
                 <div className="login-singup">
-                  <div className="signup">Sign Up</div>
-                  <div className="login">Login</div>
+                  {/* <Link to="/login" className="login">Login</Link>
+                  <Link to="/signup" className="signup">Sign Up</Link> */}
+                   <a href="/login" className="login">Login</a>
+                   <a href="/signup" className="signup">Sign Up</a>
+
                 </div>
                 
             </div>
@@ -102,8 +104,7 @@ function WelcomePage() {
                 </div>
             </div>
         </div>
-        </div>
-    </div>
+      </div>
   )
 }
 
