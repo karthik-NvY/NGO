@@ -4,6 +4,8 @@ import causecraft_logo from '../../Assets/causecraft_logo.png';
 import profile_icon from '../../Assets/user-icon.webp';
 import home_icon from '../../Assets/home-icon.png';
 
+const  BackendApiUrl = 'ApiUrlForProfilepage' ;
+
 const Profilepage = () => {
   const [userData, setUserData] = useState(null);
   const [activeButton, setActiveButton] = useState('volunteer'); // Default active button
@@ -15,7 +17,7 @@ const Profilepage = () => {
 
   useEffect(() => {
     // Replace 'backendApiUrl' with your actual backend API endpoint
-    fetch('backendApiUrl')
+    fetch(BackendApiUrl)
       .then(response => response.json())
       .then(data => {
         setUserData(data);
