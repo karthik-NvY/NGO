@@ -105,7 +105,7 @@ class userAuth{
 	            message: "Internal server error"
 	        });
 	    }
-	};
+	}
 
 	//Method runs when user profile info is requested.
 	static fetchUserProfile = async(req, res) => {
