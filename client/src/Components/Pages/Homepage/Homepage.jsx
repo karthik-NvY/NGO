@@ -41,7 +41,7 @@ export const Homepage = () => {
           
         </div>
 
-        <div className="Homepage-notification-container">
+        {/* <div className="Homepage-notification-container">
 
           <div className="Homepage-notification-header">
            <p>Notification </p> 
@@ -55,7 +55,7 @@ export const Homepage = () => {
              Logout
            </button>
           
-        </div>
+        </div> */}
       </div>
       </div>
       

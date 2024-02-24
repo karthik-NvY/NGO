@@ -1,0 +1,53 @@
+.Navbar-header
+{
+    width: 100vw;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+   background-color: #5CE1E6;
+   /* border: 2px solid black; */
+   display: flex;
+   flex: 1;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items:center;
+}
+
+.Navbar-logo-section
+{
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+}
+
+.Navbar-logo-img
+{
+   height: 50px;
+   width: auto;
+   margin-left: 8px;
+}
+.Navbar-logo-section p{
+ font-size: 35px;
+ margin-left: 5px;
+}
+.Navbar-button-conatainer
+{
+   display: flex;
+   justify-content: space-around;
+}
+
+.Navbar-button
+{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin: 8px;
+       height: 40px;
+       width: 90px;
+       font-size: 25px;
+       border-radius: 1rem;
+       background-color: #A6A6A6;
+       border: none;
+       cursor: pointer;
+}

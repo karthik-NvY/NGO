@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Profilepage.css';
 import causecraft_logo from '../../Assets/causecraft_logo.png';
 import profile_icon from '../../Assets/user-icon.webp';
-import home_icon from '../../Assets/home-icon.png';
+import home_icon from  '../../Assets/home-icon.png';
 
 const  BackendApiUrl = 'ApiUrlForProfilepage' ; 
 
