@@ -106,6 +106,60 @@ class userAuth{
 	        });
 	    }
 	};
+
+	//Method runs when user profile info is requested.
+	static fetchUserProfile = async(req, res) => {
+		try {
+			const userData = await Users.findOne({ email: req.body.email });
+
+	        // Checks if user is not present in the database.
+	        if (!userData) {
+	            return res.status(404).json({
+	                success: false,
+	                message: "User not found"
+	            });
+	        }
+
+			if (userData) {
+				res.status(200).json(userData);
+			}
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching user profile data",
+	        });
+	    }
+	}
+
+	//Method runs when Info of NGOs is requested.
+	static fetchNgoInfo = async(req, res) => {
+		try {
+			// Fetch all NGO records from the database
+			const allNgos = await Ngos.find();
+	
+			// If no NGOs found.......
+			if (!allNgos || allNgos.length === 0) {
+	            return res.status(404).json({
+	                success: false,
+	                message: "No NGOs found"
+	            });
+	        }
+
+			if (allNgos) {
+				// If NGOs found, send the data in the response
+				res.status(200).json(allNgos);
+			}
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching Info of NGOs",
+	        });
+	    }
+	}
 }
 
 module.exports = userAuth // Export class
