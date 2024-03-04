@@ -18,42 +18,7 @@
  position: relative;
 }
 
-.profilepage-header-container {
- display: flex;
- justify-content: space-between;
- align-items: center;
- background-color: rgb(224, 215, 215);
- height: 10%;
-}
 
-.profilepage-header-logo img {
- max-height: 50px;
-}
-
-.profilepage-header-home {
- font-weight: bold;
- cursor: pointer;
- display: flex;
- align-items: center;
- border: 2px solid black;
- border-radius: 2rem;
-}
-
-.profilepage-header-home button {
- background: none;
- border: none;
- cursor: pointer;
- display: flex;
- align-items: center;
- font-size: 1.5rem;
- background-color: rgb(172, 169, 160);
- border-radius: 2rem;
-}
-
-.profilepage-header-home button img {
- max-height: 35px;
- margin-right: 5px;
-}
 
 .profilepage-rest-body-container {
  display: flex;
@@ -63,7 +28,7 @@
 
 .profilepage-username-container {
  flex: 3;
- background-color: skyblue;
+ background-color: #0CC0DF;
  display: flex;
  align-items: center;
  justify-content: center;
@@ -143,5 +108,5 @@
 .profilepage-footer-button:hover {
  background-color: white;
  color: black;
- border: 1px solid rgb(67, 134, 236);
+ border: 1px solid black;
 }

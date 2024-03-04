@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Profilepage.css';
-import causecraft_logo from '../../Assets/causecraft_logo.png';
+
 import profile_icon from '../../Assets/user-icon.webp';
-import home_icon from '../../Assets/home-icon.png';
+
+import Navbar from '../Navbar/Navbar';
 
 const  BackendApiUrl = 'ApiUrlForProfilepage' ; 
 
@@ -32,17 +33,7 @@ const Profilepage = () => {
   return (
     <div className='profilepage-body'>
       <div className="profilepage-container">
-        <div className="profilepage-header-container">
-          <div className="profilepage-header-logo">
-            <img src={causecraft_logo} alt="Causecraft Logo" />
-          </div>
-          <div className="profilepage-header-home">
-            <button>
-              <img src={home_icon} alt="Home Icon" />
-              Home
-            </button>
-          </div>
-        </div>
+        <Navbar/>
 
         <div className="profilepage-rest-body-container">
           <div className="profilepage-username-container">
