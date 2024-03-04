@@ -1,11 +1,11 @@
+// Profilepage.jsx
+
 import React, { useState, useEffect } from 'react';
 import './Profilepage.css';
-
-import profile_icon from '../../Assets/user-icon.webp';
-
+import profile_icon from '../../Assets/user-icon-profilepage.png';
 import Navbar from '../Navbar/Navbar';
 
-const  BackendApiUrl = 'ApiUrlForProfilepage' ; 
+const BackendApiUrl = 'ApiUrlForProfilepage';
 
 const Profilepage = () => {
   const [userData, setUserData] = useState(null);
@@ -33,18 +33,18 @@ const Profilepage = () => {
   return (
     <div className='profilepage-body'>
       <div className="profilepage-container">
-        <Navbar/>
+        <Navbar />
 
         <div className="profilepage-rest-body-container">
-          <div className="profilepage-username-container">
-            <p>
-              {/* {loading ? 'Loading...' : userData?.username} */}
-              Username
-            </p>
-          </div>
+          <div className="profilepage-middle-section">
+            <div className="profilepage-username-container">
+              <p>Username</p>
+            </div>
 
-          <div className="profilepage-profile-container">
-            <img src={profile_icon} alt="Profile icon" className='profilepage-profile-icon' />
+            <div className="profilepage-profile-container">
+              <img src={profile_icon} alt="Profile icon" className='profilepage-profile-icon' />
+              <p className="profilepage-profile-text">Some Text Below the Profile Icon</p>
+            </div>
           </div>
 
           <div className="profilepage-footer-container">
