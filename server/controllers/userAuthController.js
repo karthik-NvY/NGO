@@ -91,10 +91,11 @@ class userAuth{
 	                message: "Incorrect password"
 	            });
 	        }
+			const token = generateToken(user._id);
 	        return res.status(200).json({
 	            success: true,
 	            email: user.email,
-				userToken: generateToken(user._id),
+				userToken: token,
 	            message: 'User login successful'
 	        });
 	    } 
@@ -105,7 +106,38 @@ class userAuth{
 	            message: "Internal server error"
 	        });
 	    }
-	};
+	}
+
+	//Method runs when user profile info is requested.
+	static fetchUserProfile = async(req, res) => {
+		try {
+			const userData = await Users.findOne({ email: req.body.email });
+
+	        // Checks if user is not present in the database.
+	        if (!userData) {
+	            return res.status(404).json({
+	                success: false,
+	                message: "User not found"
+	            });
+	        }
+
+			if (userData) {
+				const data = { name:userData[0].name, email:userData[0].email }
+				res.status(200).json({
+					success:true,
+					data:data,
+					message:"User found"
+				});
+			}
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching user profile data",
+	        });
+	    }
+	}
 }
 
 module.exports = userAuth // Export class
