@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginSignup.css";
+import "./Signup.css";
 
 import { FaRegUser } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
@@ -92,14 +92,14 @@ export const LoginSignup = () => {
           >
             Register
           </div>
-          <div
+          {/* <div
             className={action === "Register" ? "submit-login gray" : "submit-login"}
             onClick={() => {
               setAction("Login");
             }}
           >
             Login
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
