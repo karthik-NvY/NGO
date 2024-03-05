@@ -91,10 +91,11 @@ class userAuth{
 	                message: "Incorrect password"
 	            });
 	        }
+			const token = generateToken(user._id);
 	        return res.status(200).json({
 	            success: true,
 	            email: user.email,
-				userToken: generateToken(user._id),
+				userToken: token,
 	            message: 'User login successful'
 	        });
 	    } 
