@@ -11,6 +11,5 @@ const userAuth  = require("../controllers/userAuthController");
 router.post("/signup", userAuth.userSignup); // Route /user/signup
 router.post("/login", userAuth.userLogin); // Route /user/login
 router.post("/profile", userAuth.fetchUserProfile); //Route /user/profile
-router.post("/ngoInfo", userAuth.fetchNgoInfo); //Route /user/ngoinfopage
 
 module.exports = router

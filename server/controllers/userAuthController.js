@@ -121,7 +121,12 @@ class userAuth{
 	        }
 
 			if (userData) {
-				res.status(200).json(userData);
+				const data = { name:userData[0].name, email:userData[0].email }
+				res.status(200).json({
+					success:true,
+					data:data,
+					message:"User found"
+				});
 			}
 		}
 		catch (error) {
@@ -129,34 +134,6 @@ class userAuth{
 	        return res.status(500).json({
 	            success: false,
 	            message: "Internal server error while fetching user profile data",
-	        });
-	    }
-	}
-
-	//Method runs when Info of NGOs is requested.
-	static fetchNgoInfo = async(req, res) => {
-		try {
-			// Fetch all NGO records from the database
-			const allNgos = await Ngos.find();
-	
-			// If no NGOs found.......
-			if (!allNgos || allNgos.length === 0) {
-	            return res.status(404).json({
-	                success: false,
-	                message: "No NGOs found"
-	            });
-	        }
-
-			if (allNgos) {
-				// If NGOs found, send the data in the response
-				res.status(200).json(allNgos);
-			}
-		}
-		catch (error) {
-	        console.error("Error:", error.message);
-	        return res.status(500).json({
-	            success: false,
-	            message: "Internal server error while fetching Info of NGOs",
 	        });
 	    }
 	}
