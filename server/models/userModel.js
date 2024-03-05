@@ -2,7 +2,7 @@
     File contains schema for users.
 */
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 // Schema for users.
 const userSchema = new mongoose.Schema({
