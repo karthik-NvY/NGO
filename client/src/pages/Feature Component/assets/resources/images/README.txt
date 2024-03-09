@@ -1,1 +1,0 @@
-Contains any .svg .png .jpeg files.
