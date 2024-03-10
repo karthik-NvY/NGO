@@ -9,8 +9,11 @@ dotenv.config({path:__dirname+'/../server.env'})
 const connect = async ()=>{
     try{
         console.log("Attempting to connect to Database...")
-        const dbconnection = await mongoose.connect(process.env.DB_URL);
+        const dbconnection = await mongoose.connect(process.env.DB_URL, {
+            dbname:'causecraft'
+        });
         console.log("DB Connected Successfully"); // Connection successful
+        return dbconnection;
     }
     catch(error){
         console.log('ERROR connecting to database'); // Error in connecting.
