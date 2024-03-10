@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const ngoInfoSchema = new mongoose.Schema({
     // id of the ngo
     ngo_id: {
-        type: Number,
+        type: String,
         required : true,
         unique: true,
         trim: true,
