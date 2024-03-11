@@ -11,6 +11,7 @@ TODO
 	| -- const user = await Users.findOne({ email: email });
 */
 const Users = require('../models/userModel'); // User database model.
+const Roles = require('../models/roleModel'); // User roles database model.
 const generateToken = require('../utils/generateToken');
 
 // Class contains methods for authentication.
@@ -127,12 +128,24 @@ class userAuth{
 	            });
 	        }
 
+			// returns every matched record and replaces the objectId of ngo_id with actual NGO record (populating)
+			const userRoles = await Roles.find({ user_id: userData.user_id }).populate('ngo_id');
+
+			// Prepare user's NGO info
+			// creates new array of records with proper structure
+			const userNGOs = userRoles.map(userRole => ({
+				ngo_id: userRole.ngo_id.ngo_id,
+				ngo_name: userRole.ngo_id.name,
+				role: userRole.role
+			}));
+
 			if (userData) {
-				const data = { name:userData.name, email:userData.email_id }
+				// returns data with user_name , email and NGOs data.
+				const data = { name:userData.name, email:userData.email_id, ngos: userNGOs }
 				res.status(200).json({
 					success:true,
 					data:data,
-					message:"User found"
+					message:"User profile found"
 				});
 			}
 		}
