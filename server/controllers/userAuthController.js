@@ -144,6 +144,13 @@ class userAuth{
 	        });
 	    }
 	}
+
+	static logOut = async(req, res)=>{
+		return res.status(200).json({
+			success:true,
+			message:"Logout successful"
+		})
+	}
 }
 
 module.exports = userAuth // Export class
