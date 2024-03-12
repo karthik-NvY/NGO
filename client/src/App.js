@@ -1,12 +1,11 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginSignup from "./Components/Pages/Login/LoginSignup.jsx";
-import Verification from "./Components/Pages/Login/Verification";
+import Login from "./Components/Pages/Login/Login";
+
 import WelcomePage from './Components/Pages/Dashboard/WelcomePage';
-import Homepage from './Components/Pages/Homepage/Homepage';
-import Profilepage from './Components/Pages/Profilepage/Profilepage';
-// import Footer from './Components/Dashboard/Footer';
+import Profile from './Components/Pages/Profile/Profile';
+
 
 function App() {
   return (
@@ -15,14 +14,9 @@ function App() {
       
         <BrowserRouter>
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element = {<Profile/> } />
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/signup" element={<LoginSignup />} />
-            <Route path="/login" element={<LoginSignup />} />
-            <Route path="/verification" element={<Verification />} />
-            <Route path="/profile" element = {<Profilepage/> } />
-            <Route path="/home" element = {<Homepage/> } />
-            {/* <Route path="" element={<Contact />} /> */}
-            {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>
       
