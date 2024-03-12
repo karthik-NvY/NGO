@@ -41,7 +41,7 @@ class Ngohandler{
 	
 			// If no tasks found.......
 			if (!Ngo_tasks || Ngo_tasks.length === 0) {
-	            return res.status(404).json({
+	            return res.status(200).json({
 	                success: false,
 	                message: "No Tasks found"
 	            });
