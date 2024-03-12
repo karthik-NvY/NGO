@@ -128,8 +128,15 @@ class userAuth{
 	            });
 	        }
 
-			// returns every matched record and replaces the objectId of ngo_id with actual NGO record (populating)
 			const userRoles = await Roles.find({ user_id: userData.user_id }).populate('ngo_id');
+			/* 
+			Records which were fetched from Roles database have 'ngo_id' which is a referenced objectId of NGO database.
+			now we need to use this to fetch the record corresponding to that Id from the NGO database to extract Ngo_name from it for each record.
+			.populate() method makes it easy for us. it replaces the 'ngo_id' field in the records fetched from Roles database with the
+			corresponding NGO record.
+
+			Now we can extract the info we need from userRoles to make new set of records (properly formatted) 'userNGOs' and directly send it to frontend.
+			*/
 
 			// Prepare user's NGO info
 			// creates new array of records with proper structure
@@ -139,15 +146,13 @@ class userAuth{
 				role: userRole.role
 			}));
 
-			if (userData) {
-				// returns data with user_name , email and NGOs data.
-				const data = { name:userData.name, email:userData.email_id, ngos: userNGOs }
-				res.status(200).json({
-					success:true,
-					data:data,
-					message:"User profile found"
-				});
-			}
+			// returns data with user_name , email and NGOs data.
+			const data = { name:userData.name, email:userData.email_id, ngos: userNGOs }
+			res.status(200).json({
+				success:true,
+				data:data,
+				message:"User profile found"
+			});
 		}
 		catch (error) {
 	        console.error("Error:", error.message);
