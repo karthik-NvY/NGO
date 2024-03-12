@@ -19,4 +19,20 @@ const featureSchema = new mongoose.Schema({
     }
 })
 
+const ngo_featureSchema = new mongoose.Schema({
+    // identifying feature of the ngo
+    feature_id: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    // id of the ngo
+    ngo_id: {
+        type: String,
+        required : true,
+        trim: true
+    }
+
+});
+
 module.exports = mongoose.model('Features', featureSchema)
