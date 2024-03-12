@@ -3,6 +3,7 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
+const taskuserRoutes = require('./routes/taskuserRoute');
 const cors = require('cors');
 const dbConnection = require('./configs/mongo');
 require('dotenv').config();
@@ -27,3 +28,5 @@ app.use('/otp', otpRoute);
 app.use('/user', userRoute);
 
 app.use('/api', apiRoutes);
+
+app.use('/taskuser', taskuserRoutes);
