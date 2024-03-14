@@ -42,7 +42,6 @@ const volunteerChoiceSchema = new mongoose.Schema({
         type: String,
         ref: 'User',
         required: true,
-        unique: true,
         trim: true,
     },
     // task chosen by the volunteer
@@ -63,7 +62,7 @@ const assignedSchema = new mongoose.Schema({
     // reference to the array of volunteer assigned for particular task
     user_id: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Volunteer',
+        ref: 'user',
         required: true,
     }],
 });
