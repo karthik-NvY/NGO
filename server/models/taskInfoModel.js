@@ -11,6 +11,12 @@ const taskSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    // number of volunteer required for this task
+    no_volunteer: {
+        type: Int16Array,
+        required: true,
+    },
+
     // description of the task
     description: {
         type: String,
@@ -25,8 +31,8 @@ const taskSchema = new mongoose.Schema({
 });
 
 const volunteerChoiceSchema = new mongoose.Schema({
-    // username of the volunteer
-    username: {
+    // user_id of the volunteer
+    user_id: {
         type: String,
         required: true,
         unique: true,
@@ -42,17 +48,17 @@ const volunteerChoiceSchema = new mongoose.Schema({
 
 const assignedSchema = new mongoose.Schema({
     // reference to the Task model
-    task: {
+    task_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Task',
         required: true,
     },
-    // reference to the Volunteer model
-    volunteer: {
+    // reference to the array of volunteer assigned for particular task
+    volunteer_ids: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Volunteer',
         required: true,
-    },
+    }],
 });
 
 const TaskModel = mongoose.model('Task', taskSchema);
