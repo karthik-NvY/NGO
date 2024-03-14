@@ -28,12 +28,19 @@ const taskSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    // ngo from which task belongs to
+    ngo_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'NGO', // Reference to the ngos model
+        required: true,
+    }
 });
 
 const volunteerChoiceSchema = new mongoose.Schema({
     // user_id of the volunteer
     user_id: {
         type: String,
+        ref: 'User',
         required: true,
         unique: true,
         trim: true,
@@ -54,7 +61,7 @@ const assignedSchema = new mongoose.Schema({
         required: true,
     },
     // reference to the array of volunteer assigned for particular task
-    volunteer_ids: [{
+    user_id: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Volunteer',
         required: true,
