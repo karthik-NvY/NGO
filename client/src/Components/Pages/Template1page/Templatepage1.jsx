@@ -51,6 +51,7 @@ export const Templatepage1 = () => {
             <h2>ABOUT US</h2>
           </div>
           <div className="about-text">
+            <textarea name="para1" id="" cols="30" rows="10"></textarea>
             <p>
               Welcome to our website! We are a team of passionate individuals
               who and engaging. We are committed to delivering value to our
