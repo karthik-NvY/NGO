@@ -1,0 +1,82 @@
+.userprofile {
+    position: relative;
+  }
+  
+  .gradiant {
+    background: #cecbcb;
+    height: 150px;
+  }
+  
+  .profile-down {
+    position: absolute;
+    top: 50px; /* Adjust this value as needed */
+    left: 20px; /* Adjust this value as needed */
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-button {
+    margin-top: 10px;
+  }
+  
+  .profile-button button {
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-title {
+    margin-left: 20px;
+    color: #333;
+  }
+  
+  .profile-title h2 {
+    margin: 0;
+  }
+  
+  .profile-title p {
+    margin: 5px 0;
+  }
+  
+  .profile-down img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-right: 30px; /* Adjust the margin as needed */
+  }
+  
+  .profile-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px; /* Set to the size of the icon */
+    height: 150px; /* Set to the size of the icon */
+    border-radius: 50%;
+    border: 3px solid #060505; /* Adjust the border color as needed */
+    overflow: hidden;
+    background-color: #cecbcb; /* Set the background color to grey */
+    margin-top: 25px;
+    margin-right: 30px;
+  }
+  
+  .profile-icon {
+    color: #363737;
+    margin-top: -10px; /* Adjust the margin as needed */
+  }
+  
+  .separator {
+    width: 2px;
+    height: 365%;
+    background-color: #000;
+    position: absolute;
+    top: 98.7%;
+    bottom: 85%;
+    left: 50%;
+    transform: translateX(-80%);
+}
+
+  

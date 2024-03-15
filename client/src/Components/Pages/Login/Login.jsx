@@ -1,41 +1,47 @@
-import React, { useState } from 'react';
-import './Login.css';
+import React from 'react'
+import './Login.css'
+import { TfiEmail } from "react-icons/tfi";
+import { TbLockOpen } from "react-icons/tb";
+
 const Login = () => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+    return (
+        <div className="wrap">
+            <div className="left">
+                <div className="backimg"></div>
+                <h1>CauseCraft</h1>
+                <div className="signup">
+                    <p>  Don't have an account? <button>Signup</button></p>
+                </div>
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    console.log('User ID:', userId);
-    console.log('Password:', password);
-  };
+            </div>
 
-  const handleForgotPassword = () => {
-    // Implement forgot password logic here
-    console.log('Forgot Password');
-  };
+            <div className="right">
 
-  const handleSignUp = () => {
-    // Implement sign up logic here
-    console.log('Sign Up');
-  };
+                <form action="">
+                    <h2>Login</h2>
 
-  return (
-    <div className='container'>
-      <h2>Login</h2>
-      <div>
-        <label>User ID:</label>
-        <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </div>
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleForgotPassword}>Forgot Password</button>
-      <button onClick={handleSignUp}>Sign Up</button>
-    </div>
-  );
-};
+                    <div className="inputbox">
+                        <input type="email" placeholder='Email'
+                            required />
 
+                        <TfiEmail className='icon' />
+
+                    </div>
+
+                    <div className="inputbox">
+                        <input type="password" placeholder='Password'
+                            required />
+
+                        <TbLockOpen className='icon' />
+                    </div>
+
+
+                    <div className="inputbox" id='login'>
+                        <button>Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    )
+}
 export default Login;

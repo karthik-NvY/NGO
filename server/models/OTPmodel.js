@@ -28,7 +28,7 @@ const otpSchema = new mongoose.Schema({
 });
 
 // After making a new entry or updating old entry, this middleware runs.
-otpSchema.post(["save", "updateOne"], async function (next) {
+otpSchema.pre(["save", "updateOne"], async function (next) {
   if (this.isNew) {
     console.log("New document saved to the database");
   }
