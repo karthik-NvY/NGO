@@ -3,6 +3,7 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const cors = require('cors');
 const dbConnection = require('./configs/mongo');
 require('dotenv').config();
@@ -25,5 +26,7 @@ app.use('/otp', otpRoute);
 
 // Route deals with user authentication.
 app.use('/user', userRoute);
+
+app.use('/task',taskRoutes);
 
 app.use('/api', apiRoutes);

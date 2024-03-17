@@ -1,14 +1,15 @@
 /*
   File contains controller for Task info.
 */
-const Task = require('../models/taskInfoModel'); 
+const mongoose = require('mongoose');
+const {TaskModel} = require('../models/taskInfoModel'); 
 class TaskInfohandler{
     //Method runs when Info of Tasks is requested.
 	static fetchTaskInfo = async(req, res) => {
 		try {
 			// Fetch all Task records from the database
-			const {tilte} = req.body;
-			const taskinfo = await Task.findone({title:title});
+			const {id} = req.body;
+			const taskinfo = await TaskModel.findOne({_id:id});
 	
 			// If no Task Info is found.......
 			if (!taskinfo || taskinfo.length === 0) {
@@ -33,10 +34,10 @@ class TaskInfohandler{
 	}
 
 	static storeTaskinfo = async(req, res) => {
-		const {title,description,date} = req.body; // Extract data from req.
+		const {ngo_id,title,description,date,no_volunteer} = req.body; // Extract data from req.
 
 		// If empty values are submitted.
-	    if (!title||!description||!date){
+	    if (!ngo_id||!title||!description||!date||!no_volunteer){
             return res.status(400).json({
                 success: false,
                 message: "Missing input data",
@@ -44,13 +45,12 @@ class TaskInfohandler{
         }
 	    try {
 	        // Adding new task.
-	        const newTask = await Task.create({
-            	title,description,date
+	        const newTask = await TaskModel.create({
+            	ngo_id,title,description,date,no_volunteer
         	})
 	        return res.status(201).json({	             
 		            success: true,
 		            newTask,
-					//userToken: generateToken(newUser._id),
 		            message:"successfully task added"
 	            });
 	    } 
