@@ -38,7 +38,13 @@ class Ngohandler{
 			const { ngo_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
 			const Ngo_tasks = await tasks.find( { ngo_id : ngo_id} , '_id task_name');
-	
+			
+			if(!ngo_id){
+				return res.status(400).json({
+				  success:false,
+				  message:'Missing NGO ID'
+				})
+			  }
 			// If no tasks found.......
 			if (!Ngo_tasks || Ngo_tasks.length === 0) {
 	            return res.status(200).json({
@@ -49,7 +55,11 @@ class Ngohandler{
 
 			if (Ngo_tasks) {
 				// If Tasks for a Ngo found, send the data in the response
-				res.status(200).json(Ngo_tasks);
+				return res.status(200).json({
+					success: true,
+					Ngo_tasks,
+					message:"Tasks found"
+				});
 			}
 		}
 		catch (error) {
