@@ -4,7 +4,7 @@
 
 //correct details required for userTaskModel and { task_id, user_id} in it.
 
-data = require('../models/UserTaskModel');
+const {VolunteerChoiceModel} = require('../models/taskInfoModel');
 
 class UserTaskhandler{
 
@@ -13,7 +13,7 @@ class UserTaskhandler{
 		try {
 			const { task_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
-			const users = await data.find( { _id : task_id});
+			const users = await VolunteerChoiceModel.find( { _id : task_id});
 	
 			// If no users requested for a task found.......
 			if (!users || users.length === 0) {
@@ -42,7 +42,7 @@ class UserTaskhandler{
 		try {
 			const { task_id, user_id } = req.body;
 
-			const existingrequest = await data.find( { task_id : task_id, user_id : user_id});
+			const existingrequest = await VolunteerChoiceModel.find( { task_id : task_id, user_id : user_id});
 	
 			// If user already requested for a task.......
 			if (existingrequest) {

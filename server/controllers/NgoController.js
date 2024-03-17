@@ -1,7 +1,7 @@
 /*
   File contains controller for ngo handling.
 */
-tasks = require('../models/TasksModel');
+const {TaskModel} = require('../models/taskInfoModel');
 
 class Ngohandler{
     //Method runs when Info of NGOs is requested.
@@ -37,7 +37,7 @@ class Ngohandler{
 		try {
 			const { ngo_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
-			const Ngo_tasks = await tasks.find( { ngo_id : ngo_id} , '_id task_name');
+			const Ngo_tasks = await TaskModel.find( { ngo_id : ngo_id} , '_id task_name');
 			
 			if(!ngo_id){
 				return res.status(400).json({
