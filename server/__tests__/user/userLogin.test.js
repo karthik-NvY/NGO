@@ -1,20 +1,4 @@
-const { userLogin } = require('../controllers/userAuthController');
-const Users = require('../models/userModel');
-const bcrypt = require('bcrypt');
-
 const request = require('supertest')
-
-// app = require("../server-test")
-
-// const server = app.listen(process.env.PORT, ()=>{
-//     console.log(`Server listening on ${process.env.PORT}....`)
-// })
-
-// async function main(){
-//     const DbConnect = require('../configs/mongo');
-//     Dbconnection = await DbConnect();
-// }
-// main();
 
 describe('User Login', () => {
     test('Return error if email is missing', async () => {
@@ -53,5 +37,3 @@ describe('User Login', () => {
     });
     
 });
-
-// server.close();
