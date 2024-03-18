@@ -7,6 +7,9 @@ const router = new express.Router();
 
 const TaskInfohandler= require("../controllers/TaskInfoController");
 
-router.post("/fetchInfo", TaskInfohandler.fetchTaskInfo); //Route /user/taskinfo
-router.post("/storeInfo", TaskInfohandler.storeTaskinfo); //Route /user/ngoinfopage
+router.post("/fetchInfo", TaskInfohandler.fetchTaskInfo); //Route /task/fetchinfo
+router.post("/storeInfo", TaskInfohandler.storeTaskinfo); //Route /task/storeinfo
+router.post("/deleteInfo", TaskInfohandler.deleteTaskInfo); //Route /task/deleteinfo
+router.post("/updateInfo", TaskInfohandler.updateTaskInfo);//Route /task/updateinfo
+
 module.exports = router;
