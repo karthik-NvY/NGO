@@ -70,6 +70,33 @@ class UserTaskhandler{
 	        });
 	    }
 	}
+
+	static deleteTaskusers = async (req, res) => {
+        const { id } = req.body;
+
+        try {
+            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ _id: id });
+
+            if (!deletedTask) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No task found with the provided ID"
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Task user deleted successfully",
+                deletedTask
+            });
+        } catch (error) {
+            console.error("Error:", error.message);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error while deleting task user"
+            });
+        }
+    }
 }
 
-module.exports = NgoTaskhandler
+module.exports = UserTaskhandler

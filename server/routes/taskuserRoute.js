@@ -5,10 +5,10 @@ const express = require('express');
 const router = new express.Router();
 
 // Class contains fetching and adding methods of user available for tasks.
-const taskuser = require("../controllers/UserTaskController");
+const UserTaskhandler = require("../controllers/UserTaskController");
 
 //Routes
-router.post("/task_requests", taskuser.FetchTaskusers); 
-router.post("/request_task", taskuser.addTaskusers); 
-
+router.post("/fetch_task", UserTaskhandler.FetchTaskusers); 
+router.post("/add_task", UserTaskhandler.addTaskusers); 
+router.post("/delete_task", UserTaskhandler.deleteTaskusers); 
 module.exports = router
