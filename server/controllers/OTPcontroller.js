@@ -14,7 +14,7 @@ TODO
 */
 const otpGenerator = require('otp-generator'); // Generates OTP
 const Users = require('../models/userModel'); // User database model
-const authenticationOTP = require('../models/otpModel'); // OTP database model.
+const authenticationOTP = require('../models/OTPmodel'); // OTP database model.
 
 let OTPlength = 6 // Size of OTP.
 

@@ -3,6 +3,7 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const DbConnect = require('./configs/mongo');
@@ -29,6 +30,8 @@ async function main(){
 
   // Route deals with user authentication.
   app.use('/user', userRoute);
+
+  app.use('/task',taskRoutes);
 
   // Route deals with various api services.
   app.use('/api', apiRoutes);
