@@ -1,6 +1,12 @@
 const request = require('supertest')
 
-describe('User Login', () => {
+/*
+    Last test makes a new entry into database. 
+    If the test needs to be run again, change the request to make
+    a new entry.
+*/
+
+describe('User Signup', () => {
     test('Return error if email is missing', async () => {
         const packet = {password:'password', name:'Sai'};
         const res = await request("http://localhost:8080").post('/user/signup').send(packet)
