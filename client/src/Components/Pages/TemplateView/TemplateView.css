@@ -1,0 +1,196 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh; 
+    background-color: #f4f4f4;
+    padding: 0 30px;
+    overflow:hidden;
+    position: relative;
+}
+
+.leftside {
+    width: 160%;
+    padding-right: 15px;
+}
+
+.NavBar h1 {
+    font-size: 40px;
+    color: #333;
+    background-color: #5CE1E6;
+    margin: 0;
+    width: 100%;
+    height: 70px;
+    text-align: left;
+    margin-top: 0px;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    padding: 0 50px;
+    margin: 0;
+}
+.matter {
+    margin-top: 50px;
+    margin-bottom: 5px;
+    float: left; 
+    width: calc(100% - 110px); 
+    font-size:23px;
+
+}
+    
+.matter h2 {
+    margin-bottom: 5px;
+    color: #333333;
+    left:40px;
+    top:20px;
+}
+
+.matter p {
+    margin: 20px;
+    color: #333333;
+    margin-left: 0; 
+    margin-right: 20%; 
+     max-width: 100%; 
+     line-height: 1.5; 
+     text-indent: 10px; 
+     margin-bottom: 15px;
+     font-size: 23px;
+    
+}
+.container {
+    display:contents;
+}
+.img1 button,
+.img2 button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+
+.img1 {
+    margin-bottom: 100px; 
+    float: left; 
+    width: 50%;
+}
+
+.img1 img {
+    width: 100%; 
+    height: auto; 
+    max-width: 100%; 
+    max-height: 150%; 
+}
+
+
+.img2 {
+    margin-bottom: 100px; 
+    float: right; 
+    width: 40%; 
+}
+
+.img2 img {
+    width: 100%; 
+    height: 50vh; 
+    max-width: 100%; 
+    max-height: 100%; 
+}
+.img1 p,
+.img2 p {
+    text-align: center;
+    margin-top: -50px;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 23px;
+}
+
+
+.rightside {
+    width: 45%;
+    height: 90vh;
+    padding: 0px;
+    border-radius: 0px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+
+}
+
+ 
+
+.button1 {
+    position: absolute;
+    height: 40px;
+    top: 20px;
+    right: 190px;
+    padding: 1px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button1 h2 {
+    margin: 0;
+    padding: 0.5px 10px;
+}
+
+.button1:hover {
+    background-color: #ccc;
+}
+
+.button2 {
+    position: absolute;
+    height: 40px;
+    top: 20px;
+    right: 70px;
+    padding: 1px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button2 h2 {
+    margin: 0;
+    padding: 0.5px 15px;
+}    
+
+.button2:hover {
+    background-color: #ccc;
+}
+
+
+
+.button3 {
+    position: absolute;
+    height: 40px;
+    top: 150px;
+    right: 25px;
+    /* Adjust as needed */
+    padding: 1px;
+    background-color: #6fb3bb;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button3 h2 {
+    margin: 0;
+    padding: 0.5px 30px;
+}
+
+.button3:hover {
+    background-color: #ccc;
+}
