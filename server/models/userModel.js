@@ -7,18 +7,31 @@ const bcrypt = require('bcrypt');
 // Schema for users.
 const userSchema = new mongoose.Schema({
     // Username
+    user_id: {
+        type: String,
+        required : true,
+        unique: true,
+        trim: true,
+    },
+    // name of the user
     name: {
         type: String,
         required : true,
         trim: true
     },
-    // User email.
-    email: {
-        type: String,
+    // email of the user
+    email_id:{
+        type:String,
         required : true,
         trim: true
     },
-    // User password
+    // phone number of the user
+    phn_number:{
+        type:Number,
+        required : true,
+        trim: true
+    },
+    // password of the user
     password: {
         type: String,
         required : true
@@ -30,7 +43,6 @@ userSchema.pre('save', async function (next){
     if(!this.isModified('password')){
         next();
     }
-
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password,salt);
 });

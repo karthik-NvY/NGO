@@ -1,7 +1,9 @@
 /*
   File contains controller for ngo handling.
 */
+
 const {TaskModel} = require('../models/taskInfoModel');
+const Ngos = require('../models/ngoModel'); 
 
 class Ngohandler{
     //Method runs when Info of NGOs is requested.
