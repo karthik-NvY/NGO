@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     // Username
     user_id: {
         type: String,
-        required : true,
+        //required : true,
         unique: true,
         trim: true,
     },
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     // phone number of the user
     phn_number:{
         type:Number,
-        required : true,
+        required : false,  //added
         trim: true
     },
     // password of the user

@@ -7,10 +7,9 @@ function WelcomePage() {
   return (
     <div className="container-welcome">
       <div className="nav-bar">
-        <div className="logo">
-          <img src={logo} alt="" className="logoimg" />
+        <div className="logoo">
+          <img src={logo} alt="" className="logoimage" />
           <h1>CauseCraft</h1>
-                
         </div>
         <div className="login-signup">
           <Link to="/login" className="Loginn">

@@ -40,12 +40,12 @@ class userAuth{
 
 	        // Creates new user.
 	        const newUser = await Users.create({
-            	name, email, password
+            	name:name, email_id:email, password:password
         	})
+			console.log(email)
 	        return res.status(201).json({	             
 		            success: true,
 		            newUser,
-					userToken: generateToken(newUser._id),
 		            message:"User registration successfully done"
 	            });
 	    } 
