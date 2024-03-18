@@ -3,6 +3,7 @@ import './Profilepage.css';
 import causecraft_logo from '../../Assets/causecraft_logo.png';
 import profile_icon from '../../Assets/user-icon.webp';
 import home_icon from '../../Assets/home-icon.png';
+import { useNavigate } from 'react-router-dom';
 
 const  BackendApiUrl = 'ApiUrlForProfilepage' ; 
 
@@ -10,6 +11,9 @@ const Profilepage = () => {
   const [userData, setUserData] = useState(null);
   const [activeButton, setActiveButton] = useState('volunteer'); // Default active button
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const [action, setAction] = useState("Username")
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
@@ -29,6 +33,10 @@ const Profilepage = () => {
       });
   }, []);
 
+  const handleHome = () => {
+    navigate('/home');
+  };
+
   return (
     <div className='profilepage-body'>
       <div className="profilepage-container">
@@ -37,7 +45,7 @@ const Profilepage = () => {
             <img src={causecraft_logo} alt="Causecraft Logo" />
           </div>
           <div className="profilepage-header-home">
-            <button>
+            <button onClick={handleHome}>
               <img src={home_icon} alt="Home Icon" />
               Home
             </button>
@@ -48,7 +56,7 @@ const Profilepage = () => {
           <div className="profilepage-username-container">
             <p>
               {/* {loading ? 'Loading...' : userData?.username} */}
-              Username
+              {action}
             </p>
           </div>
 

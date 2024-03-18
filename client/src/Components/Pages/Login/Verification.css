@@ -85,7 +85,7 @@ background-color: #dccdc1;
 
 .submit-verification {
   display: block; /* Change display to block to make it a block-level element */
-  width: 220px;
+  /* width: 220px;
   height: 50px;
   color: #fff;
   background-color: #3f7f9b;
@@ -95,7 +95,22 @@ background-color: #dccdc1;
   text-align: center;
   line-height: 50px;
   cursor: pointer;
-  margin: 10px auto; /* Adjust margin for spacing */
+  margin: 10px auto; Adjust margin for spacing */
+}
+
+button {
+  border: none;
+  width: 220px;
+  height: 50px;
+  color: #fff;
+  background-color: #3f7f9b;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  margin: 10px auto;
 }
 
 .resend-otp {

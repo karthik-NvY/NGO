@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginSignup.css";
+import Axios from 'axios';
 
 import { FaRegUser } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
@@ -10,17 +11,74 @@ import causecraft_icon from "../../Assets/causecraft_pic.png";
 // import Verification from "./Verification"; // Import the Verification component
 
 export const LoginSignup = () => {
-  const navigate = useNavigate(); // Initialize the navigate function
 
-  // State to manage the action (Register or Login)
-  const [action, setAction] = useState("Register");
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [userData, setUserData] = useState({
+    name : '',
+    email : '',
+    password : '',
+  });
+
+  const [confirmpassword, setCPassword] = useState('');
+
+  const handleChange =(e) => {
+    const { name, value } = e.target;
+    setUserData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
+  const handleCPassword = (e) => {
+    const inputvalue = e.target.value;
+    setCPassword(inputvalue);
+  }
+
+  const navigate = useNavigate(); // Initialize the navigate function
+  const [action, setAction] = useState("Register");// State to manage the action (Register or Login)
+  
+  localStorage.setItem("userData", JSON.stringify(userData)); //data store in local storage
+
+  const handleLogin = async(e) => {
+    console.log(action);
+    
+    e.preventDefault();
+    // Implement your login logic here
+
+    const {email, password} = userData;
+
+    try {
+      const response = await Axios.post(`${apiUrl}/user/login`, { email , password }, {withCredentials: true});
+      console.log('login successful', response.data);
+      navigate("/home");
+      
+    } catch (error) {
+      console.error('login failed', error);
+    }
+  }
 
   // Function to handle registration and navigation to verification component
-  const handleRegister = () => {
+  const handleRegister = async(e) => {
+    e.preventDefault();
+
+    const {name , email , password } = userData
     // Perform registration logic here
     // alert("HII")
     // After successful registration, navigate to verification component
-    navigate("/Verification");
+    if(userData.password !== confirmpassword){
+      alert('Passwords do not match');
+      return;
+    }
+
+    try {
+      const response = await Axios.post(`${apiUrl}/otp/get-otp`, { email });
+      console.log('OTP sent', response.data);
+      navigate("/Verification");
+      
+    } catch (error) {
+      console.error('Failed to send', error);
+    }
   };
 
   return (
@@ -41,21 +99,40 @@ export const LoginSignup = () => {
           ) : (
             <div className="input-login">
               <FaRegUser className="icon user-icon" />
-              <input type="text" name="UserId" id="" placeholder="Username" />
+              <input 
+              type="text" 
+              name="name" 
+              id="" 
+              placeholder="Username" 
+              value={userData.name}
+              onChange={handleChange}
+              required
+              />
             </div>
           )}
 
           <div className="input-login">
             <MdAttachEmail className="icon email-icon" />
-            <input type="email" name="UserId" id="" placeholder="Email Id" />
+            <input 
+            type="email" 
+            name="email" 
+            id="" 
+            placeholder="Email Id"
+            value={userData.email}
+            onChange={handleChange}
+            />
           </div>
+
           <div className="input-login">
             <RiLockPasswordLine className="icon password-icon" />
             <input
               type="password"
-              name="UserId"
+              name="password"
               id=""
               placeholder="Password"
+              value={userData.password}
+              onChange={handleChange}
+              required
             />
           </div>
           {action === "Login" ? (
@@ -65,9 +142,12 @@ export const LoginSignup = () => {
               <RiLockPasswordFill className="icon password-icon" />
               <input
                 type="password"
-                name="UserId"
+                name="confirmpassword"
                 id=""
                 placeholder="Re-enter Password"
+                value={confirmpassword}
+                onChange={handleCPassword}
+                required
               />
             </div>
           )}
@@ -85,17 +165,20 @@ export const LoginSignup = () => {
           {/* Buttons to toggle between Register and Login */}
           <div
             className={action === "Login" ? "submit-login gray" : "submit-login"}
-            onClick={() => {
-              handleRegister();
+            onClick={(e) => {
+              handleRegister(e);
               setAction("Register");
             }}
           >
             Register
           </div>
-          <div
+          <div 
             className={action === "Register" ? "submit-login gray" : "submit-login"}
-            onClick={() => {
+            onClick={(e) => {
+              console.log(action)
+              handleLogin(e);
               setAction("Login");
+              console.log(action)
             }}
           >
             Login
