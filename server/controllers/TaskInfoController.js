@@ -61,5 +61,65 @@ class TaskInfohandler{
 	            message : "Error adding Task info"
         	})
 	    }
-	}}
+	}
+	static deleteTaskInfo = async(req, res) => {
+		try {
+			// Fetch all Task records from the database
+			const {id} = req.body;
+			const deletedTask = await TaskModel.findOneAndDelete({_id:id});
+	        // if the provided ID is not there in the schema
+			if (!deletedTask) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No task found with the provided ID"
+                });
+            }
+            // task has been deleted
+            return res.status(200).json({
+                success: true,
+                message: "Task deleted successfully",
+                deletedTask
+            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while deleting Info of Tasks",
+	        });
+	    }
+	}
+	static updateTaskInfo = async(req, res) => {
+		try {
+			// Fetch all Task records from the database
+			const {id, newData} = req.body;
+            // newDate is an object with elements as updated fields from front-end
+			const updatedTask = await TaskModel.findOneAndUpdate(
+                { _id: id },
+                { $set: newData },
+                { new: true }
+            );
+	        // if the provided ID is not there in the schema
+			if (!updatedTask) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No task found with the provided ID"
+                });
+            }
+            // task has been updated
+            return res.status(200).json({
+                success: true,
+                message: "Task updated successfully",
+                updatedTask
+            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while updating Info of Tasks",
+	        });
+	    }
+	}
+}
 module.exports = TaskInfohandler
