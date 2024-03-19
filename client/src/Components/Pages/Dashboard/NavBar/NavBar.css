@@ -1,57 +1,57 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 .navbar {
-    position: absolute;
-    top:0;
-    background-color: #6fb3bb;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 2%;
+  position: absolute;
+  top: 0;
+  background-color: #6fb3bb;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 2%;
+  height: 60px;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo h1 {
-    font-weight: 600;
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+  font-weight: 600;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.logoimg{
-    width: 40px;
-    height: 55px;
-    width: 55px;
-    border-radius: 50%;
-    background-color: aliceblue;
-    cursor: pointer;
-    margin-right: 15px;
+.logoimg {
+  width: 40px;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  background-color: aliceblue;
+  cursor: pointer;
+  margin-right: 15px;
 }
 
-
-ul li{
-    display: inline-block;
-    margin: 10px 20px;
+ul li {
+  display: inline-block;
+  margin: 10px 20px;
 }
 
 ul li button {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
 
 ul li button :active {
-    color: white;
+  color: white;
 }
 
-.searchbox {
+/* .searchbox {
     position: relative;
     display: flex;
     align-items: center;
@@ -75,4 +75,4 @@ ul li button :active {
 .search {
     align-self: right;
     right: 0;
-}
+} */
