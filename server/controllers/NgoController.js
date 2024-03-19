@@ -11,7 +11,6 @@ class Ngohandler{
 		try {
 			// Fetch all NGO records from the database
 			const allNgos = await Ngos.find();
-			console.log(allNgos.length);
 			// If no NGOs found.......
 			if (!allNgos || allNgos.length === 0) {
 	            return res.status(404).json({
@@ -26,7 +25,7 @@ class Ngohandler{
 				res.status(200).json({
 					success: true,
 					allNgos,
-					message: "found"});
+					message: "NGOs found"});
 			}
 		}
 		catch (error) {
