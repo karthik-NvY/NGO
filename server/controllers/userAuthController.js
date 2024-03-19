@@ -13,21 +13,19 @@ TODO
 const Users = require('../models/userModel'); // User database model.
 const Roles = require('../models/roleModel'); // User roles database model.
 const generateToken = require('../utils/generateToken');
-const randomstring = require('randomstring');
 
 // Class contains methods for authentication.
 class userAuth{
 
 	// Method that runs when signup is requested.
 	static userSignup = async(req, res) => {
-
-		const {name,email,password} = req.body; // Extract data from req.
+		const {name,email,password,phone} = req.body; // Extract data from req.
 
 		// If empty values are submitted.
 	    if (!name || !email || !password){
             return res.status(400).json({
                 success: false,
-                message: "Missing credentials",
+                error: "Missing credentials",
             });
         }
 	    try {
@@ -40,19 +38,19 @@ class userAuth{
 	                message: "User already exists"
 	            })
 	        }
-			const user_id = randomstring.generate({
-				  length: 12,
-				  charset: 'uppercase alphanumeric'
-				})
-			const email_id = email
+
+	        const packet = {
+	        	name:name,
+	        	email_id:email,
+	        	password:password,
+	        	phn_number:phone
+	        }
 	        // Creates new user.
-	        const newUser = await Users.create({
-            	user_id,name, email_id, password
-        	})
+	        const newUser = await Users.create(packet);
+	        
 	        return res.status(201).json({	             
 		            success: true,
 		            newUser,
-					userToken: generateToken(newUser._id),
 		            message:"User registration successfully done"
 	            });
 	    } 
@@ -90,6 +88,7 @@ class userAuth{
 	        
 			//Matching the user entered password with his original password stored in the database
 	        const passwordMatch = await user.matchPassword(password);
+			console.log(passwordMatch)
 
 	        // Checks if password is correct
 	        if (!passwordMatch) {

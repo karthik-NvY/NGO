@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
     // Username
     user_id: {
         type: String,
-        required : true,
         unique: true,
         trim: true,
     },
@@ -27,8 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     // phone number of the user
     phn_number:{
-        type:Number,
-        required : false,
+        type:String,
         trim: true
     },
     // password of the user
@@ -45,6 +43,11 @@ userSchema.pre('save', async function (next){
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password,salt);
+});
+
+userSchema.post('save', async function (doc){
+    doc.user_id = doc._id.toString();
+    doc.save();
 });
 
 //function for password decryption
