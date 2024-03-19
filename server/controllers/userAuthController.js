@@ -13,12 +13,14 @@ TODO
 const Users = require('../models/userModel'); // User database model.
 const Roles = require('../models/roleModel'); // User roles database model.
 const generateToken = require('../utils/generateToken');
+const randomstring = require('randomstring');
 
 // Class contains methods for authentication.
 class userAuth{
 
 	// Method that runs when signup is requested.
 	static userSignup = async(req, res) => {
+
 		const {name,email,password} = req.body; // Extract data from req.
 
 		// If empty values are submitted.
@@ -38,10 +40,14 @@ class userAuth{
 	                message: "User already exists"
 	            })
 	        }
-
+			const user_id = randomstring.generate({
+				  length: 12,
+				  charset: 'uppercase alphanumeric'
+				})
+			const email_id = email
 	        // Creates new user.
 	        const newUser = await Users.create({
-            	name, email, password
+            	user_id,name, email_id, password
         	})
 	        return res.status(201).json({	             
 		            success: true,

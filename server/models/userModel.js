@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     // phone number of the user
     phn_number:{
         type:Number,
-        required : true,
+        required : false,
         trim: true
     },
     // password of the user
