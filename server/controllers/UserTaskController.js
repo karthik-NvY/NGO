@@ -72,4 +72,4 @@ class UserTaskhandler{
 	}
 }
 
-module.exports = NgoTaskhandler
+module.exports = UserTaskhandler

@@ -13,7 +13,7 @@ const taskSchema = new mongoose.Schema({
     },
     // number of volunteer required for this task
     no_volunteer: {
-        type: Int16Array,
+        type: Number,
         required: true,
     },
 
