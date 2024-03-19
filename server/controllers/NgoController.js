@@ -11,7 +11,6 @@ class Ngohandler{
 		try {
 			// Fetch all NGO records from the database
 			const allNgos = await Ngos.find();
-	
 			// If no NGOs found.......
 			if (!allNgos || allNgos.length === 0) {
 	            return res.status(404).json({
@@ -19,10 +18,14 @@ class Ngohandler{
 	                message: "No NGOs found"
 	            });
 	        }
-
+			
 			if (allNgos) {
 				// If NGOs found, send the data in the response
-				res.status(200).json(allNgos);
+
+				res.status(200).json({
+					success: true,
+					allNgos,
+					message: "NGOs found"});
 			}
 		}
 		catch (error) {
@@ -39,8 +42,7 @@ class Ngohandler{
 		try {
 			const { ngo_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
-			const Ngo_tasks = await TaskModel.find( { ngo_id : ngo_id} , '_id task_name');
-			
+			const Ngo_tasks = await TaskModel.find( {ngo_id : ngo_id} , '_id task_name');
 			if(!ngo_id){
 				return res.status(400).json({
 				  success:false,
