@@ -34,9 +34,6 @@ async function main(){
   // Route deals with user authentication.
   app.use('/user', userRoute);
 
-
-app.use('/api', apiRoutes);
-
 app.use('/taskuser', taskuserRoutes);
   app.use('/task',taskRoutes);
 
