@@ -15,23 +15,31 @@ const NavBar = () => {
         <h1>CauseCraft</h1>
       </div>
 
-      <div className="searchbox">
+      {/* <div className="searchbox">
         <input type="text" placeholder="Search for NGOs" />
         <FaSearch size={20} className="search"/>
-      </div>
+      </div> */}
 
       <ul>
         <li>
-          <button><AiFillHome className="icon" size={25}/></button>
+          <button>
+            <AiFillHome className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><IoMdListBox className="icon" size={25}/></button>
+          <button>
+            <IoMdListBox className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><FaUserCircle className="icon" size={25}/></button>
+          <button>
+            <FaUserCircle className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><IoLogOut className="icon" size={25}/></button>
+          <button>
+            <IoLogOut className="icon" size={25} />
+          </button>
         </li>
       </ul>
     </div>
