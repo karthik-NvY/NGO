@@ -1,72 +1,70 @@
-const mailSender = require('../services/index');
+const sendVerificationEmail = require('../../services/mailer');
 const nodemailer = require('nodemailer');
 
-jest.mock('nodemailer', () => ({
-  createTransport: jest.fn(),
-}));
+// Mock nodemailer
+jest.mock('nodemailer');
 
-describe('mailSender function', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-//////////////   Test 1 : test case when successfully sending the email  /////////////////////
-  it('should send email successfully', async () => {
+describe('sendVerificationEmail function', () => {
+    test('should send verification email successfully', async () => {
+        // Mock input values
+        const email = 'test@example.com';
+        const otp = '123456';
 
-    const email = 'test@example.com';
-    const title = 'Test Email';
-    const body = '<p>This is a test email</p>';
-    const mockTransporter = {
-      sendMail: jest.fn().mockResolvedValueOnce('Email sent successfully'),
-    };
-    nodemailer.createTransport.mockReturnValueOnce(mockTransporter);
+        // Mock sendMail function to resolve successfully
+        const sendMailMock = jest.fn().mockResolvedValue('Mail sent successfully');
+        const createTransportMock = jest.fn(() => ({
+            sendMail: sendMailMock
+        }));
+        nodemailer.createTransport.mockImplementation(createTransportMock);
 
-    const result = await mailSender(email, title, body);
+        // Call the function
+        const result = await sendVerificationEmail(email, otp);
 
-    expect(result).toEqual('Email sent successfully');
-    expect(nodemailer.createTransport).toHaveBeenCalledWith({
-      service: 'gmail',
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
+        // Assert the result
+        expect(result).toBe('Email sent successfully');
+        expect(createTransportMock).toHaveBeenCalledWith({
+            service: 'gmail',
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
+            }
+        });
+        expect(sendMailMock).toHaveBeenCalledWith({
+            from: process.env.MAIL_FROM,
+            to: email,
+            subject: 'Verification Email',
+            html: `<h1>Please confirm your OTP</h1>
+       <p>Here is your OTP code: ${otp}</p>`
+        });
     });
-    expect(mockTransporter.sendMail).toHaveBeenCalledWith({
-      from: process.env.MAIL_FROM,
-      to: email,
-      subject: title,
-      html: body,
-    });
-  });
-///////////////// Test 2 : test case for error while sending   /////////////////////
-  it('should handle error when sending email', async () => {
 
-    const email = 'test@example.com';
-    const title = 'Test Email';
-    const body = '<p>This is a test email</p>';
-    const mockError = new Error('Failed to send email');
-    const mockTransporter = {
-      sendMail: jest.fn().mockRejectedValueOnce(mockError),
-    };
-    nodemailer.createTransport.mockReturnValueOnce(mockTransporter);
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    test('should throw an error when email sending fails', async () => {
+        // Mock input values
+        const email = 'test@example.com';
+        const otp = '123456';
 
-    const result = await mailSender(email, title, body);
+        // Mock sendMail function to reject with an error
+        const sendMailMock = jest.fn().mockRejectedValue(new Error('Failed to send email'));
+        const createTransportMock = jest.fn(() => ({
+            sendMail: sendMailMock
+        }));
+        nodemailer.createTransport.mockImplementation(createTransportMock);
 
-    expect(result).toBeUndefined();
-    expect(nodemailer.createTransport).toHaveBeenCalledWith({
-      service: 'gmail',
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
+        // Call the function and expect it to throw an error
+        await expect(sendVerificationEmail(email, otp)).rejects.toThrow('Failed to send email');
+        expect(createTransportMock).toHaveBeenCalledWith({
+            service: 'gmail',
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
+            }
+        });
+        expect(sendMailMock).toHaveBeenCalledWith({
+            from: process.env.MAIL_FROM,
+            to: email,
+            subject: 'Verification Email',
+            html: `<h1>Please confirm your OTP</h1>
+       <p>Here is your OTP code: ${otp}</p>`
+        });
     });
-    expect(mockTransporter.sendMail).toHaveBeenCalledWith({
-      from: process.env.MAIL_FROM,
-      to: email,
-      subject: title,
-      html: body,
-    });
-    expect(consoleSpy).toHaveBeenCalledWith('Failed to send email');
-    consoleSpy.mockRestore();
-  });
 });
