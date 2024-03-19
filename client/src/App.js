@@ -11,6 +11,8 @@ import Register from "./Components/Pages/Register/Register";
 import Verification from "./Components/Pages/Verification/Verification";
 import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
+import Taskpage from "./Components/Pages/Taskpage/Taskpage";
+
 function App() {
   return (
 
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<WelcomePage />} />
+        <Route path="/task" element={<Taskpage />} />
 
 
 
@@ -30,6 +33,7 @@ function App() {
         <Route path="/NavBar" element={<NavBar />} />
         <Route path="/Home" element={<Homepage />} />
         <Route path="/templateview" element={<TemplateView />} />
+        <Route path= "/taskpage" element={<Taskpage/>} />
       </Routes>
     </BrowserRouter>
   );
