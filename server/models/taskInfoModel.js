@@ -39,7 +39,7 @@ const taskSchema = new mongoose.Schema({
 const volunteerChoiceSchema = new mongoose.Schema({
     // user_id of the volunteer
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
         trim: true,
