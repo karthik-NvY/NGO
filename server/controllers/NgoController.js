@@ -74,6 +74,20 @@ class Ngohandler{
 	        });
 	    }
 	}
+
+	static roleSignup = async(req,res) => {
+		try{
+			const { ngo_id, role } = req.body;
+			const uid = req.user_id;
+		}	
+		catch(error){
+			console.error("Error:", error.message);
+      return res.status(500).json({
+          success: false,
+          message: "Error in siging up for role",
+      });
+		}
+	};
 }
 
 module.exports = Ngohandler
