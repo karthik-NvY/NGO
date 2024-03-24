@@ -38,6 +38,8 @@ async function main(){
   
   app.use('/task',taskRoutes);
 
+  app.use('/Request',ExecRoutes);
+
   // Route deals with various api services.
   app.use('/api', apiRoutes);
 
