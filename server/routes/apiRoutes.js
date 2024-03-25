@@ -11,6 +11,6 @@ const tokenMiddle = require("../middleware/tokenMiddle");
 router.post("/ngoInfo", Ngohandler.fetchNgoInfo); //Route /api/ngoinfo
 router.post("/ngoTask", Ngohandler.FetchNgoTasks); // Route /api/ngotask
 
-router.post("/ngoInfo", tokenMiddle, Ngohandler.fetchNgoInfo); //Route /user/ngoinfopage
+router.post("/ngoInfo", tokenMiddle, Ngohandler.fetchNgoInfo); //Route /api/ngoinfopage
 
 module.exports = router;

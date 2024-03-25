@@ -15,19 +15,25 @@ require('dotenv').config();
 const app = express();
 
 // For cors
-const allowedOrigins = [`${process.env.CLIENT_URL}`];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// const allowedOrigins = [`${process.env.CLIENT_URL}`];
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
+
 
 app.use(express.json()); // For json parsing
 app.use(express.urlencoded({ extended: false }));
