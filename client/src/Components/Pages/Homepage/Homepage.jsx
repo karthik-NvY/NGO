@@ -12,7 +12,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchNgos = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/ngoinfopage`);
+        const response = await axios.get(`${apiUrl}/api/ngoinfo`);
         setNgos(response.data);
       } catch (error) {
         console.error("Error fetching NGOs:", error);
