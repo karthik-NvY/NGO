@@ -9,6 +9,8 @@ const taskAutomation = async (ngo_id) => {
      const Ngo_tasks = await TaskModel.find( {ngo_id : ngo_id} , '_id no_volunteer');
      //const volunteers = await Roles.find({ ngo_id: ngo_id, role: "volunteer"}, 'user_id');
      const users = await GlobalStatus.find({ngo_id: ngo_id},'_id');
+
+     // finding no of assignments for a task
      Ngo_tasks.forEach(task => {
           AssignedModel.countDocuments({task_id:task[_id]},(err,count) => {
                if (err) {
@@ -20,6 +22,7 @@ const taskAutomation = async (ngo_id) => {
           });
      });
 
+     //finding no of tasks that a volunteer already assigned
      users.forEach(async user => {
           count = 0;
           const assignments = await AssignedModel.find({user_id: dict[user_id]});
@@ -31,7 +34,9 @@ const taskAutomation = async (ngo_id) => {
           user['no_of_tasks'] = count;
      });
      
-     //to do deadline sorting of tasks
+     /*
+          to do deadline sorting of tasks
+     */
      
      //assignment based on particular task requests
      Ngo_tasks.forEach( async task => {
@@ -48,6 +53,7 @@ const taskAutomation = async (ngo_id) => {
               }
           };
     });
+    
      //assignment based on global status of volunteers
      Ngo_tasks.forEach( async task => {
            users.sort((a,b) => a.no_of_tasks - b.no_of_tasks);
