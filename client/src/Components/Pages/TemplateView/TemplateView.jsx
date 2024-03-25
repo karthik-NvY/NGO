@@ -5,7 +5,7 @@ import temp2 from '../../Assets/pic2.jpeg'
 //import { MdOutlineLock, MdOutlineEmail } from 'react-icons/md';
 export const TemplateView = () => {
   return (
-    <div className="wrap">
+    <div className="view_container">
             <div className="leftside">
                 <div className="matter">
                     <p>Build your own template choose from expertly curated colors, fonts, and page layouts to create a website template that matches your vision with CauseCraft Blueprint</p>
