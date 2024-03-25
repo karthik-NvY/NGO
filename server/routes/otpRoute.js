@@ -2,7 +2,7 @@
 	File contains routes dealing with OTP.
 */
 const express = require('express');
-const OTPhandler = require('../controllers/otpController');
+const OTPhandler = require('../controllers/OTPcontroller');
 
 const router = express.Router();
 

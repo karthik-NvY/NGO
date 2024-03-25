@@ -46,7 +46,7 @@ class OTPhandler{
         })
       }
 
-      const userExists = await Users.findOne({email:email});
+      const userExists = await Users.findOne({email_id: email}); //////  {email:email} => {email_id: email} (error resolved).
 
       // Checks if user already exists.
         if(userExists){
