@@ -1,68 +1,108 @@
 import React, { useState, useEffect } from "react";
 import "./TaskAssign.css";
-import NavBar from "../Dashboard/NavBar/NavBar";
+import NavBar from "../Dashboard/NavBar/NavBar"; // Optional NavBar component
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const TaskAssign = () => {
-  // State to hold user list fetched from backend
-  const [userlist, setUserlist] = useState([]);
+  // State to hold task list fetched from backend
+  const [taskList, setTaskList] = useState([]);
 
-  // Dummy user data
-  const dummyUserList = [
-    { id: 1, name: "User 1" },
-    { id: 2, name: "User 2" },
-    { id: 3, name: "User 3" },
-    { id: 4, name: "User 4" },
-    { id: 5, name: "User 5" },
+  // Dummy task data with users
+  const dummyTaskList = [
+    {
+      task: "Task 1",
+      users: [
+        { id: 1, name: "User 1" },
+        { id: 2, name: "User 2" },
+      ],
+    },
+    {
+      task: "Task A",
+      users: [
+        { id: 1, name: "User 1" },
+        { id: 4, name: "User 4" },
+      ],
+    },
+    { task: "Complete Report", users: [{ id: 5, name: "User 5" }] },
+    { task: "", users: [{ id: 6, name: "User 6" }] },
+    {
+      task: "Meeting at 10 AM",
+      users: [
+        { id: 7, name: "User 7" },
+        { id: 8, name: "User 8" },
+      ],
+    },
   ];
 
-  // Fetch user list from backend (For now, using dummy data)
+  // Fetch task list from backend (For now, using dummy data)
   useEffect(() => {
-    setUserlist(dummyUserList);
+    setTaskList(dummyTaskList);
   }, []);
 
-  // Function to handle selection of a user
-  const handleUserSelect = (userId) => {
-    // Filter out the selected user and update the user list state
-    const updatedUserList = userlist.filter((user) => user.id !== userId);
-    setUserlist(updatedUserList);
+  // Function to handle selection of a user for a task
+  const handleUserSelect = (taskId, userId) => {
+    // Find the task in the task list
+    const updatedTaskList = taskList.map((task) => {
+      if (task.task === taskId) {
+        // Filter out the selected user from the users array for the task
+        const updatedUsers = task.users.filter((user) => user.id !== userId);
+        return { ...task, users: updatedUsers };
+      }
+      return task;
+    });
+    setTaskList(updatedTaskList);
   };
 
-  // Function to handle rejection of a user
-  const handleUserReject = (userId) => {
-    // Filter out the selected user and update the user list state
-    const updatedUserList = userlist.filter((user) => user.id !== userId);
-    setUserlist(updatedUserList);
+  const handleUserReject = (taskId, userId) => {
+    // Find the task in the task list
+    const updatedTaskList = taskList.map((task) => {
+      if (task.task === taskId) {
+        // Filter out the selected user from the users array for the task
+        const updatedUsers = task.users.filter((user) => user.id !== userId);
+        return { ...task, users: updatedUsers };
+      }
+      return task;
+    });
+    setTaskList(updatedTaskList);
   };
 
   return (
     <div className="taskAssignpage">
+      {/* Optional: Add NavBar component here */}
       <NavBar />
 
-      <div className="taskassign">
+      <div className="taskassign-container">
         <h1>Task Assign</h1>
 
-        <div className="userlist-heading">
-          <h2>Users</h2>
-          <div className="userlist">
-            {/* Map through the userlist state to render each user */}
-            {userlist.map((user) => (
-              <div key={user.id} className="user-item">
-                {/* <span>{user.id}</span> */}
-                <span>{user.name}</span>
-                <button
-                  className="select-button"
-                  onClick={() => handleUserSelect(user.id)}
-                >
-                  <FaCheck />
-                </button>
-
-                <button
-                  className="cancel-button"
-                  onClick={() => handleUserReject(user.id)}
-                >
-                  <FaTimes />
-                </button>
+        <div className="tasklist-heading">
+          <h2>Tasks</h2>
+          <div className="tasklist">
+            {/* Map through the taskList state to render each task */}
+            {taskList.map((task) => (
+              <div key={task.task} className="task-card">
+                <h3>{task.task}</h3>
+                <div className="user-list">
+                  {/* Map through the users array for each task to render each user */}
+                  {task.users.map((user) => (
+                    <div key={user.id} className="user-card">
+                      <span>{user.name}</span>
+                      <div className="user-actions">
+                        <button
+                          className="select-button"
+                          onClick={() => handleUserSelect(task.task, user.id)}
+                        >
+                          <FaCheck style={{ color: "green" }} />
+                        </button>
+                        <button
+                          className="cancel-button"
+                          onClick={() => handleUserReject(task.task, user.id)}
+                        >
+                          <FaTimes style={{ color: "red" }} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
