@@ -43,6 +43,9 @@ userSchema.pre('save', async function (next){
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password,salt);
+
+    this.user_id=this._id.toString();
+    next();
 });
 
 userSchema.post('save', async function (doc){

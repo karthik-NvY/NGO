@@ -5,7 +5,7 @@ import Login from "./Components/Pages/Login/Login";
 
 import WelcomePage from './Components/Pages/Dashboard/WelcomePage';
 import Profile from './Components/Pages/Profile/Profile';
-
+import Templatepage1 from './Components/Pages/Templatepage1/Templatepage1'
 import NavBar from "./Components/Pages/Dashboard/NavBar/NavBar";
 import Register from "./Components/Pages/Register/Register";
 import Verification from "./Components/Pages/Verification/Verification";
@@ -21,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<WelcomePage />} />
+        <Route path="/templatepage1" element={<Templatepage1 />} />
 
 
 
