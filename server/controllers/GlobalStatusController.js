@@ -1,4 +1,4 @@
-const {globalAvailModel} = require("../models/globalAvailModel");
+const {GlobalStatus} = require("../models/globalAvailModel");
 
 class GlobalStatushandler{
 
@@ -20,7 +20,7 @@ class GlobalStatushandler{
                   })
             }
 
-			const Alreadyavailable = await globalAvailModel.find({user_id: user_id, ngo_id: ngo_id});
+			const Alreadyavailable = await GlobalStatus.find({user_id: user_id, ngo_id: ngo_id});
             //returns if user status already marked as available
 			if (Alreadyavailable) {
 				res.status(404).json({
@@ -29,7 +29,7 @@ class GlobalStatushandler{
 			}
             
             //creates or add user entry, representing globally available
-            const addUserStatus = await globalAvailModel.create({user_id:user_id, ngo_id:ngo_id});
+            const addUserStatus = await GlobalStatus.create({user_id:user_id, ngo_id:ngo_id});
 
             
             return res.status(200).json({	             
@@ -66,7 +66,7 @@ class GlobalStatushandler{
                     message:'Missing NGO id'
                   })
             }
-			const available = await globalAvailModel.find({user_id: user_id, ngo_id: ngo_id});
+			const available = await GlobalStatus.find({user_id: user_id, ngo_id: ngo_id});
 
             //returns if user status already marked as not available i.e there is no entry
 			if (!available) {
@@ -77,7 +77,7 @@ class GlobalStatushandler{
 
             
             //deletes user entry, representing globally available
-            const deleteUserStatus = await globalAvailModel.delete({user_id:user_id, ngo_id:ngo_id});
+            const deleteUserStatus = await GlobalStatus.delete({user_id:user_id, ngo_id:ngo_id});
 
             return res.status(200).json({	             
                 success: true,
