@@ -10,8 +10,7 @@ const template1 = async (req, res) => {
         // Extracting data from the request body
         const {
             logo,
-            name,
-            ngo_id,
+            ngoName,
             heroImages,
             aboutUsText,
             aboutUsImage1,
@@ -25,8 +24,7 @@ const template1 = async (req, res) => {
         // Creating a new Template1 document
         const newTemplate1 = new Template1({
             logo,
-            name,
-            ngo_id,
+            ngoName,
             heroImages,
             aboutUsText,
             aboutUsImage1,
