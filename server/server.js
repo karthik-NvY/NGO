@@ -1,12 +1,12 @@
 // All requirements
-const express = require("express");
-const otpRoute = require("./routes/otpRoute");
-const userRoute = require("./routes/userRoute");
-const apiRoutes = require("./routes/apiRoutes");
-const taskuserRoute = require("./routes/taskuserRoute");
-
-const taskRoutes = require("./routes/taskRoutes");
-const cookieParser = require("cookie-parser");
+const express = require('express');
+const otpRoute = require('./routes/otpRoute');
+const userRoute = require('./routes/userRoute');
+const apiRoutes = require('./routes/apiRoutes');
+const taskuserRoute = require('./routes/taskuserRoute');
+const globalstatusRoutes = require('./routes/globalstatusRoute');
+const taskRoutes = require('./routes/taskRoutes');
+const cookieParser = require('cookie-parser');
 
 const cors = require("cors");
 const DbConnect = require("./configs/mongo");
@@ -60,8 +60,13 @@ async function main() {
   //app.use('/Request',ExecRoutes);
 
   // Route deals with various api services.
-  app.use("/api", apiRoutes);
+  app.use('/api', apiRoutes);
 
+  //Route deals with global status
+  app.use('/global', globalstatusRoutes);
+
+
+  
   // Route used for simple testing in postman.
   app.get("/testpoint", async (req, res) => {
     const Users = require("./models/userModel");
