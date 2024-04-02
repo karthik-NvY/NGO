@@ -11,4 +11,6 @@ const UserTaskhandler = require("../controllers/UserTaskController");
 router.post("/fetch_task", UserTaskhandler.FetchTaskusers); 
 router.post("/add_task", UserTaskhandler.addTaskusers); 
 router.post("/delete_task", UserTaskhandler.deleteTaskusers); 
+
+router.post("/assign_user", UserTaskhandler.assignUser); 
 module.exports = router
