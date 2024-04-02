@@ -14,7 +14,7 @@ router.post("/ngoTask", Ngohandler.FetchNgoTasks); // Route /api/ngotask
 
 router.post("/ngoInfo", tokenMiddle, Ngohandler.fetchNgoInfo); //Route /user/ngoinfopage
 
-router.post("/taskauto", tokenMiddle, taskAutomationController); 
+// router.post("/taskauto", tokenMiddle, taskAutomationController); 
 
 router.post("/rolesignup", tokenMiddle, Ngohandler.roleSignup)
 module.exports = router;

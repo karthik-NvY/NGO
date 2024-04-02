@@ -3,7 +3,7 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TfiEmail } from "react-icons/tfi";
 import { TbLockOpen } from "react-icons/tb";
-import Axios from 'axios';
+import Axios from "axios";
 
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -23,14 +23,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await Axios.post(
         `${apiUrl}/user/login`,
         { email, password },
-        // { withCredentials: true }
+        { withCredentials: true }
       );
       console.log("login successful", response.data);
+      localStorage.setItem("token", response.data.token);
       navigate("/home");
     } catch (error) {
       console.error("login failed", error);

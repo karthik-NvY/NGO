@@ -84,7 +84,7 @@ class Ngohandler{
 			console.error("Error:", error.message);
       return res.status(500).json({
           success: false,
-          message: "Error in siging up for role",
+          message: "Error in signing up for role",
       });
 		}
 	};
