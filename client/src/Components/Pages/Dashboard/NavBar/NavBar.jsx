@@ -6,8 +6,24 @@ import { IoLogOut } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import logo from "../../../Assets/logo_big.png";
 import "./NavBar.css";
+import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
+  const handleLogout = async() => {
+    try{
+    const response = await Axios.post(`${apiUrl}/user/logout`,{}, { withCredentials : true });
+    console.log("Logout successful")
+    navigate("/")
+    }
+    catch {
+      console.error("logout failed");
+    }
+  }
+
   return (
     <div className="navbar">
       <div className="logo">
@@ -15,23 +31,31 @@ const NavBar = () => {
         <h1>CauseCraft</h1>
       </div>
 
-      <div className="searchbox">
+      {/* <div className="searchbox">
         <input type="text" placeholder="Search for NGOs" />
         <FaSearch size={20} className="search"/>
-      </div>
+      </div> */}
 
       <ul>
         <li>
-          <button><AiFillHome className="icon" size={25}/></button>
+          <button>
+            <AiFillHome className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><IoMdListBox className="icon" size={25}/></button>
+          <button>
+            <IoMdListBox className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><FaUserCircle className="icon" size={25}/></button>
+          <button>
+            <FaUserCircle className="icon" size={25} />
+          </button>
         </li>
         <li>
-          <button><IoLogOut className="icon" size={25}/></button>
+          <button>
+            <IoLogOut className="icon" size={25} />
+          </button>
         </li>
       </ul>
     </div>

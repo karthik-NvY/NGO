@@ -9,7 +9,7 @@ const dotenv = require('dotenv'); // load .env
 async function sendVerificationEmail(email, otp) {
   try {
     // call to mail transporter.
-    const mailResponse = await mailSender(
+    await mailSender(
       email, // email.
       "Verification Email", // title
       // html body
@@ -17,9 +17,10 @@ async function sendVerificationEmail(email, otp) {
        <p>Here is your OTP code: ${otp}</p>`
     );
     console.log("Email sent successfully");
+    return 'Email sent successfully';
   } 
   catch (error) {
-    console.log("Error occurred while sending email: ", error);
+    console.log("Error occurred while sending email: ", error.message);
     throw error;
   }
 }
@@ -43,12 +44,10 @@ const mailSender = async (email, title, body) => {
       subject: title,
       html: body,
     });
-
-    console.log("Email info: ", info); // Logs promise.
     return info; // Returns promise
   } catch (error) {
   	// Error from transporter object.
-    console.log(error.message);
+    throw error;
   }
 };
 module.exports = sendVerificationEmail; // export mailing function.

@@ -3,7 +3,11 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
+const taskuserRoute = require('./routes/taskuserRoute');
+const globalstatusRoutes = require('./routes/globalstatusRoute');
+const taskRoutes = require('./routes/taskRoutes');
 const cookieParser = require('cookie-parser');
+
 const cors = require('cors');
 const DbConnect = require('./configs/mongo');
 require('dotenv').config();
@@ -42,11 +46,23 @@ async function main(){
   // Route deals with user authentication.
   app.use('/user', userRoute);
 
+  app.use('/taskuser', taskuserRoute);
+  
+  app.use('/task',taskRoutes);
+
+  app.use('/Request',ExecRoutes);
+
   // Route deals with various api services.
   app.use('/api', apiRoutes);
 
+  //Route deals with global status
+  app.use('/global', globalstatusRoutes);
+
+
+  
   // Route used for simple testing in postman.
   app.get('/testpoint', async (req,res)=>{
+    const Users = require('./models/userModel');
     try{
       // const usersToReplace = await Users.find().sort({ _id: -1 }).limit(5);
       // console.log(usersToReplace);
@@ -62,15 +78,22 @@ async function main(){
       //   success:true,
       //   message:"Done"
       // });
+      const data = await Users.findOne({email_id:'2021csb1081@iitrpr.ac.in'});
+      await data.deleteOne();
+      return res.status(200).json({
+        success:true,
+        message:"Done",
+        data
+      });
     }
     catch(err)
     {
-      // console.log("error in op");
-      // console.log(err);
-      // return res.status(500).json({
-      //   success:false,
-      //   message:"error occured"
-      // })
+      console.log("error in op");
+      console.log(err);
+      return res.status(500).json({
+        success:false,
+        message:"error occured"
+      })
     }
   });
 

@@ -19,13 +19,13 @@ class userAuth{
 
 	// Method that runs when signup is requested.
 	static userSignup = async(req, res) => {
-		const {name,email,password} = req.body; // Extract data from req.
+		const {name,email,password,phone} = req.body; // Extract data from req.
 
 		// If empty values are submitted.
 	    if (!name || !email || !password){
             return res.status(400).json({
                 success: false,
-                message: "Missing credentials",
+                error: "Missing credentials",
             });
         }
 	    try {
@@ -39,14 +39,18 @@ class userAuth{
 	            })
 	        }
 
+	        const packet = {
+	        	name:name,
+	        	email_id:email,
+	        	password:password,
+	        	phn_number:phone
+	        }
 	        // Creates new user.
-	        const newUser = await Users.create({
-            	name, email, password
-        	})
+	        const newUser = await Users.create(packet);
+	        
 	        return res.status(201).json({	             
 		            success: true,
 		            newUser,
-					userToken: generateToken(newUser._id),
 		            message:"User registration successfully done"
 	            });
 	    } 
