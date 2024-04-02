@@ -8,7 +8,7 @@ const router = new express.Router();
 const UserTaskhandler = require("../controllers/UserTaskController");
 
 //Routes
-router.post("/fetch_task", UserTaskhandler.FetchTaskusers); 
+router.post("/fetch_task", UserTaskhandler.FetchTaskusers);  // /taskuser/fetch_task request
 router.post("/add_task", UserTaskhandler.addTaskusers); 
 router.post("/delete_task", UserTaskhandler.deleteTaskusers); 
 module.exports = router

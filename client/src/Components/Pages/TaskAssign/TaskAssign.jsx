@@ -3,6 +3,10 @@ import "./TaskAssign.css";
 import NavBar from "../Dashboard/NavBar/NavBar"; // Optional NavBar component
 import { FaCheck, FaTimes } from "react-icons/fa";
 
+//const port_address = "http://localhost:8080";
+
+const ngo_id = "65da11a82216111bff5d0bc0";
+
 const TaskAssign = () => {
   // State to hold task list fetched from backend
   const [taskList, setTaskList] = useState([]);
@@ -34,11 +38,34 @@ const TaskAssign = () => {
     },
   ];
 
-  // Fetch task list from backend (For now, using dummy data)
+ // Fetch task list from backend (For now, using dummy data)
   useEffect(() => {
     setTaskList(dummyTaskList);
   }, []);
 
+  // useEffect(() => {
+  //   // Fetch task list from backend for specific NGO
+  //   const fetchTaskList = async () => {
+  //     try {
+  //       const response = await fetch(`/api/ngoTask?ngo_id=${ngo_id}`);
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch task list");
+  //       }
+  //       console.log("Response", response);
+  //       const data = await response.json(); // Access response body once
+  //      // console.log("Data", data);
+  //       setTaskList(data);
+  //     } catch (error) {
+  //       console.log("Error fetching task list:", error);
+  //     }
+  //   };
+    
+  //   fetchTaskList(); // Call the fetchTaskList function
+  // }, []); // Empty dependency array
+  
+  
+  //console.log("TaskList");
+ // console.log(taskList);
   // Function to handle selection of a user for a task
   const handleUserSelect = (taskId, userId) => {
     // Find the task in the task list
