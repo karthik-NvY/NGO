@@ -15,7 +15,7 @@ const Homepage = () => {
       try {
         const token = localStorage.getItem("token");
         setAuthHeaders(token); 
-        const response = await axios.post(`${apiUrl}/api/ngoInfo`);
+        const response = await axios.post(`${apiUrl}/api/ngoInfo`,{token},{withCredentials:true});
         setNgos(response.data.allNgos);
         console.log(response.data);
       } catch (error) {
@@ -36,7 +36,7 @@ const Homepage = () => {
             ngos.map((ngo) => (
               <div className="ngo" key={ngo._id}>
                 <Ngo name={ngo.name} creator={ngo.admin} />
-                <Link ></Link>
+                <Link to={`/ngo/${ngo.name}/${ngo.ngo_id}`} className="view-link">View</Link>
               </div>
             ))}
         </div>
