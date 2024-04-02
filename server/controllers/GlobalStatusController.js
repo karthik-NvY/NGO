@@ -93,6 +93,44 @@ class GlobalStatushandler{
 	        });
 	    }
 	}
+	static GlobalFetch = async(req, res) => {
+        try {
+            const { ngo_id } = req.body;
+            // Fetch all Tasks of given Ngo from the database
+            if(!ngo_id){
+                return res.status(400).json({
+                  success:false,
+                  message:'Missing NGO ID'
+                })
+              }
+            const Globals = await GlobalStatus.find({ ngo_id: ngo_id }).populate('user_id', 'name');                            
+        
+            if (!Globals || Globals.length === 0) {
+                return res.status(200).json({
+                    success: false,
+                    message: "No Global Status found in given NGO"
+                });
+            }
+            const globalStatusData = Globals.map(globalStatus => ({
+                _id: globalStatus.user_id._id,
+                name: globalStatus.user_id.name
+            }));
+            return res.status(200).json({
+                success: true,
+                data: globalStatusData,
+                ngo_id:ngo_id,
+                message;"Users with global status successfully fetched"
+            });
+            
+        }
+        catch (error) {
+            console.error("Error:", error.message);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error while fetching Global status in NGO",
+            });
+        }
+    }
 }
 
 module.exports = GlobalStatushandler
