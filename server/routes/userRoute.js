@@ -11,8 +11,8 @@ const tokenMiddle = require("../middleware/tokenMiddle");
 //Routes
 router.post("/signup", userAuth.userSignup); // Route /user/signup
 router.post("/login", userAuth.userLogin); // Route /user/login
-//router.post("/profile", tokenMiddle, userAuth.fetchUserProfile); //Route /user/profile
-router.post("/profile", userAuth.fetchUserProfile); //Route /user/profile
+router.post("/profile", tokenMiddle, userAuth.fetchUserProfile); //Route /user/profile
+//router.post("/profile", userAuth.fetchUserProfile); //Route /user/profile
 router.post("/logout", tokenMiddle, userAuth.logOut); //Route /user/profile
 
 module.exports = router;

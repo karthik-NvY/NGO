@@ -29,7 +29,7 @@ const Login = () => {
       const response = await Axios.post(
         `${apiUrl}/user/login`,
         { email, password },
-        //{ withCredentials: true }
+        { withCredentials: true }
       );
       console.log("login successful", response.data);
       localStorage.setItem('token', response.data.token);

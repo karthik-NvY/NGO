@@ -19,7 +19,13 @@ export const Profile = () => {
     try {
       const token = localStorage.getItem("token");
         setAuthHeaders(token);
-      const response = await axios.post(`${apiUrl}/user/profile`);
+      const response = await axios.post(`${apiUrl}/user/profile`, {token} ,{
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
       setUserData(response.data.data);
       console.log(response.data)
     } catch (error) {
