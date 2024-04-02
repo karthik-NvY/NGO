@@ -1,11 +1,37 @@
-import React, { useState, useRef } from "react";
-import { IoCamera } from "react-icons/io5"; // Import the camera icon
+import React, { useState, useEffect, useRef } from "react";
+import { IoCamera } from "react-icons/io5";
 import NavBar from "../Dashboard/NavBar/NavBar";
+import axios from "axios";
 import "./Profile.css";
+import setAuthHeaders from "../../Utils/setAuthHeaders";
 
 export const Profile = () => {
   const [profilePic, setProfilePic] = useState(null);
+  const [userData, setUserData] = useState(null);
   const fileInputRef = useRef(null);
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    fetchUserProfile(); // Fetch user profile data when component mounts
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+        setAuthHeaders(token);
+      const response = await axios.post(`${apiUrl}/user/profile`, {token} ,{
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+      setUserData(response.data.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   const handleProfilePicClick = () => {
     fileInputRef.current.click();
@@ -13,7 +39,6 @@ export const Profile = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    // You can perform additional validation or processing here if needed
     setProfilePic(file);
   };
 
@@ -30,7 +55,6 @@ export const Profile = () => {
               {!profilePic && (
                 <>
                   <IoCamera className="camera-icon" />
-                  {/* Icon for camera */}
                 </>
               )}
               <input
@@ -41,20 +65,14 @@ export const Profile = () => {
                 style={{ display: "none" }}
               />
             </div>
-            <p className="username">User Name</p>
-            <div className="count">
-              <ul>
-                <li>
-                  <a href="#volunteer">Volunteer</a>
-                </li>
-                <li>
-                  <a href="#donor">Donor</a>
-                </li>
-                <li>
-                  <a href="#executive">Executive</a>
-                </li>
-              </ul>
-            </div>
+            {userData && (
+              <>
+                <p className="username">{userData.name}</p>
+                <div>
+                  <p className="email">{userData.email}</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="container-box">
