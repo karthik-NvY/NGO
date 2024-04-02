@@ -6,8 +6,24 @@ import { IoLogOut } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import logo from "../../../Assets/logo_big.png";
 import "./NavBar.css";
+import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
+  const handleLogout = async() => {
+    try{
+    const response = await Axios.post(`${apiUrl}/user/logout`,{}, { withCredentials : true });
+    console.log("Logout successful")
+    navigate("/")
+    }
+    catch {
+      console.error("logout failed");
+    }
+  }
+
   return (
     <div className="navbar">
       <div className="logo">

@@ -4,7 +4,7 @@ const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
 const taskuserRoute = require('./routes/taskuserRoute');
-
+const globalstatusRoutes = require('./routes/globalstatusRoute');
 const taskRoutes = require('./routes/taskRoutes');
 const cookieParser = require('cookie-parser');
 
@@ -38,8 +38,13 @@ async function main(){
   
   app.use('/task',taskRoutes);
 
+  app.use('/Request',ExecRoutes);
+
   // Route deals with various api services.
   app.use('/api', apiRoutes);
+
+  //Route deals with global status
+  app.use('/global', globalstatusRoutes);
 
 
   
