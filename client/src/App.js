@@ -11,6 +11,7 @@ import Register from "./Components/Pages/Register/Register";
 import Verification from "./Components/Pages/Verification/Verification";
 import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
+import { Template1edit } from "./Components/Pages/Template1edit/Template1edit";
 function App() {
   return (
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/NavBar" element={<NavBar />} />
         <Route path="/Home" element={<Homepage />} />
         <Route path="/templateview" element={<TemplateView />} />
+        <Route path="/template1edit" element={<Template1edit />} />
       </Routes>
     </BrowserRouter>
   );

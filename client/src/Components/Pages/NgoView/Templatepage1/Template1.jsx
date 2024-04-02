@@ -30,7 +30,7 @@ const Template1 = () => {
       <header>
         <div className="logo">
           <div className="logo">{ngo.logo}</div>
-          <span className="name">{ngo.name}</span>
+          <span className="name">{ngo.ngoName}</span>
         </div>
         <nav>
           <ul>

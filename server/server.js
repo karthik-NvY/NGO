@@ -63,7 +63,7 @@ async function main() {
   app.use('/api', apiRoutes);
 
   //Route deals with global status
-  app.use('/global', globalstatusRoutes);
+  //app.use('/global', globalstatusRoutes);
 
 
   
