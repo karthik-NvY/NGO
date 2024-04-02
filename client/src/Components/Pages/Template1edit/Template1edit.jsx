@@ -9,9 +9,12 @@ import event3 from "../../Assets/event3.png";
 import event4 from "../../Assets/event4.png";
 import contactus from "../../Assets/contactus.png";
 import logopic from "../../Assets/logo_big.png";
+import axios from "axios";
 
-export const Template1edit = () => {
+export const Template1edit = async () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [logo, setLogo] = useState(logopic);
+  const [ngoName, setNgoName] = useState("NGO name");
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
@@ -37,6 +40,7 @@ export const Template1edit = () => {
     sendDataToBackend();
   }, [
     logo,
+    ngoName,
     aboutUsText,
     //aboutUsImage1,
     aboutUsImage2,
@@ -50,6 +54,7 @@ export const Template1edit = () => {
     // Prepare data object to send to backend
     const data = {
       logo,
+      ngoName,
       aboutUsText,
       //aboutUsImage1,
       aboutUsImage2,
@@ -58,25 +63,24 @@ export const Template1edit = () => {
       phoneNumber,
       contactImage,
     };
-
-    // Example of sending data to backend (replace with actual implementation)
-    fetch("backend_url", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        // Handle success response from backend
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle error
-      });
   };
+  // axios
+  //   .post("/template1", data)
+  //   .then((response) => {
+  //     console.log("Success:", response.data);
+  //     // Handle success response from backend
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //     // Handle error
+  //   });
+  try {
+    const response = await axios.post(`${apiUrl}/template1`);
+    console.log("Success:", response.data);
+    // navigate("/Verification");
+  } catch (error) {
+    console.error("Error:", error);
+  }
 
   const handlePublish = () => {
     sendDataToBackend();
@@ -92,6 +96,14 @@ export const Template1edit = () => {
 
   const handleLogoClick = (event) => {
     logoRef.current.click();
+  };
+
+  const handleNgoNameChange = (event) => {
+    const value = event.target.value;
+    const maxLength = 34;
+    if (value.length <= maxLength) {
+      setNgoName(value); // Update the input value state
+    }
   };
 
   const handleAboutUsTextChange = (event) => {
@@ -180,8 +192,14 @@ export const Template1edit = () => {
               className="Image-1"
             />
           </div>
-
-          <span className="name">NGO name</span>
+          <div className="name">
+            <textarea
+              type="text"
+              value={ngoName}
+              onChange={handleNgoNameChange}
+              className="name-text"
+            />
+          </div>
         </div>
         <nav>
           <ul>
