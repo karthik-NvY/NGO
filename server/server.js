@@ -4,7 +4,10 @@ const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
 const taskuserRoute = require('./routes/taskuserRoute');
+
+const templateRoutes = require('./routes/templateRoutes');
 const globalstatusRoutes = require('./routes/globalstatusRoute');
+
 const taskRoutes = require('./routes/taskRoutes');
 const cookieParser = require('cookie-parser');
 
@@ -62,9 +65,10 @@ async function main() {
   // Route deals with various api services.
   app.use('/api', apiRoutes);
 
+  app.use('/templates',templateRoutes);
+  
   //Route deals with global status
   app.use('/global', globalstatusRoutes);
-
 
   
   // Route used for simple testing in postman.
