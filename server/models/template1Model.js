@@ -13,6 +13,10 @@ const Template1Schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ngo_id: {
+        type: String,
+        required: true
+    },
     heroImages: [{
         id: {
             type: Number

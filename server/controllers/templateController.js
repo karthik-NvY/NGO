@@ -11,6 +11,7 @@ const template1 = async (req, res) => {
         const {
             logo,
             name,
+            ngo_id,
             heroImages,
             aboutUsText,
             aboutUsImage1,
@@ -25,6 +26,7 @@ const template1 = async (req, res) => {
         const newTemplate1 = new Template1({
             logo,
             name,
+            ngo_id,
             heroImages,
             aboutUsText,
             aboutUsImage1,
@@ -54,7 +56,7 @@ const getTemplate1 = async (req, res) => {
         const { ngoId } = req.params; // Extracting NGO ID from request parameters
 
         // Fetching Template1 document associated with the provided NGO ID
-        const template1 = await Template1.findOne({ ngoId });
+        const template1 = await Template1.findOne({ ngo_id: ngoId });
 
         if (!template1) {
             return res.status(404).json({ 
