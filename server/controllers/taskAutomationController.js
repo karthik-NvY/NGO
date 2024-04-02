@@ -13,6 +13,6 @@ const taskAutomationController = async(req, res) => {
 		});
 	}
 	
-// };
+};
 
 // module.exports = taskAutomationController;
