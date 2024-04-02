@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Template1edit.css";
+import "./Templatepage1.css";
 import hero from "../../Assets/hero.png";
-import aboutus1 from "../../Assets/aboutus1.png";
+//import aboutus1 from "../../Assets/aboutus1.png";
 import aboutus2 from "../../Assets/aboutus2.png";
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
@@ -10,12 +10,12 @@ import event4 from "../../Assets/event4.png";
 import contactus from "../../Assets/contactus.png";
 import logopic from "../../Assets/logo_big.png";
 
-export const Template1edit = () => {
+const Templatepage1 = () => {
   const [logo, setLogo] = useState(logopic);
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
-  const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
+  //const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
   const [aboutUsImage2, setAboutUsImage2] = useState(aboutus2);
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: event1, description: "Description for Event 1" },
@@ -28,7 +28,7 @@ export const Template1edit = () => {
   const [contactImage, setContactImage] = useState(contactus);
 
   const logoRef = useRef(null);
-  const aboutUsImage1Ref = useRef(null);
+  //const aboutUsImage1Ref = useRef(null);
   const aboutUsImage2Ref = useRef(null);
   const contactImageRef = useRef(null);
 
@@ -38,7 +38,7 @@ export const Template1edit = () => {
   }, [
     logo,
     aboutUsText,
-    aboutUsImage1,
+    //aboutUsImage1,
     aboutUsImage2,
     recentEvents,
     email,
@@ -51,7 +51,7 @@ export const Template1edit = () => {
     const data = {
       logo,
       aboutUsText,
-      aboutUsImage1,
+      //aboutUsImage1,
       aboutUsImage2,
       recentEvents,
       email,
@@ -78,6 +78,10 @@ export const Template1edit = () => {
       });
   };
 
+  const handlePublish = () => {
+    sendDataToBackend();
+  };
+
   const handleLogoChange = (event) => {
     try {
       setLogo(URL.createObjectURL(event.target.files[0]));
@@ -86,16 +90,28 @@ export const Template1edit = () => {
     }
   };
 
+  const handleLogoClick = (event) => {
+    logoRef.current.click();
+  };
+
   const handleAboutUsTextChange = (event) => {
     setAboutUsText(event.target.value);
   };
 
-  const handleAboutUsImage1Change = (event) => {
-    setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
-  };
+  // const handleAboutUsImage1Change = (event) => {
+  //   setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
+  // };
+
+  // const handleAboutUsImage1Click = () => {
+  //   aboutUsImage1Ref.current.click();
+  // };
 
   const handleAboutUsImage2Change = (event) => {
     setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleAboutUsImage2Click = () => {
+    aboutUsImage2Ref.current.click();
   };
 
   const handleAddEvent = () => {
@@ -133,13 +149,13 @@ export const Template1edit = () => {
     );
   };
 
-  const handleEmailClick = () => {
-    window.location.href = `mailto:${email}`;
-  };
+  // const handleEmailClick = () => {
+  //   window.location.href = mailto:${email};
+  // };
 
-  const handlePhoneClick = () => {
-    window.location.href = `tel:${phoneNumber}`;
-  };
+  // const handlePhoneClick = () => {
+  //   window.location.href = tel:${phoneNumber};
+  // };
 
   const handleContactImageClick = () => {
     contactImageRef.current.click();
@@ -153,16 +169,17 @@ export const Template1edit = () => {
     <div className="temp1">
       <header>
         <div className="logo">
-          <label htmlFor="logoImageInput">
-            {logo && <img src={logo} alt="logo Pic" />}
-          </label>
+          <div className="logopic" onClick={handleLogoClick}>
+            {logo && <img src={logo} alt=" Logo" />}
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleLogoChange}
-            ref={logoRef}
-          />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleLogoChange}
+              ref={logoRef}
+              className="Image-1"
+            />
+          </div>
 
           <span className="name">NGO name</span>
         </div>
@@ -188,8 +205,6 @@ export const Template1edit = () => {
         <div className="image-slider-container">
           <div className="image-slider">
             <img src={hero} alt="opening face" />
-            {/* <img src={image2} alt="Image 2" />
-            <img src={image3} alt="Image 3" /> */}
           </div>
         </div>
       </section>
@@ -199,41 +214,39 @@ export const Template1edit = () => {
           <div className="about-heading">
             <h2>ABOUT US</h2>
           </div>
+
           <div className="about-text">
-            <input
+            <textarea
               type="text"
               value={aboutUsText}
               onChange={handleAboutUsTextChange}
               className="about-textarea"
             />
-            {/* <p>{aboutUsText}</p> */}
           </div>
         </div>
         <div className="about-images">
-          <img
-            src={aboutUsImage1}
-            alt="Get to know us 1"
-            className="image-1"
-            onClick={() => aboutUsImage1Ref.current.click()}
-          />
-          <img
-            src={aboutUsImage2}
-            alt="Get to know us 2"
-            className="image-2"
-            onClick={() => aboutUsImage2Ref.current.click()}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleAboutUsImage1Change}
-            ref={aboutUsImage1Ref}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleAboutUsImage2Change}
-            ref={aboutUsImage2Ref}
-          />
+          {/* <div className="image-1" onClick={handleAboutUsImage1Click}>
+            {aboutUsImage1 && <img src={aboutUsImage1} alt=" About us 1 Pic" />}
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAboutUsImage1Change}
+              ref={aboutUsImage1Ref}
+              className="Image-2"
+            />
+          </div> */}
+          <div className="image-2" onClick={handleAboutUsImage2Click}>
+            {aboutUsImage2 && <img src={aboutUsImage2} alt=" About us 2 Pic" />}
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAboutUsImage2Change}
+              ref={aboutUsImage2Ref}
+              className="Image-3"
+            />
+          </div>
         </div>
       </section>
 
@@ -249,14 +262,15 @@ export const Template1edit = () => {
                   className="event-image"
                 />
               )}
-              <p className="event-description">{event.description}</p>
-              <input
-                type="text"
-                value={event.description}
-                onChange={(e) =>
-                  handleEventDescriptionChange(event.id, e.target.value)
-                }
-              />
+              <div className="event-description">
+                <textarea
+                  type="text"
+                  value={event.description}
+                  onChange={(e) =>
+                    handleEventDescriptionChange(event.id, e.target.value)
+                  }
+                />
+              </div>
 
               <div className="event-actions">
                 <button onClick={() => handleDeleteEvent(event.id)}>
@@ -280,14 +294,6 @@ export const Template1edit = () => {
       <footer id="ContactUs" className="contact-section">
         <div className="contact-container">
           <div className="contact-info">
-            {/* <div className="image-container" onClick={handleContactImageClick}>
-              {contactImage && <img src={contactImage} alt="Contact Pic" />}
-              <input
-                type="file"
-                onChange={handleImageChange}
-                ref={contactImageRef}
-              />
-            </div> */}
             <div className="image-container" onClick={handleContactImageClick}>
               {contactImage && <img src={contactImage} alt="Contact Pic" />}
 
@@ -296,6 +302,7 @@ export const Template1edit = () => {
                 type="file"
                 onChange={handleImageChange}
                 ref={contactImageRef}
+                className="Image-4"
               />
             </div>
 
@@ -304,27 +311,32 @@ export const Template1edit = () => {
             </div>
           </div>
           <div className="contact-details">
-            <input
+            <textarea
               type="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onClick={handleEmailClick}
+              // onClick={handleEmailClick}
             />
-            <input
+            <textarea
               type="tel"
               placeholder="Enter your phone number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              onClick={handlePhoneClick}
+              // onClick={handlePhoneClick}
             />
           </div>
           <div className="contact-buttons">
             <button className="volunteer-button">Volunteer</button>
             <button className="donor-button">Donor</button>
           </div>
+          <button className="publish-button" onClick={handlePublish}>
+            Publish
+          </button>
         </div>
       </footer>
     </div>
   );
 };
+
+export default Templatepage1;

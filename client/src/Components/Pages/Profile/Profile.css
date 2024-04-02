@@ -18,8 +18,8 @@
   width: 100px;
   border-radius: 50%;
   border: 2px solid black;
-  margin-top: 80px;
-  margin-left: 580px;
+  margin-top: 100px;
+  margin-left: 670px;
 }
 .profile-pic input {
   height: 100px;
@@ -33,7 +33,7 @@
   flex-direction: column;
   align-items: center; /* Center items horizontally */
 }
-.count {
+/* .count {
   display: flex;
   flex-direction: row;
   margin-top: 40px;
@@ -44,10 +44,16 @@
 .count a {
   text-decoration: none;
   color: black;
-}
+} */
 .username {
   margin-top: 15px;
-  padding-left: 580px; /* Adjust margin for spacing */
+  padding-left: 655px; /* Adjust margin for spacing */
+}
+.email {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  padding-left: 655px;
 }
 
 .info {

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Template1.css";
+import { useParams } from 'react-router-dom';
 
-export const Template1 = () => {
+const Template1 = () => {
   const [ngo, setNgo] = useState(null);
+  const { ngo_id } = useParams();
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchNgoData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/ngodata/${match.params.ngoid}`);
+        const response = await axios.get(`${apiUrl}/ngodata/${ngo_id}`);
         setNgo(response.data);
       } catch (error) {
         console.error("Error fetching NGO data:", error);
@@ -17,7 +19,7 @@ export const Template1 = () => {
     };
 
     fetchNgoData();
-  }, [match.params.ngoid]);
+  }, [ngo_id]);
 
   if (!ngo) {
     return <div>Loading...</div>;
@@ -27,8 +29,8 @@ export const Template1 = () => {
     <div className="temp1">
       <header>
         <div className="logo">
-          <div className="logo">{logo}</div>
-          <span className="name">{ngoname}</span>
+          <div className="logo">{ngo.logo}</div>
+          <span className="name">{ngo.name}</span>
         </div>
         <nav>
           <ul>
@@ -50,7 +52,7 @@ export const Template1 = () => {
 
       <section id="Home" className="hero-section">
         <div className="image-slider-container">
-          <div className="image-slider">{data.hero}</div>
+          <div className="image-slider">{ngo.heroimage}</div>
         </div>
       </section>
 
@@ -59,11 +61,11 @@ export const Template1 = () => {
           <div className="about-heading">
             <h2>ABOUT US</h2>
           </div>
-          <div className="about-text">{data.aboutus}</div>
+          <div className="about-text">{ngo.aboutUsText}</div>
         </div>
         <div className="about-images">
-          <div className="image-1">{data.image1}</div>
-          <div className="image-2">{data.image2}</div>
+          <div className="image-1">{ngo.aboutUsImage1}</div>
+          {/* <div className="image-2">{data.image2}</div> */}
         </div>
       </section>
 
@@ -84,15 +86,15 @@ export const Template1 = () => {
       <footer id="ContactUs" className="contact-section">
         <div className="contact-container">
           <div className="contact-info">
-            <div className="image-container">{data.contactimg}</div>
+            <div className="image-container">{ngo.contactImage}</div>
 
             <div className="connect-text">
               <h2>Connect With Us</h2>
             </div>
           </div>
           <div className="contact-details">
-            <div className="email">{data.emailId}</div>
-            <div className="pho.no">{data.phoneNumber}</div>
+            <div className="email">{ngo.email}</div>
+            <div className="pho.no">{ngo.phoneNumber}</div>
           </div>
           <div className="contact-buttons">
             <button className="volunteer-button">Volunteer</button>
@@ -103,3 +105,5 @@ export const Template1 = () => {
     </div>
   );
 };
+
+export default Template1;
