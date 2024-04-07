@@ -13,10 +13,10 @@ const Template1Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ngo_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ngos', // Referencing the Ngos model
-    },
+    // ngo_id: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Ngos', // Referencing the Ngos model
+    // },
     heroImages: [{
         id: {
             type: Number
@@ -30,10 +30,10 @@ const Template1Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    aboutUsImage1: {
-        type: String,
-        required: true
-    },
+    // aboutUsImage1: {
+    //     type: String,
+    //     required: true
+    // },
     aboutUsImage2: {
         type: String,
         required: true

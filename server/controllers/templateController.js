@@ -13,7 +13,7 @@ const template1 = async (req, res) => {
             ngoName,
             heroImages,
             aboutUsText,
-            aboutUsImage1,
+            // aboutUsImage1,
             aboutUsImage2,
             recentEvents,
             email,
@@ -27,7 +27,7 @@ const template1 = async (req, res) => {
             ngoName,
             heroImages,
             aboutUsText,
-            aboutUsImage1,
+            // aboutUsImage1,
             aboutUsImage2,
             recentEvents,
             email,
@@ -71,4 +71,4 @@ const getTemplate1 = async (req, res) => {
     }
 }
 
-export { template1, getTemplate1}
+module.exports = { template1, getTemplate1 };
