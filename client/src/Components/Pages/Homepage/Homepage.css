@@ -14,12 +14,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 70px;
+  padding-bottom: 125px;
   height: 100%;
 }
 
-.homepage {
-  font-size: 26px;
-}
 
 .websites {
   display: contents;
@@ -38,8 +37,18 @@ body {
   padding: 10px;
 }
 
+.ngo h1{
+  font-weight: 500;
+}
+
 .ngo:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.ngo button{
+  width: 5rem;
+  height: 2rem;
+  border-radius: 20px;
 }
 
 .build {

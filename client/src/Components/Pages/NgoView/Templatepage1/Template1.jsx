@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Template1.css";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const Template1 = () => {
   const [ngo, setNgo] = useState(null);
@@ -12,7 +12,11 @@ const Template1 = () => {
     const fetchNgoData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.post(`${apiUrl}/templates/fetchtemplate`,{ngo_id,token} ,{withCredintials:true});
+        const response = await axios.post(
+          `${apiUrl}/templates/fetchtemplate`,
+          { ngo_id, token },
+          { withCredintials: true }
+        );
         setNgo(response.data);
       } catch (error) {
         console.error("Error fetching NGO data:", error);
@@ -73,14 +77,15 @@ const Template1 = () => {
       <section id="Events" className="events-section">
         <h2 className="event-heading"> RECENT EVENTS</h2>
         <div className="event-container">
-          {ngo.events.map((event, index) => (
-            <div key={index} className="event">
-              {event.image && (
-                <img src={event.image} alt={`Event ${index + 1}`} />
-              )}
-              <p className="event-description">{event.description}</p>
-            </div>
-          ))}
+          {ngo.events &&
+            ngo.events.map((event, index) => (
+              <div key={index} className="event">
+                {event.image && (
+                  <img src={event.image} alt={`Event ${index + 1}`} />
+                )}
+                <p className="event-description">{event.description}</p>
+              </div>
+            ))}
         </div>
       </section>
 
