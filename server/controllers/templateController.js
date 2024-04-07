@@ -62,10 +62,10 @@ class TemplateHandler{
     // Controller function to fetch Template document associated with the provided NGO ID
     static fetchTemplate = async (req, res) => {
         try {
-            const { ngoId } = req.body; // Extracting NGO ID from request parameters
+            const { ngo_id } = req.body; // Extracting NGO ID from request parameters
 
             // Fetching Template document associated with the provided NGO ID
-            const template1 = await Template.findOne({ ngo_id: ngoId });
+            const template1 = await Template.findOne({ ngo_id: ngo_id });
 
             if (!template1) {
                 return res.status(404).json({ 
