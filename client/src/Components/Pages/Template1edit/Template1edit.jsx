@@ -18,8 +18,8 @@ const Template1edit = () => {
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
-//   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
-    const [aboutUsImage2, setAboutUsImage2] = useState(aboutus2);
+  //   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
+  const [aboutUsImage2, setAboutUsImage2] = useState(aboutus2);
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: event1, description: "Description for Event 1" },
     { id: 2, image: event2, description: "Description for Event 2" },
@@ -31,8 +31,8 @@ const Template1edit = () => {
   const [contactImage, setContactImage] = useState(contactus);
 
   const logoRef = useRef(null);
-//   const aboutUsImage1Ref = useRef(null);
-    const aboutUsImage2Ref = useRef(null);
+  //   const aboutUsImage1Ref = useRef(null);
+  const aboutUsImage2Ref = useRef(null);
   const contactImageRef = useRef(null);
 
   //   useEffect(() => {
@@ -64,9 +64,11 @@ const Template1edit = () => {
     //   contactImage,
     // };
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        `${apiUrl}/templates/template1`,
+        `${apiUrl}/templates/storetemplate`,
         {
+          token,
           logo,
           ngoName,
           aboutUsText,
@@ -123,21 +125,21 @@ const Template1edit = () => {
     setAboutUsText(event.target.value);
   };
 
-//   const handleAboutUsImage1Change = (event) => {
-//     setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
-//   };
+  //   const handleAboutUsImage1Change = (event) => {
+  //     setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
+  //   };
 
-//   const handleAboutUsImage1Click = () => {
-//     aboutUsImage1Ref.current.click();
-//   };
+  //   const handleAboutUsImage1Click = () => {
+  //     aboutUsImage1Ref.current.click();
+  //   };
 
-    const handleAboutUsImage2Change = (event) => {
-      setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
-    };
+  const handleAboutUsImage2Change = (event) => {
+    setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+  };
 
-    const handleAboutUsImage2Click = () => {
-      aboutUsImage2Ref.current.click();
-    };
+  const handleAboutUsImage2Click = () => {
+    aboutUsImage2Ref.current.click();
+  };
 
   const handleAddEvent = () => {
     const newEvent = {

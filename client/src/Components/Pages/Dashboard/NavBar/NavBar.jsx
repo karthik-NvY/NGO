@@ -1,17 +1,17 @@
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { IoMdListBox } from "react-icons/io";
+// import { IoMdListBox } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import logo from "../../../Assets/logo_big.png";
 import "./NavBar.css";
-import Axios from "axios";
+// import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
+  // const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -43,19 +43,15 @@ const NavBar = () => {
 
       <ul>
         <li>
-          <button>
-            <Link to="/home"><AiFillHome className="icon" size={25} /></Link>
-          </button>
+            <Link to="/home"><button><AiFillHome className="icon" size={25} /></button></Link>
         </li>
-        <li>
+        {/* <li>
           <button>
             <IoMdListBox className="icon" size={25} />
           </button>
-        </li>
+        </li> */}
         <li>
-          <button>
-            <Link to="/profile"><FaUserCircle className="icon" size={25} /></Link>
-          </button>
+            <Link to="/profile"><button><FaUserCircle className="icon" size={25} /></button></Link>
         </li>
         <li>
           <button onClick={handleLogout}>

@@ -48,8 +48,16 @@ ul li button {
   background-color: transparent;
 }
 
+ul li button :hover{
+  color: white;
+}
+
 ul li button :active {
   color: white;
+}
+
+ul li Link{
+  color: black;
 }
 
 /* .searchbox {

@@ -24,9 +24,7 @@ class TemplateHandler{
                 phoneNumber,
                 contactImage
             } = req.body;
-
-            ngo_id = await Ngohandler.addNgo(ngoName, req.user_id);
-
+            const ngo_id = await Ngohandler.addNgo(ngoName, req.user_id);
             // Creating a new Template document
             const newTemplate = new Template({
                 logo,
@@ -43,12 +41,12 @@ class TemplateHandler{
             });
             // Saving the document to the database
             const savedTemplate = await newTemplate.save();
-
-            packet = {
+            const packet = {
                 user_id:req.user_id,
                 ngo_id:ngo_id,
                 role:'admin'
             };
+
             await Roles.create(packet);
 
             res.status(201).json({

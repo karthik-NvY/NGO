@@ -12,7 +12,7 @@ class Ngohandler{
 			const packet={
 				name:name,
 				admin:admin
-			};		
+			};	
 			const newUser = await Ngos.create(packet);
 			return newUser._id;
 		}
