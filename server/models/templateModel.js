@@ -5,6 +5,10 @@
 const mongoose = require('mongoose');
 
 const Template1Schema = new mongoose.Schema({
+    template_id : {
+        type: Number,
+        default : 1
+    },
     logo: {
         type: String,
         required: true
