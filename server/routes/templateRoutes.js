@@ -9,6 +9,6 @@ const tokenMiddle = require("../middleware/tokenMiddle");
 const router = new express.Router();
 
 router.post('/storetemplate', tokenMiddle, TemplateHandler.storeTemplate);
-router.get('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
+router.post('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
 
 module.exports = router;

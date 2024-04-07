@@ -11,8 +11,8 @@ const Template1 = () => {
   useEffect(() => {
     const fetchNgoData = async () => {
       try {
-        const token = localStorage.getItem(token);
-        const response = await axios.get(`${apiUrl}/templates/fetchtemplate`,{ngo_id,token} ,{withCredintials:true});
+        const token = localStorage.getItem("token");
+        const response = await axios.post(`${apiUrl}/templates/fetchtemplate`,{ngo_id,token} ,{withCredintials:true});
         setNgo(response.data);
       } catch (error) {
         console.error("Error fetching NGO data:", error);
