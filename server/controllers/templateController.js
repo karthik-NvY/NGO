@@ -3,11 +3,13 @@
 */
 
 const Template = require('../models/templateModel'); // Importing the Template model
+const Ngohandler  = require("../controllers/NgoController");
+const Roles = require('../models/roleModel'); // Importing the Template model
 
 // Controller function to save Template document to the database
 
-class Templatehandler{
-    const storeTemplate = async (req, res) => {
+class TemplateHandler{
+    static storeTemplate = async (req, res) => {
         try {
             // Extracting data from the request body
             const {
@@ -23,10 +25,13 @@ class Templatehandler{
                 contactImage
             } = req.body;
 
+            ngo_id = await Ngohandler.addNgo(ngoName, req.user_id);
+
             // Creating a new Template document
             const newTemplate = new Template({
                 logo,
                 ngoName,
+                ngo_id,
                 heroImages,
                 aboutUsText,
                 // aboutUsImage1,
@@ -36,13 +41,19 @@ class Templatehandler{
                 phoneNumber,
                 contactImage
             });
-
             // Saving the document to the database
             const savedTemplate = await newTemplate.save();
-            
+
+            packet = {
+                user_id:req.user_id,
+                ngo_id:ngo_id,
+                role:'admin'
+            };
+            await Roles.create(packet);
+
             res.status(201).json({
                 message: 'Template saved successfully',
-                savedTemplate
+                //savedTemplate
             }); // Respond with the saved document
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -51,7 +62,7 @@ class Templatehandler{
     }
 
     // Controller function to fetch Template document associated with the provided NGO ID
-    const fetchTemplate = async (req, res) => {
+    static fetchTemplate = async (req, res) => {
         try {
             const { ngoId } = req.body; // Extracting NGO ID from request parameters
 
@@ -76,4 +87,4 @@ class Templatehandler{
 
 
 
-module.exports = { Templatehandler };
+module.exports = { TemplateHandler };

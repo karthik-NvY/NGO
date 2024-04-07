@@ -17,10 +17,11 @@ const Template1Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // ngo_id: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Ngos', // Referencing the Ngos model
-    // },
+    ngo_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ngos', // Referencing the Ngos model
+        required:true
+    },
     heroImages: [{
         id: {
             type: Number

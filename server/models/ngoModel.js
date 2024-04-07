@@ -8,7 +8,7 @@ const ngoInfoSchema = new mongoose.Schema({
     // id of the ngo
     ngo_id: {
         type: String,
-        required : true,
+        //required : true,
         unique: true,
         trim: true,
     },
