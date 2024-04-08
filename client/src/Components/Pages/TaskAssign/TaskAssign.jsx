@@ -11,6 +11,7 @@ const ngo_id1 = "65da11a82216111bff5d0bc0";
 const TaskAssign = () => {
   // State to hold task list fetched from backend
   const [taskList, setTaskList] = useState([]);
+  const[taskId, setTaskId] = useState("");
 
    useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +27,25 @@ const TaskAssign = () => {
     };
     fetchData();
   }, []);
+  
 
+  
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      let response = await fetchAPI(`${port_address}/task/fetchInfo`, {ngo_id: ngo_id1}, "POST", false);
+     // console.log(response);
+      if (!response.success) {
+       // console.log("Response indicates success");
+       console.log("task info success false");
+        // console.log("Ngo tasks received:", response.Ngo_tasks);
+        // setTaskList(response.Ngo_tasks);
+      } else {
+        console.log("Error from backend:", response.message);
+      }
+    };
+    fetchData();
+  }, []);
   // Function to handle selection of a user for a task
   const handleUserSelect = (taskId, userId) => {
     const updatedTaskList = taskList.map((task) => {
@@ -64,10 +83,11 @@ const TaskAssign = () => {
             {/* Check if taskList is defined before mapping */}
             {taskList && taskList.map((task) => (
               <div key={task.task_id} className="task-card">
-                <h3>{task.task_id}</h3>
+                <h3>{task._id}</h3>
+                {/* setTaskId(task._id); */}
                 <div className="user-list">
                   {/* Map through the users array for each task to render each user */}
-                  {task.users.map((user) => (
+                  {/* {task.users.map((user) => (
                     <div key={user.id} className="user-card">
                       <span>{user.name}</span>
                       <div className="user-actions">
@@ -85,7 +105,7 @@ const TaskAssign = () => {
                         </button>
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             ))}
