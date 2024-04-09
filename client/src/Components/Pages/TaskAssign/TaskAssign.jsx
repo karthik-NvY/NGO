@@ -7,19 +7,20 @@ import fetchAPI from "../../Tools/FetchAPI";
 const port_address = `http://localhost:8080`;
 
 const ngo_id1 = "65da11a82216111bff5d0bc0";
+const task_id = "66026442e2b18cac8fdda359";
 
 const TaskAssign = () => {
   // State to hold task list fetched from backend
   const [taskList, setTaskList] = useState([]);
-  const[taskId, setTaskId] = useState("");
+  const[taskInfo, setTaskInfo] = useState(null);
 
    useEffect(() => {
     const fetchData = async () => {
       let response = await fetchAPI(`${port_address}/api/ngoTask`, {ngo_id: ngo_id1}, "POST", false);
-      console.log(response);
+     // console.log(response);
       if (response.success) {
        // console.log("Response indicates success");
-        console.log("Ngo tasks received:", response.Ngo_tasks);
+       // console.log("Ngo tasks received:", response.Ngo_tasks);
         setTaskList(response.Ngo_tasks);
       } else {
         console.log("Error from backend:", response.message);
@@ -30,22 +31,43 @@ const TaskAssign = () => {
   
 
   
-  
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await fetchAPI(`${port_address}/task/fetchInfo`, {ngo_id: ngo_id1}, "POST", false);
-     // console.log(response);
+    const fetchTaskInfo = async (taskId) => {
+      let response = await fetchAPI(`${port_address}/task/fetchInfo`, { id: taskId }, "POST", false);
       if (!response.success) {
-       // console.log("Response indicates success");
-       console.log("task info success false");
-        // console.log("Ngo tasks received:", response.Ngo_tasks);
-        // setTaskList(response.Ngo_tasks);
+        return response; // Return the fetched taskInfo
       } else {
         console.log("Error from backend:", response.message);
+        return null;
       }
     };
-    fetchData();
-  }, []);
+  
+    const fetchDataForTasks = async () => {
+      const tasksInfo = await Promise.all(taskList.map(fetchTaskInfo));
+      // Filter out any null responses
+      const validTasksInfo = tasksInfo.filter(taskInfo => taskInfo !== null);
+      setTaskInfo(validTasksInfo);
+    };
+  
+    fetchDataForTasks();
+  }, [taskList]); // Run this effect whenever taskList changes
+  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let response = await fetchAPI(`${port_address}/task/fetchInfo`, {id:task_id}, "POST", false);
+  //   //  console.log(response);
+  //     if (response.success) {
+  //       console.log("Error from backend:", response.message);
+       
+  //     } else {
+  //     //  console.log("Response indicates success");
+        
+  //          console.log("Ngo tasks received:", response.title);
+  //           setTaskInfo([response]);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   // Function to handle selection of a user for a task
   const handleUserSelect = (taskId, userId) => {
     const updatedTaskList = taskList.map((task) => {
@@ -81,9 +103,9 @@ const TaskAssign = () => {
           <h2>Tasks</h2>
           <div className="tasklist">
             {/* Check if taskList is defined before mapping */}
-            {taskList && taskList.map((task) => (
-              <div key={task.task_id} className="task-card">
-                <h3>{task._id}</h3>
+            {Array.isArray(taskInfo) && taskInfo.map((task) => (
+              <div key={task._id} className="task-card">
+                <h3>{task.title}</h3>
                 {/* setTaskId(task._id); */}
                 <div className="user-list">
                   {/* Map through the users array for each task to render each user */}
