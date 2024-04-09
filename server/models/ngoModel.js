@@ -8,7 +8,7 @@ const ngoInfoSchema = new mongoose.Schema({
     // id of the ngo
     ngo_id: {
         type: String,
-        required : true,
+        //required : true,
         unique: true,
         trim: true,
     },
@@ -26,5 +26,10 @@ const ngoInfoSchema = new mongoose.Schema({
     }
 
 })
+
+ngoInfoSchema.pre('save', async function (next){
+    this.ngo_id=this._id.toString();
+    next();
+});
 
 module.exports = mongoose.model('Ngos', ngoInfoSchema)

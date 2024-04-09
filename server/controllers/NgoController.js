@@ -6,6 +6,25 @@ const {TaskModel} = require('../models/taskInfoModel');
 const Ngos = require('../models/ngoModel'); 
 
 class Ngohandler{
+
+	static addNgo = async(name, admin)=>{
+		try{
+			const packet={
+				name:name,
+				admin:admin
+			};	
+			const newUser = await Ngos.create(packet);
+			return newUser._id;
+		}
+		catch (error) {
+      console.error("Error:", error.message);
+      return res.status(500).json({
+          success: false,
+          message: "Internal server error while adding new NGO",
+      });
+	  }
+	};
+
     //Method runs when Info of NGOs is requested.
 	static fetchNgoInfo = async(req, res) => {
 		try {
