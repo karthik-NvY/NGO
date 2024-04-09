@@ -20,14 +20,14 @@ export const TemplateView = () => {
           </div>
           <div className="container">
             <div className="img1">
-                <Link to="/templatepage1"><button >
+                <Link to="/template1edit"><button >
                 <img src={temp1} alt="template1" />
               </button>
                 </Link>
               <p>Template 1</p>
             </div>
             <div className="img2">
-                <Link to="/templatepage1"><button>
+                <Link to="/template1edit"><button>
                 <img src={temp2} alt="template2" />
               </button></Link>
               <p>Template 2</p>

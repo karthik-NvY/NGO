@@ -119,7 +119,7 @@ class GlobalStatushandler{
                 success: true,
                 data: globalStatusData,
                 ngo_id:ngo_id,
-                message;"Users with global status successfully fetched"
+                message: "Users with global status successfully fetched"
             });
             
         }

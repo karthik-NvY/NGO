@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./Templatepage1.css";
+import React, { useState, useRef } from "react";
+import "./Template1edit.css";
 import hero from "../../Assets/hero.png";
-//import aboutus1 from "../../Assets/aboutus1.png";
+// import aboutus1 from "../../Assets/aboutus1.png";
 import aboutus2 from "../../Assets/aboutus2.png";
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
@@ -9,13 +9,16 @@ import event3 from "../../Assets/event3.png";
 import event4 from "../../Assets/event4.png";
 import contactus from "../../Assets/contactus.png";
 import logopic from "../../Assets/logo_big.png";
+import axios from "axios";
 
-const Templatepage1 = () => {
+const Template1edit = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [logo, setLogo] = useState(logopic);
+  const [ngoName, setNgoName] = useState("NGO name");
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
-  //const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
+  //   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
   const [aboutUsImage2, setAboutUsImage2] = useState(aboutus2);
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: event1, description: "Description for Event 1" },
@@ -28,55 +31,71 @@ const Templatepage1 = () => {
   const [contactImage, setContactImage] = useState(contactus);
 
   const logoRef = useRef(null);
-  //const aboutUsImage1Ref = useRef(null);
+  //   const aboutUsImage1Ref = useRef(null);
   const aboutUsImage2Ref = useRef(null);
   const contactImageRef = useRef(null);
 
-  useEffect(() => {
-    // Function to send data to backend whenever inputs change
-    sendDataToBackend();
-  }, [
-    logo,
-    aboutUsText,
-    //aboutUsImage1,
-    aboutUsImage2,
-    recentEvents,
-    email,
-    phoneNumber,
-    contactImage,
-  ]);
+  //   useEffect(() => {
+  //     // Function to send data to backend whenever inputs change
+  //     sendDataToBackend();
+  //   }, [
+  //     logo,
+  //     ngoName,
+  //     aboutUsText,
+  //     //aboutUsImage1,
+  //     aboutUsImage2,
+  //     recentEvents,
+  //     email,
+  //     phoneNumber,
+  //     contactImage,
+  //   ]);
 
-  const sendDataToBackend = () => {
+  const sendDataToBackend = async () => {
     // Prepare data object to send to backend
-    const data = {
-      logo,
-      aboutUsText,
-      //aboutUsImage1,
-      aboutUsImage2,
-      recentEvents,
-      email,
-      phoneNumber,
-      contactImage,
-    };
-
-    // Example of sending data to backend (replace with actual implementation)
-    fetch("backend_url", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        // Handle success response from backend
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle error
-      });
+    // const data = {
+    //   logo,
+    //   ngoName,
+    //   aboutUsText,
+    //   aboutUsImage1,
+    //   //aboutUsImage2,
+    //   recentEvents,
+    //   email,
+    //   phoneNumber,
+    //   contactImage,
+    // };
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${apiUrl}/templates/storetemplate`,
+        {
+          token,
+          logo,
+          ngoName,
+          aboutUsText,
+          aboutUsImage2,
+          recentEvents,
+          email,
+          phoneNumber,
+          contactImage,
+        },
+        { withCredentials: true }
+      );
+      console.log("Success:", response.data);
+      // navigate("/Verification");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+  // axios
+  //   .post("/template1", data)
+  //   .then((response) => {
+  //     console.log("Success:", response.data);
+  //     // Handle success response from backend
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //     // Handle error
+  //   });
 
   const handlePublish = () => {
     sendDataToBackend();
@@ -94,17 +113,25 @@ const Templatepage1 = () => {
     logoRef.current.click();
   };
 
+  const handleNgoNameChange = (event) => {
+    const value = event.target.value;
+    const maxLength = 34;
+    if (value.length <= maxLength) {
+      setNgoName(value); // Update the input value state
+    }
+  };
+
   const handleAboutUsTextChange = (event) => {
     setAboutUsText(event.target.value);
   };
 
-  // const handleAboutUsImage1Change = (event) => {
-  //   setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
-  // };
+  //   const handleAboutUsImage1Change = (event) => {
+  //     setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
+  //   };
 
-  // const handleAboutUsImage1Click = () => {
-  //   aboutUsImage1Ref.current.click();
-  // };
+  //   const handleAboutUsImage1Click = () => {
+  //     aboutUsImage1Ref.current.click();
+  //   };
 
   const handleAboutUsImage2Change = (event) => {
     setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
@@ -164,9 +191,9 @@ const Templatepage1 = () => {
   const handleImageChange = (event) => {
     setContactImage(URL.createObjectURL(event.target.files[0]));
   };
-
   return (
     <div className="temp1">
+      {" "}
       <header>
         <div className="logo">
           <div className="logopic" onClick={handleLogoClick}>
@@ -180,8 +207,14 @@ const Templatepage1 = () => {
               className="Image-1"
             />
           </div>
-
-          <span className="name">NGO name</span>
+          <div className="name">
+            <textarea
+              type="text"
+              value={ngoName}
+              onChange={handleNgoNameChange}
+              className="name-text"
+            />
+          </div>
         </div>
         <nav>
           <ul>
@@ -200,7 +233,6 @@ const Templatepage1 = () => {
           </ul>
         </nav>
       </header>
-
       <section id="Home" className="hero-section">
         <div className="image-slider-container">
           <div className="image-slider">
@@ -208,7 +240,6 @@ const Templatepage1 = () => {
           </div>
         </div>
       </section>
-
       <section id="AboutUs" className="about-section">
         <div className="about-content">
           <div className="about-heading">
@@ -249,7 +280,6 @@ const Templatepage1 = () => {
           </div>
         </div>
       </section>
-
       <section id="Events" className="events-section">
         <h2 className="event-heading"> RECENT EVENTS</h2>
         <div className="event-container">
@@ -290,7 +320,6 @@ const Templatepage1 = () => {
           Add Event
         </button>
       </section>
-
       <footer id="ContactUs" className="contact-section">
         <div className="contact-container">
           <div className="contact-info">
@@ -339,4 +368,4 @@ const Templatepage1 = () => {
   );
 };
 
-export default Templatepage1;
+export default Template1edit;

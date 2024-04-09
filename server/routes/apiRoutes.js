@@ -6,7 +6,7 @@ const router = new express.Router();
 
 const Ngohandler  = require("../controllers/NgoController");
 const tokenMiddle = require("../middleware/tokenMiddle");
-//const taskAutomationController = require("../controllers/taskAutomationController");
+const taskAutomationController = require("../controllers/taskAutomationController");
 
 router.post("/ngoTask", tokenMiddle, Ngohandler.FetchNgoTasks); // Route /api/ngotask
 router.post("/ngoInfo", tokenMiddle, Ngohandler.fetchNgoInfo); //Route /user/ngoinfopage

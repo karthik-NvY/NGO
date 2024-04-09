@@ -30,13 +30,13 @@ const Homepage = () => {
     <div className="home">
       <NavBar />
       <div className="homepage">
-        <h1>NGO Websites</h1>
+        {/* <h1>NGO Websites</h1> */}
         <div className="websites">
           {Array.isArray(ngos) &&
             ngos.map((ngo) => (
               <div className="ngo" key={ngo._id}>
                 <Ngo name={ngo.name} creator={ngo.admin} />
-                <Link to={`/ngo/${ngo.name}/${ngo.ngo_id}`} className="view-link">View</Link>
+                <button><Link to={`/ngo/${ngo.name}/${ngo.ngo_id}`} className="view-link">View</Link></button>
               </div>
             ))}
         </div>

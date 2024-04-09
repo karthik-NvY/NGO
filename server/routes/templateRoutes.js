@@ -3,10 +3,12 @@
 */
 
 const express = require('express');
-const { template1, getTemplate1 } = require('../controllers/templateController');
+const { TemplateHandler } = require('../controllers/templateController');
+const tokenMiddle = require("../middleware/tokenMiddle");
+
 const router = new express.Router();
 
-router.post('/template1', template1);
-router.get('/template1/:ngoId', getTemplate1);
+router.post('/storetemplate', tokenMiddle, TemplateHandler.storeTemplate);
+router.post('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
 
 module.exports = router;

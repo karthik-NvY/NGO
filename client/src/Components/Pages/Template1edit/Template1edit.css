@@ -25,8 +25,18 @@ header {
   overflow: hidden;
 }
 
-.name {
+.name textarea {
+  background-color: transparent;
+  outline: none;
   color: #fff;
+  font-size: 20px;
+  width: 400px;
+  /* max-width: calc(100% - 10px); */
+  height: 30px;
+  resize: none;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
 
 .logo {
@@ -271,7 +281,7 @@ nav ul li a:hover {
 .image-container img {
   width: 300px;
   height: 500px;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 .connect-text {
@@ -326,6 +336,7 @@ nav ul li a:hover {
   color: #000;
   font-size: 15px;
   resize: none;
+  width: 200px;
   word-wrap: break-word;
   white-space: normal;
   overflow: hidden;
@@ -361,7 +372,7 @@ nav ul li a:hover {
   border-radius: 25px;
   border: none;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   transition: background-color 0.3s ease;
   margin-right: 10px;
 }
@@ -374,7 +385,7 @@ nav ul li a:hover {
 
 .publish-button {
   position: fixed;
-  bottom: 50px; /* Adjust this value to adjust vertical position */
+  bottom: 40px; /* Adjust this value to adjust vertical position */
   right: 50px; /* Adjust this value to adjust horizontal position */
   background-color: #7b736b; /* Button background color */
   color: #fff; /* Button text color */
