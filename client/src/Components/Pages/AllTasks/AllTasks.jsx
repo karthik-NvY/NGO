@@ -15,10 +15,10 @@ export const AllTasks = () => {
         const ngo_id = localStorage.getItem("ngo_id");
         const response = await axios.post(
           `${apiUrl}/api/ngoTask`,
-          { token,ngo_id },
+          { token, ngo_id },
           { withCredentials: true }
         );
-        setTasks(response.data.tasks);
+        setTasks(response.data.Ngo_tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
@@ -27,21 +27,21 @@ export const AllTasks = () => {
     fetchTasks();
   }, [apiUrl]);
 
-    const handleCreate = () => {
-      navigate("/Taskpage");
-    };
+  const handleCreate = () => {
+    navigate("/Taskpage");
+  };
 
   return (
     <div className="main">
       <div className="tasks">
         <h2>NGO Tasks</h2>
         <ul>
-          {tasks.map((task) => (
-            <li key={task._id}>{task.taskName}</li>
-          ))}
+          {tasks && tasks.map((task) => <li key={task._id}>{task.title}</li>)}
         </ul>
         <button className="st">Select Task</button>
-        <button className="ct" onClick={handleCreate}>Create Task</button>
+        <button className="ct" onClick={handleCreate}>
+          Create Task
+        </button>
       </div>
     </div>
   );
