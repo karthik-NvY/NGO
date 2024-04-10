@@ -4,12 +4,16 @@ import "./Template1.css";
 import { useParams } from "react-router-dom";
 import { IoMdListBox } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import ConfirmationModal from "../../Dashboard/ConfirmationModal/ConfirmationModal";
 
 const Template1 = () => {
   const [ngo, setNgo] = useState(null);
   const { ngo_id } = useParams();
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     const fetchNgoData = async () => {
@@ -35,6 +39,36 @@ const Template1 = () => {
 
   const handleAllTasks = () => {
     navigate("/AllTasks");
+  };
+
+  const handleVolunteer = () => {
+    const message = `Please confirm that you are interested in volunteering to ${ngo.ngoName}?`;
+    setModalMessage(message);
+    setShowConfirmationModal(true);
+  };
+  
+  const handleDonor = () => {
+    const message = `Please confirm that you are interested in donating to ${ngo.ngoName}?`;
+    setModalMessage(message);
+    setShowConfirmationModal(true);
+  };  
+
+  const handleConfirm = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const role = showConfirmationModal === "volunteer" ? "Volunteer" : "Donor";
+      const response = await axios.post(
+        `${apiUrl}/api/rolesignup`,
+        { token, role },
+        { withCredentials: true }
+      );
+      console.log("Volunteering/donation successful", response);
+      // Handle success response
+    } catch (error) {
+      console.error("Error in adding volunteering/donation:", error);
+    } finally {
+      setShowConfirmationModal(false);
+    }
   };
 
   return (
@@ -115,9 +149,12 @@ const Template1 = () => {
             <div className="pho.no">{ngo.phoneNumber}</div>
           </div>
           <div className="contact-buttons">
-            <button className="volunteer-button">Volunteer</button>
-            <button className="donor-button">Donor</button>
+            <button className="volunteer-button" onClick={handleVolunteer}>Volunteer</button>
+            <button className="donor-button" onClick={handleDonor}>Donor</button>
           </div>
+          {showConfirmationModal && (
+          <ConfirmationModal message={modalMessage} onConfirm={handleConfirm} />
+        )}
         </div>
       </footer>
     </div>

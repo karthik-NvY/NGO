@@ -10,9 +10,11 @@ import event4 from "../../Assets/event4.png";
 import contactus from "../../Assets/contactus.png";
 import logopic from "../../Assets/logo_big.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Template1edit = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
   const [logo, setLogo] = useState(logopic);
   const [ngoName, setNgoName] = useState("NGO name");
   const [aboutUsText, setAboutUsText] = useState(
@@ -81,7 +83,7 @@ const Template1edit = () => {
         { withCredentials: true }
       );
       console.log("Success:", response.data);
-      // navigate("/Verification");
+      navigate("/Home");
     } catch (error) {
       console.error("Error:", error);
     }

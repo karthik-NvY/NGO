@@ -12,6 +12,7 @@ import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
 import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
+import DescriptionPage from "./Components/Pages/DescriptionPage/DescriptionPage";
 function App() {
   return (
 
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/Taskpage" element={<Taskpage/>}/>
+        <Route path="/DescriptionPage" element={<DescriptionPage/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<WelcomePage />} />

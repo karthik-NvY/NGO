@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Taskpage.css";
-import NavBar from "../Dashboard/NavBar/NavBar";
+import { useNavigate } from "react-router-dom";
 
 export const Taskpage = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
 
   const [taskData, setTaskData] = useState({
     title: "",
@@ -41,6 +42,7 @@ export const Taskpage = () => {
         date: "",
         no_volunteer: "",
       });
+      navigate("/AllTasks")
     } catch (error) {
       console.error("Failed to create task:", error);
     }
