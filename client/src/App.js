@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Taskpage } from "./Components/Pages/Taskpage/Taskpage";
 import Login from "./Components/Pages/Login/Login";
 import Template1 from "./Components/Pages/NgoView/Templatepage1/Template1";
 import WelcomePage from './Components/Pages/Dashboard/WelcomePage';
@@ -18,7 +18,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/Template1" element={<Template1/>}/> */}
+        <Route path="/Taskpage" element={<Taskpage/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<WelcomePage />} />
