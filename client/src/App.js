@@ -11,6 +11,7 @@ import Verification from "./Components/Pages/Verification/Verification";
 import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
 import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
+import AllTasks from "./Components/Pages/AllTasks/AllTasks";
 function App() {
   return (
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Home" element={<Homepage />} />
         <Route path="/templateview" element={<TemplateView />} />
         <Route path="/template1edit" element={<Template1edit />} />
+        <Route path="/AllTasks" element={<AllTasks />} />
       </Routes>
     </BrowserRouter>
   );

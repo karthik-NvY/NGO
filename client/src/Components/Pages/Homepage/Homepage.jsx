@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Homepage.css";
 import NavBar from "../Dashboard/NavBar/NavBar";
 import Ngo from "../Dashboard/Ngo";
-import setAuthHeaders from "../../Utils/setAuthHeaders";
 
 const Homepage = () => {
   const [ngos, setNgos] = useState([]);
@@ -14,8 +13,11 @@ const Homepage = () => {
     const fetchNgos = async () => {
       try {
         const token = localStorage.getItem("token");
-        setAuthHeaders(token); 
-        const response = await axios.post(`${apiUrl}/api/ngoInfo`,{token},{withCredentials:true});
+        const response = await axios.post(
+          `${apiUrl}/api/ngoInfo`,
+          { token },
+          { withCredentials: true }
+        );
         setNgos(response.data.allNgos);
         console.log(response.data);
       } catch (error) {
@@ -36,14 +38,23 @@ const Homepage = () => {
             ngos.map((ngo) => (
               <div className="ngo" key={ngo._id}>
                 <Ngo name={ngo.name} creator={ngo.admin} />
-                <button><Link to={`/ngo/${ngo.name}/${ngo.ngo_id}`} className="view-link">View</Link></button>
+                <button>
+                  <Link
+                    to={`/ngo/${ngo.name}/${ngo.ngo_id}`}
+                    className="view-link"
+                  >
+                    View
+                  </Link>
+                </button>
               </div>
             ))}
         </div>
       </div>
       <div className="build">
         <p>Wanna add your website</p>
-        <Link to="/templateView"><button>Build your own website</button></Link>
+        <Link to="/templateView">
+          <button>Build your own website</button>
+        </Link>
       </div>
     </div>
   );
