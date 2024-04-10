@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Homepage.css";
 import NavBar from "../Dashboard/NavBar/NavBar";
 import Ngo from "../Dashboard/Ngo";
-import setAuthHeaders from "../../Utils/setAuthHeaders";
 
 const Homepage = () => {
   const [ngos, setNgos] = useState([]);
@@ -48,7 +47,9 @@ const Homepage = () => {
       </div>
       <div className="build">
         <p>Wanna add your website</p>
-        <Link to="/templateView"><button>Build your own website</button></Link>
+        <Link to="/templateView">
+          <button>Build your own website</button>
+        </Link>
       </div>
     </div>
   );
