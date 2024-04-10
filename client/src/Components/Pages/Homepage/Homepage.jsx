@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Homepage.css";
 import NavBar from "../Dashboard/NavBar/NavBar";
 import Ngo from "../Dashboard/Ngo";
+import setAuthHeaders from "../../Utils/setAuthHeaders";
 
 const Homepage = () => {
   const [ngos, setNgos] = useState([]);
@@ -13,11 +14,8 @@ const Homepage = () => {
     const fetchNgos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.post(
-          `${apiUrl}/api/ngoInfo`,
-          { token },
-          { withCredentials: true }
-        );
+        setAuthHeaders(token); 
+        const response = await axios.post(`${apiUrl}/api/ngoInfo`, { token }, { withCredentials: true });
         setNgos(response.data.allNgos);
         console.log(response.data);
       } catch (error) {
@@ -28,24 +26,22 @@ const Homepage = () => {
     fetchNgos();
   }, [apiUrl]);
 
+  const handleViewClick = (ngoId) => {
+    localStorage.setItem("ngo_id", ngoId);
+  };
+
+  //const ngo_id = localStorage.getItem("ngo_id");
+
   return (
     <div className="home">
       <NavBar />
       <div className="homepage">
-        {/* <h1>NGO Websites</h1> */}
         <div className="websites">
           {Array.isArray(ngos) &&
             ngos.map((ngo) => (
               <div className="ngo" key={ngo._id}>
                 <Ngo name={ngo.name} creator={ngo.admin} />
-                <button>
-                  <Link
-                    to={`/ngo/${ngo.name}/${ngo.ngo_id}`}
-                    className="view-link"
-                  >
-                    View
-                  </Link>
-                </button>
+                <Link to={`/ngo/${ngo.name}/${ngo._id}`} onClick={() => handleViewClick(ngo._id)} className="view-link">View</Link>
               </div>
             ))}
         </div>

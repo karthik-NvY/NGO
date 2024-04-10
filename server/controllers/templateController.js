@@ -24,7 +24,7 @@ class TemplateHandler{
                 phoneNumber,
                 contactImage
             } = req.body;
-            const ngo_id = await Ngohandler.addNgo(ngoName, req.user_id);
+            const ngo_id = await Ngohandler.addNgo(ngoName, req.name);
             // Creating a new Template document
             const newTemplate = new Template({
                 logo,

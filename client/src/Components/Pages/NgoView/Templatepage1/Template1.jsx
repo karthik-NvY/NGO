@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Template1.css";
 import { useParams } from "react-router-dom";
+import { IoMdListBox } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Template1 = () => {
   const [ngo, setNgo] = useState(null);
   const { ngo_id } = useParams();
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNgoData = async () => {
@@ -30,6 +33,10 @@ const Template1 = () => {
     return <div>Loading...</div>;
   }
 
+  const handleAllTasks = () => {
+    navigate("/AllTasks");
+  };
+
   return (
     <div className="temp1">
       <header>
@@ -50,6 +57,11 @@ const Template1 = () => {
             </li>
             <li>
               <a href="#ContactUs">Contact Us</a>
+            </li>
+            <li>
+            <button onClick={handleAllTasks}>
+            <IoMdListBox className="taskbutton" size={25} />
+          </button>
             </li>
           </ul>
         </nav>
