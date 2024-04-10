@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Homepage.css";
 import NavBar from "../Dashboard/NavBar/NavBar";
 import Ngo from "../Dashboard/Ngo";
+import setAuthHeaders from "../../Utils/setAuthHeaders";
 
 const Homepage = () => {
   const [ngos, setNgos] = useState([]);
