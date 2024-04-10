@@ -13,7 +13,7 @@ const taskSchema = new mongoose.Schema({
     },
     // number of volunteer required for this task
     no_volunteer: {
-        type: Int16Array,
+        type: Number,
         required: true,
     },
 
@@ -39,7 +39,7 @@ const taskSchema = new mongoose.Schema({
 const volunteerChoiceSchema = new mongoose.Schema({
     // user_id of the volunteer
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
         trim: true,
