@@ -1,20 +1,38 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .tasks {
-  margin-top: 20px;
+  margin-bottom: auto;
   padding: 20px;
 
   width: 80%;
   max-width: 600px;
 }
 
+.tasks ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tasks li {
+  border: 1px solid #ccc; /* Border style */
+  height: 50px; /* Height */
+  width: 40vb; /* Width */
+  border-radius: 10px; /* Border radius */
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.tasks li:hover {
+  background-color: #f0f0f0;
+}
+
 .tasks h2 {
   margin-bottom: 10px;
-  text-align: center;
+  text-align: top;
   font-family: "Poppins", sans-serif;
 }
 
