@@ -12,6 +12,7 @@ import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
 import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
+
 import TaskAssign from "./Components/Pages/TaskAssign/TaskAssign";
 
 function App() {
