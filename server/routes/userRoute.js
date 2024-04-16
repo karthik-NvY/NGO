@@ -14,6 +14,7 @@ router.post("/login", userAuth.userLogin); // Route /user/login
 router.post("/delete", userAuth.deleteUserData); // Route /user/signup
 router.post("/update", userAuth.updateUserData); 
 router.post("/profile", tokenMiddle, userAuth.fetchUserProfile); //Route /user/profile
+//router.post("/profile", userAuth.fetchUserProfile); //Route /user/profile
 router.post("/logout", tokenMiddle, userAuth.logOut); //Route /user/profile
 
 module.exports = router;

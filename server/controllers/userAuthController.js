@@ -53,10 +53,10 @@ class userAuth{
 	        const newUser = await Users.create(packet);
 	        
 	        return res.status(201).json({	             
-		            success: true,
-		            newUser,
-		            message:"User registration successfully done"
-	            });
+	            success: true,
+	            newUser,
+	            message:"User registration successfully done"
+	        });
 	    } 
 	    catch (error) {
 	        console.log(error);

@@ -56,6 +56,9 @@ const Register = () => {
       navigate("/Verification");
     } catch (error) {
       console.error("Failed to send", error);
+      if(error === 400){
+        alert("Missing Credentials");
+      }
     }
   };
   return (

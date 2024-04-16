@@ -5,13 +5,22 @@
 const mongoose = require('mongoose');
 
 const Template1Schema = new mongoose.Schema({
+    template_id : {
+        type: Number,
+        default : 1
+    },
     logo: {
         type: String,
         required: true
     },
-    name: {
+    ngoName: {
         type: String,
         required: true
+    },
+    ngo_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ngos', // Referencing the Ngos model
+        required:true
     },
     heroImages: [{
         id: {
@@ -26,10 +35,10 @@ const Template1Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    aboutUsImage1: {
-        type: String,
-        required: true
-    },
+    // aboutUsImage1: {
+    //     type: String,
+    //     required: true
+    // },
     aboutUsImage2: {
         type: String,
         required: true

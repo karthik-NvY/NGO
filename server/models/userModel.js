@@ -49,6 +49,12 @@ userSchema.pre('save', async function (next){
 
 
 
+
+// userSchema.post('save', async function (doc){
+//     doc.user_id = doc._id.toString();
+//     doc.save();
+// });
+
 //function for password decryption
 userSchema.methods.matchPassword = async function (enteredPassword){
     return await bcrypt.compare(enteredPassword,this.password);
