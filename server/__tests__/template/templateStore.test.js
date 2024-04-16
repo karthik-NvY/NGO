@@ -1,6 +1,14 @@
 const request = require('supertest')
 
 describe("Storing template variables", ()=>{
+    let loginres;
+
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+    });
+
 	test('Return error if token is not set properly', async () => {
         // No token.
         const res = await request("http://localhost:8080").post('/templates/storetemplate')
@@ -9,10 +17,6 @@ describe("Storing template variables", ()=>{
     });
 
 	test("Missing NGO template varibles", async ()=>{
-		// Login to get token.
-	    const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
-	    const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
-
 		packet = { token:loginres.body.token }
 		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet)
 
@@ -21,10 +25,6 @@ describe("Storing template variables", ()=>{
 	});
 
 	test("Return error if NGO already exists", async ()=>{
-		// Login to get token.
-	    const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
-	    const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
-
 		packet = { 
 			token:loginres.body.token, 
 			logo: "logo",
@@ -45,10 +45,6 @@ describe("Storing template variables", ()=>{
 
 	// In this, after creation deletion is not done. So works only once.
 	test("Successful creation of new NGO", async ()=>{
-		// Login to get token.
-	    const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
-	    const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
-
 		packet = { 
 			token:loginres.body.token, 
 			logo: "logo",
