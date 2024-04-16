@@ -1,6 +1,12 @@
 const request = require('supertest')
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGF2aXRocmFuIiwiZW1haWwiOiIyMDIxY3NiMTA4OEBpaXRycHIuYWMuaW4iLCJpZCI6IjY2MDQzODM4MzZhNTJhZjhmNjdlY2MxMCIsImlhdCI6MTcxMzI2Njk2MCwiZXhwIjoxNzEzMzUzMzYwfQ.PlEHLKgoMY8bkaGUAXKEUSGnaithazu-P7TKPVmagQg"
 describe('Adding Global available status for a user for an Ngo', () => {
+    let loginres;
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+        token = loginres.body.token;
+    });
     test('Return error if user id is missing', async () => {
         const packet = { 
             ngo_id :  "65f04de683c50c03dfd91263",  
@@ -45,6 +51,12 @@ describe('Adding Global available status for a user for an Ngo', () => {
  
 });
 describe('Fetching available users for an Ngo', () => {
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+        token = loginres.body.token;
+    });
     test('Return error if ngo id is missing', async () => {
         const packet = { 
             user_id :  "65f04de683c50c03dfd91263",
@@ -76,7 +88,13 @@ describe('Fetching available users for an Ngo', () => {
     });
 });
 
-describe('Deletong Global available status (i.e Not available) for a user for an Ngo', () => {
+describe('Deleting Global available status (i.e Not available) for a user for an Ngo', () => {
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+        token = loginres.body.token;
+    });
     test('Return error if user id is missing', async () => {
         const packet = { 
             ngo_id :  "65f04de683c50c03dfd91263",  
