@@ -183,80 +183,61 @@ class userAuth{
 	// Method that runs when signup is requested.
 	static updateUserData = async(req, res) => {
 		try{
-		const {id, newData} = req.body; // Extract data from req.
-        // new data is a set with attribute mentioned as per model
-		if (!id) {
-			return res.status(400).json({
-				error: "Please provide an ID to find the user"
-			});
-		}
-		const updatedUser = await Users.findOneAndUpdate(
-			{ _id: id },
-			{ $set: newData },
-			{ new: true }
-		);
-		// if the provided ID is not there in the schema
-		if (!updatedUser) {
-			return res.status(404).json({
-				success: false,
-				message: "No user found with the provided ID"
-			});
-		}
-		// user has been updated
-		return res.status(200).json({
-			success: true,
-			message: "Task updated successfully",
-			updatedUser
-		});
-	}
- catch (error) {
-	return res.status(500).json({
-		success: false,
-		message: "Internal server error while updating user profile data",
-	});
-}
-}
-	static deleteUserData = async(req, res) => {
-	try{
-		const {id} = req.body; // Extract data from req.
-				// new data is a set with attribute mentioned as per model
-		    if (!id) {
-					return res.status(400).json({
-						error: "Please provide an ID to find the user"
-					});
-				}
-				
-				const del_user = await Users.findOne({_id: id })
-				if (!del_user) {
-					return res.status(404).json({
-						success: false,
-						message: "No user found with the provided ID"
-					});
-				}
-				const user_id = del_user.user_id
-                
-				await Promise.all([
-					Roles.deleteMany({ user_id:user_id }),
-					waitlist.deleteMany({user_id: user_id }),
-					VolunteerChoiceModel.deleteMany({ user_id: user_id }),
-					AssignedModel.deleteMany({ user_id :user_id }),
-				]);
-
-				const deletedUser = await Users.findOneAndDelete({ _id: id });
-				// if the provided ID is not there in the schema
-				// user has been deleted
-				return res.status(200).json({
-					success: true,
-					message: "user deleteded successfully",
+			const {newData} = req.body; // Extract data from req.
+	        // new data is a set with attribute mentioned as per model
+	        const id = req.user_id
+	        if (!newData){
+	        	return res.status(404).json({
+					success: false,
+					error:"No data being updated"
 				});
-			}
-			catch (error) {
+	        }
+			const updatedUser = await Users.findOneAndUpdate(
+				{ _id: id },
+				{ $set: newData },
+				{ new: true }
+			);
+			// user has been updated
+			return res.status(200).json({
+				success: true,
+				message: "User updated successfully",
+				updatedUser
+			});
+		}
+ 		catch (error) {
 			return res.status(500).json({
 				success: false,
 				message: "Internal server error while updating user profile data",
 			});
 		}
+	};
+
+	static deleteUserData = async(req, res) => {
+		try{
+			const user_id = req.user_id;
+			console.log(user_id)  
+			await Promise.all([
+				Roles.deleteMany({ user_id:user_id }),
+				waitlist.deleteMany({user_id: user_id }),
+				VolunteerChoiceModel.deleteMany({ user_id: user_id }),
+				AssignedModel.deleteMany({ user_id :user_id }),
+			]);
+
+			const deletedUser = await Users.findOneAndDelete({ _id: id });
+			// if the provided ID is not there in the schema
+			// user has been deleted
+			return res.status(200).json({
+				success: true,
+				message: "User deleted successfully",
+			});
+		}
+		catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: "Internal server error while updating user profile data",
+		});
+		}
 	}
 
 }
-module.exports = userAuth // Export class
+module.exports = userAuth // Export classmodule.exports = userAuth // Export class
