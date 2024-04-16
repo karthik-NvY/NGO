@@ -17,6 +17,7 @@ describe("Storing template variables", ()=>{
     });
 
 	test("Missing NGO template varibles", async ()=>{
+		// No Template values are given.
 		packet = { token:loginres.body.token }
 		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet)
 
@@ -25,6 +26,7 @@ describe("Storing template variables", ()=>{
 	});
 
 	test("Return error if NGO already exists", async ()=>{
+		// ngo already exists. Duplicate ngo names from same user are not allowed.
 		packet = { 
 			token:loginres.body.token, 
 			logo: "logo",
@@ -45,6 +47,7 @@ describe("Storing template variables", ()=>{
 
 	// In this, after creation deletion is not done. So works only once.
 	test("Successful creation of new NGO", async ()=>{
+		// New creation of ngo.
 		packet = { 
 			token:loginres.body.token, 
 			logo: "logo",
@@ -70,5 +73,4 @@ describe("Storing template variables", ()=>{
 		expect(res.status).toBe(201);
         expect(res.body.message).toBe('Template saved successfully');
 	});
-
 })

@@ -16,6 +16,7 @@ describe("Storing template variables", ()=>{
     });
 
 	test("Return error when missing NGO details", async ()=>{
+		// No ngo_id provided.
 		packet = { token:loginres.body.token }
 		const res = await request("http://localhost:8080").post('/templates/fetchtemplate').send(packet)
 
@@ -24,6 +25,7 @@ describe("Storing template variables", ()=>{
 	});
 
 	test("Return error if invalid NGO is being fetched", async ()=>{
+		// ngo_id provided is not in templates collection.
 		packet = { token:loginres.body.token, ngo_id:'661272d8a0de69c7dcae55f0'}
 		const res = await request("http://localhost:8080").post('/templates/fetchtemplate').send(packet)
 
@@ -32,6 +34,7 @@ describe("Storing template variables", ()=>{
 	});
 
 	test("Successful fetching of NGO variables", async ()=>{
+		// Valid ngo_id copied from mongo atlas.
 		packet = { token:loginres.body.token, ngo_id:'661272d8a0de69c7dcae55f3'}
 		const res = await request("http://localhost:8080").post('/templates/fetchtemplate').send(packet)
 

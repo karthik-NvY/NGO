@@ -1,6 +1,12 @@
 const request = require('supertest')
 
 describe('User Update', () => {
+    let loginres;
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+    });
     test('Return error if token is not set properly', async () => {
         // No token.
         const res = await request("http://localhost:8080").post('/user/update')
@@ -9,10 +15,6 @@ describe('User Update', () => {
     });
 
     test('Return error if no data is being updated', async () => {
-        // Login to get token.
-        const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
-        const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
-
         // Use token but nothing to update.
         const packet = {token:loginres.body.token};
         const res = await request("http://localhost:8080").post('/user/update').send(packet)
@@ -42,10 +44,6 @@ describe('User Update', () => {
     });
 
     test('Successful update', async () => {
-        // Login with a known account to get token.
-        const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
-        const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
-
         // Use token and update name
         const packet = {token:loginres.body.token, newData:{name:"Sai Datta"}};
         const res = await request("http://localhost:8080").post('/user/update').send(packet)
