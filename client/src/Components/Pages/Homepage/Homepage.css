@@ -1,50 +1,86 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  overflow: auto;
 }
 
-body{
-    background-color: #efecec;
+body {
+  background-color: #efecec;
 }
 
 .home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 70px;
+  padding-bottom: 125px;
+  height: 100%;
+}
+
+
+.websites {
+  display: contents;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  place-items: center;
+  font-size: medium;
+  font-weight: 300;
+}
+
+.ngo {
+  width: 80vb;
+  height: auto;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.ngo h1{
+  font-weight: 500;
+}
+
+.ngo:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.ngo button{
+  width: 5rem;
+  height: 2rem;
+  border-radius: 20px;
 }
 
 .build {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 20px;
-    bottom: 3%;
-    height: 120px;
-    width: 700px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  /* opacity: 0.8; */
+  border-radius: 20px;
+  bottom: 3%;
+  height: 100px;
+  width: 700px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
 .build button {
-    border: none;
-    background-color: #6fb3bb;
-    padding: 5px 5px;
-    margin: 20px 20px;
-    border-radius: 20px;
-    height: 60px;
-    width: 300px;
-    font-size: 15px;
-    transition: opacity 0.15s, box-shadow 0.15s;;
+  border: none;
+  background-color: #6fb3bb;
+  padding: 5px 5px;
+  margin: 20px 20px;
+  border-radius: 20px;
+  height: 60px;
+  width: 300px;
+  font-size: 15px;
+  transition: opacity 0.15s, box-shadow 0.15s;
 }
 
-.build button :hover{
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+.build button :hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
-.build button :active{
-    opacity: 0.6;
+.build button :active {
+  opacity: 0.6;
 }
