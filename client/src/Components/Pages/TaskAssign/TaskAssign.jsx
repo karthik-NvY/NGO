@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./TaskAssign.css";
 import NavBar from "../Dashboard/NavBar/NavBar"; // Optional NavBar component
 import { FaCheck, FaTimes } from "react-icons/fa";
-import fetchAPI from "../../Tools/FetchAPI";
+import fetchAPI from "../../Utils/FetchAPI";
 
 const port_address = `http://localhost:8080`;
 
@@ -28,7 +28,7 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchTaskInfo = async (taskId) => {
-      let response = await fetchAPI(`${port_address}/task/fetchInfo`, { id: taskId }, "POST", false);
+      let response = await fetchAPI(`${port_address}/task/fetchInfo`, { _id: taskId }, "POST", false);
       return response.success ? response.task : null;
     };
 
@@ -42,7 +42,7 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchTaskUsers = async (taskId) => {
-      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { taskId }, "POST", false);
+      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { _id:taskId }, "POST", false);
       return response.success ? response.users : [];
     };
 
