@@ -41,21 +41,27 @@ const TaskAssign = () => {
   }, [taskList]);
 
   useEffect(() => {
+    const fetchTaskUsers = async (taskId) => {
+      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { taskId }, "POST", false);
+      return response.success ? response.users : [];
+    };
+
     const fetchUserDetails = async (userId) => {
       let response = await fetchAPI(`${port_address}/user/fetchInfo`, { id: userId }, "POST", false);
       return response.success ? response.user : null;
     };
 
     const fetchUsersForTasks = async () => {
-      const usersInfo = await Promise.all(
-        taskInfo.flatMap(task => task.users.map(user => user.id)).map(fetchUserDetails)
-      );
-      const updatedTaskInfo = taskInfo.map(task => ({
-        ...task,
-        users: task.users.map(user => ({
-          ...user,
-          details: usersInfo.find(userInfo => userInfo && userInfo.id === user.id)
-        }))
+      const updatedTaskInfo = await Promise.all(taskInfo.map(async task => {
+        const users = await fetchTaskUsers(task._id);
+        const usersWithDetails = await Promise.all(users.map(user => fetchUserDetails(user._id)));
+        return {
+          ...task,
+          users: users.map((user, index) => ({
+            ...user,
+            details: usersWithDetails[index]
+          }))
+        };
       }));
       setTaskInfo(updatedTaskInfo);
     };
@@ -65,7 +71,7 @@ const TaskAssign = () => {
 
   // Function to handle selection of a user for a task
   const handleUserSelect = async (taskId, userId) => {
-    let response = await fetchAPI(`${port_address}/task/updateUsers`, { taskId, userId }, "POST", false);
+    let response = await fetchAPI(`${port_address}/taskuser/add_task`, { taskId, userId }, "POST", false);
     if (response.success) {
       const updatedTaskList = taskList.map((task) => {
         if (task.task === taskId) {
@@ -83,7 +89,7 @@ const TaskAssign = () => {
   };
 
   const handleUserReject = async (taskId, userId) => {
-    let response = await fetchAPI(`${port_address}/task/removeUser`, { taskId, userId }, "POST", false);
+    let response = await fetchAPI(`${port_address}/taskuser/delete_task`, { taskId, userId }, "POST", false);
     if (response.success) {
       const updatedTaskList = taskList.map((task) => {
         if (task.task === taskId) {
@@ -111,13 +117,13 @@ const TaskAssign = () => {
         <div className="tasklist-heading">
           <h2>Tasks</h2>
           <div className="tasklist">
-            {/* Check if taskList is defined before mapping */}
+            {/* Check if taskInfo is defined before mapping */}
             {Array.isArray(taskInfo) && taskInfo.map((task) => (
               <div key={task._id} className="task-card">
                 <h3>{task.title}</h3>
                 <div className="user-list">
                   {/* Map through the users array for each task to render each user */}
-                  {task.users.map((user) => (
+                  {task.users && task.users.map((user) => (
                     <div key={user._id} className="user-card">
                       <span>{user.details ? user.details.name : "Loading..."}</span>
                       <div className="user-actions">
