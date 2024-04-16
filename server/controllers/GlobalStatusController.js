@@ -22,8 +22,8 @@ class GlobalStatushandler{
 
 			const Alreadyavailable = await GlobalStatus.find({user_id: user_id, ngo_id: ngo_id});
             //returns if user status already marked as available
-			if (Alreadyavailable) {
-				res.status(404).json({
+			if (Alreadyavailable.length != 0) {
+				return res.status(404).json({
 					success: false,
 					message: "User already marked as available "});
 			}
@@ -70,15 +70,15 @@ class GlobalStatushandler{
 			const available = await GlobalStatus.find({user_id: user_id, ngo_id: ngo_id});
 
             //returns if user status already marked as not available i.e there is no entry
-			if (!available) {
-				res.status(404).json({
+			if (!available||available.length == 0) {
+				return res.status(404).json({
 					success: false,
 					message: "User already marked as not available"});
 			}
 
             
             //deletes user entry, representing globally available
-            const deleteUserStatus = await GlobalStatus.delete({user_id:user_id, ngo_id:ngo_id});
+            const deleteUserStatus = await GlobalStatus.deleteOne({user_id:user_id, ngo_id:ngo_id});
 
             return res.status(200).json({	             
                 success: true,
