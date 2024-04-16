@@ -3,12 +3,16 @@ const request = require('supertest')
 const UsersAuthController = require('../../controllers/userAuthController');
 const Users = require('../../models/userModel');
 
-// Required.
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FpIERhdHRhIiwiZW1haWwiOiIyMDIxY3NiMTEwNkBpaXRycHIuYWMuaW4iLCJpZCI6IjY1ZGExMTdjMjIxNjExMWJmZjVkMGJhOCIsImlhdCI6MTcxMDg0MzQyOCwiZXhwIjoxNzEwOTI5ODI4fQ.RQEwM0GL9tbiecjaqSU0iS27cUtuAgZ0SnBgjo75JCA';
-
 describe('User Profile', () => {
     test('Successful in fetchin user profile', async () => {
-        const res = await request("http://localhost:8080").post('/user/profile').set('Cookie', `token=${token}`);
+        // Login with a known account to get token.
+        const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
+        const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
+
+        // Use token and fetch profile.
+        const packet = {token:loginres.body.token};
+        const res = await request("http://localhost:8080").post('/user/profile').send(packet);
+
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('User profile found');
     });
