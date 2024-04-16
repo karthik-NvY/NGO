@@ -10,12 +10,11 @@ const tokenAuth = async (req, res, next)=>{
 	if (!token && req.cookies.token) {
         let token = req.cookies.token;
     }
-
 	// If no token was provided.
 	if (!token){
 		return res.status(401).json({
 			success:false,
-			message:"Autherization failed due to absence of token"
+			error:"Autherization failed due to absence of token"
 		})
 	}
   	try{
