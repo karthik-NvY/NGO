@@ -1,13 +1,22 @@
 /*
   File contains controller for executive selection
 */
-const {waitlist} = require('../models/signUpExecModel'); 
-const {Roles} = require('../models/roleModel'); 
+const waitlist = require('../models/signUpExecModel'); 
+const Roles = require('../models/roleModel'); 
 class waitlisthandler{
+
+    
+
     static fetchRequests = async(req, res) => {
+		const {ngo_id} = req.body;
+	      if (!ngo_id){
+				return res.status(400).json({
+					success: false,
+					message: "Missing input data",
+				});
+			}
 		try {
 			// Fetch all Task records from the database
-			const {ngo_id} = req.body;
 			const fetchrequests = await waitlist.findOne({ngo_id:ngo_id});
 	        // if the provided ID is not there in the schema
 			if (!fetchrequests) {
@@ -35,7 +44,7 @@ class waitlisthandler{
 		const {user_id,ngo_id} = req.body; // Extract data from req.
 
 		// If empty values are submitted.
-	    if (!user_id){
+	    if (!user_id || !ngo_id){
             return res.status(400).json({
                 success: false,
                 message: "Missing input data",
@@ -61,9 +70,15 @@ class waitlisthandler{
 	    }
 	}
 	static deleteRequest = async(req, res) => {
+		const {user_id} = req.body;
+	      if (!user_id){
+				return res.status(400).json({
+					success: false,
+					message: "Missing input data",
+				});
+			}
 		try {
 			// Fetch all Task records from the database
-			const {user_id} = req.body;
 			const deletedrequest = await waitlist.findOneAndDelete({user_id:user_id});
 	        // if the provided ID is not there in the schema
 			if (!deletedrequest) {
@@ -88,13 +103,18 @@ class waitlisthandler{
 	    }
 	}
 	static updateRole = async(req, res) => {
+		const {user_id} = req.body;
+		if (!user_id){
+			return res.status(400).json({
+				success: false,
+				message: "Missing input data",
+			})};
 		try {
 			// Fetch all Task records from the database
-			const {user_id} = req.body;
-            // newDate is an object with elements as updated fields from front-end
+			
 			const updatedRole = await Roles.findOneAndUpdate(
                 { user_id: user_id },
-                { role : Executive },
+                {  $set: { role: "Executive" } },
                 { new: true }
             );
 	        // if the provided ID is not there in the schema
