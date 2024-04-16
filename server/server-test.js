@@ -1,34 +1,116 @@
 // All requirements
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
-const taskuserRoutes = require('./routes/taskuserRoute');
+const ExecRoutes = require('./routes/ExecRoutes');
+const taskuserRoute = require('./routes/taskuserRoute');
+
+const templateRoutes = require('./routes/templateRoutes');
+const roleRoutes = require('./routes/roleRoutes');
+const globalstatusRoutes = require('./routes/globalstatusRoute');
+
 const taskRoutes = require('./routes/taskRoutes');
-const env = require('dotenv').config({ path: '../server.env' });
+const cookieParser = require('cookie-parser');
+
+const cors = require("cors");
+const DbConnect = require("./configs/mongo");
+require("dotenv").config();
+
 const app = express();
 
-app.use(cors()); // For cors
 app.use(express.json()); // For json parsing
-app.use(express.urlencoded({ extended:false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("./static"));
 app.use(cookieParser());
 
-// Route deals with otps.
-app.use('/otp', otpRoute);
+// For cors
+// const allowedOrigins = [`${process.env.CLIENT_URL}`];
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
 
-// Route deals with user authentication.
-app.use('/user', userRoute);
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
 
+async function main() {
+  Dbconnection = await DbConnect(); // Connection to Database.
 
-app.use('/api', apiRoutes);
+  // listen on port.
+  app.listen(process.env.PORT, () => {
+    console.log(`Server listening on ${process.env.PORT}....`);
+  });
 
-app.use('/taskuser', taskuserRoutes);
-app.use('/task',taskRoutes);
+  // Route deals with otps.
+  app.use("/otp", otpRoute);
 
-// Route deals with various api services.
-app.use('/api', apiRoutes);
+  // Route deals with user authentication.
+  app.use("/user", userRoute);
 
-module.exports = app;
+  app.use("/taskuser", taskuserRoute);
+
+  app.use("/task", taskRoutes);
+
+  //app.use('/Request',ExecRoutes);
+
+  // Route deals with various api services.
+  app.use('/api', apiRoutes);
+
+  app.use('/templates',templateRoutes);
+
+  app.use('/roles',roleRoutes);
+  
+  //Route deals with global status
+  app.use('/global', globalstatusRoutes);
+
+  
+  // Route used for simple testing in postman.
+  app.get("/testpoint", async (req, res) => {
+    const Users = require("./models/userModel");
+    try {
+      // const usersToReplace = await Users.find().sort({ _id: -1 }).limit(5);
+      // console.log(usersToReplace);
+
+      // await Promise.all(usersToReplace.map(async (user) => {
+      //   const salt = await bcrypt.genSalt(10);
+      //   newPassword = await bcrypt.hash(user.name,salt);
+      //   console.log(newPassword);
+      //   user.password = newPassword;
+      //   await user.save();
+      // }));
+      // return res.status(200).json({
+      //   success:true,
+      //   message:"Done"
+      // });
+      const data = await Users.findOne({
+        email_id: "2021csb1081@iitrpr.ac.in",
+      });
+      await data.deleteOne();
+      return res.status(200).json({
+        success: true,
+        message: "Done",
+        data,
+      });
+    } catch (err) {
+      console.log("error in op");
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: "error occured",
+      });
+    }
+  });
+}
+
+main();

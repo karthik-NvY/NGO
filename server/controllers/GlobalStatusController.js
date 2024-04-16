@@ -1,4 +1,4 @@
-const {GlobalStatus} = require("../models/globalAvailModel");
+const GlobalStatus = require("../models/globalAvailModel");
 
 class GlobalStatushandler{
 
@@ -43,6 +43,7 @@ class GlobalStatushandler{
 	        return res.status(500).json({
 	            success: false,
 	            message: "Internal server error while updating status",
+                error: error.message
 	        });
 	    }
 	}

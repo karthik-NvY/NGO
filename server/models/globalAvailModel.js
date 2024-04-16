@@ -13,4 +13,4 @@ const globalAvailSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("GlobalStatus", globalAvailSchema);
+module.exports = mongoose.model('GlobalStatus', globalAvailSchema);
