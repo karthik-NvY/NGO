@@ -13,14 +13,15 @@ import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
 import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
 import DescriptionPage from "./Components/Pages/DescriptionPage/DescriptionPage";
+import RoleAssignment from "./Components/Pages/RoleAssignment/RoleAssignment";
+
+
 function App() {
   return (
-
-
-
     <BrowserRouter>
       <Routes>
         <Route path="/Taskpage" element={<Taskpage/>}/>
+        <Route path="/RoleAssignment" element={<RoleAssignment/>}/>
         <Route path="/DescriptionPage" element={<DescriptionPage/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
