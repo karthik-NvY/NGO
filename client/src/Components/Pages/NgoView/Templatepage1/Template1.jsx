@@ -71,6 +71,11 @@ const Template1 = () => {
     }
   };
 
+  const handleClose = () => {
+    setIsModalOpen(false); // Close the modal
+  };
+
+
   return (
     <div className="temp1">
       <header>
@@ -153,7 +158,7 @@ const Template1 = () => {
             <button className="donor-button" onClick={handleDonor}>Donor</button>
           </div>
           {showConfirmationModal && (
-          <ConfirmationModal message={modalMessage} onConfirm={handleConfirm} />
+          <ConfirmationModal message={modalMessage} onConfirm={handleConfirm} onClose={handleClose}/>
         )}
         </div>
       </footer>

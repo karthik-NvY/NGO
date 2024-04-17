@@ -37,34 +37,16 @@ const Template1edit = () => {
   const aboutUsImage2Ref = useRef(null);
   const contactImageRef = useRef(null);
 
-  //   useEffect(() => {
-  //     // Function to send data to backend whenever inputs change
-  //     sendDataToBackend();
-  //   }, [
-  //     logo,
-  //     ngoName,
-  //     aboutUsText,
-  //     //aboutUsImage1,
-  //     aboutUsImage2,
-  //     recentEvents,
-  //     email,
-  //     phoneNumber,
-  //     contactImage,
-  //   ]);
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }  
 
   const sendDataToBackend = async () => {
-    // Prepare data object to send to backend
-    // const data = {
-    //   logo,
-    //   ngoName,
-    //   aboutUsText,
-    //   aboutUsImage1,
-    //   //aboutUsImage2,
-    //   recentEvents,
-    //   email,
-    //   phoneNumber,
-    //   contactImage,
-    // };
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -88,24 +70,15 @@ const Template1edit = () => {
       console.error("Error:", error);
     }
   };
-  // axios
-  //   .post("/template1", data)
-  //   .then((response) => {
-  //     console.log("Success:", response.data);
-  //     // Handle success response from backend
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //     // Handle error
-  //   });
 
   const handlePublish = () => {
     sendDataToBackend();
   };
 
-  const handleLogoChange = (event) => {
+  const handleLogoChange = async (event) => {
     try {
-      setLogo(URL.createObjectURL(event.target.files[0]));
+      const base64Image = await convertToBase64(event.target.files[0]);
+      setLogo(base64Image);
     } catch (error) {
       console.error("Error creating object URL:", error);
     }
@@ -127,16 +100,9 @@ const Template1edit = () => {
     setAboutUsText(event.target.value);
   };
 
-  //   const handleAboutUsImage1Change = (event) => {
-  //     setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
-  //   };
-
-  //   const handleAboutUsImage1Click = () => {
-  //     aboutUsImage1Ref.current.click();
-  //   };
-
-  const handleAboutUsImage2Change = (event) => {
-    setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+  const handleAboutUsImage2Change = async (event) => {
+    const base64Image = await convertToBase64(event.target.files[0]);
+    setAboutUsImage2(base64Image);
   };
 
   const handleAboutUsImage2Click = () => {
@@ -156,15 +122,20 @@ const Template1edit = () => {
     setRecentEvents(recentEvents.filter((event) => event.id !== id));
   };
 
-  const handleEventImageChange = (id, file) => {
-    setRecentEvents(
-      recentEvents.map((event) => {
-        if (event.id === id) {
-          return { ...event, image: URL.createObjectURL(file) };
-        }
-        return event;
-      })
-    );
+  const handleEventImageChange = async (id, file) => {
+    try {
+      const base64Image = await convertToBase64(file);
+      setRecentEvents(
+        recentEvents.map((event) => {
+          if (event.id === id) {
+            return { ...event, image: base64Image };
+          }
+          return event;
+        })
+      );
+    } catch (error) {
+      console.error("Error converting image to base64:", error);
+    }
   };
 
   const handleEventDescriptionChange = (id, description) => {
@@ -178,21 +149,15 @@ const Template1edit = () => {
     );
   };
 
-  // const handleEmailClick = () => {
-  //   window.location.href = mailto:${email};
-  // };
-
-  // const handlePhoneClick = () => {
-  //   window.location.href = tel:${phoneNumber};
-  // };
-
   const handleContactImageClick = () => {
     contactImageRef.current.click();
   };
 
-  const handleImageChange = (event) => {
-    setContactImage(URL.createObjectURL(event.target.files[0]));
+  const handleImageChange = async (event) => {
+    const base64Image = await convertToBase64(event.target.files[0]);
+    setContactImage(base64Image);
   };
+
   return (
     <div className="temp1">
       {" "}
@@ -258,17 +223,6 @@ const Template1edit = () => {
           </div>
         </div>
         <div className="about-images">
-          {/* <div className="image-1" onClick={handleAboutUsImage1Click}>
-            {aboutUsImage1 && <img src={aboutUsImage1} alt=" About us 1 Pic" />}
-
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleAboutUsImage1Change}
-              ref={aboutUsImage1Ref}
-              className="Image-2"
-            />
-          </div> */}
           <div className="image-2" onClick={handleAboutUsImage2Click}>
             {aboutUsImage2 && <img src={aboutUsImage2} alt=" About us 2 Pic" />}
 
