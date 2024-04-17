@@ -12,6 +12,9 @@ import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
 import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
+
+import TaskAssign from "./Components/Pages/TaskAssign/TaskAssign";
+
 import DescriptionPage from "./Components/Pages/DescriptionPage/DescriptionPage";
 import RoleAssignment from "./Components/Pages/RoleAssignment/RoleAssignment";
 
@@ -34,6 +37,7 @@ function App() {
         <Route path="/templateview" element={<TemplateView />} />
         <Route path="/template1edit" element={<Template1edit />} />
         <Route path="/AllTasks" element={<AllTasks />} />
+        <Route path ="/taskassign" element = {<TaskAssign/>} />
       </Routes>
     </BrowserRouter>
   );
