@@ -17,11 +17,11 @@ class waitlisthandler{
 			}
 		try {
 			// Fetch all Task records from the database
-			const fetchrequests = await waitlist.findOne({ngo_id:ngo_id});
+			const fetchrequests = await waitlist.find({ngo_id:ngo_id});
 	        // if the provided ID is not there in the schema
-			if (!fetchrequests) {
-                return res.status(404).json({
-                    success: false,
+			if (fetchrequests.length === 0) {
+                return res.status(200).json({
+                    success: true,
                     message: "No user requested from this ngo"
                 });
             }
@@ -103,8 +103,8 @@ class waitlisthandler{
 	    }
 	}
 	static updateRole = async(req, res) => {
-		const {user_id} = req.body;
-		if (!user_id){
+		const {user_id, ngo_id} = req.body;
+		if (!user_id || !ngo_id){
 			return res.status(400).json({
 				success: false,
 				message: "Missing input data",
@@ -113,7 +113,7 @@ class waitlisthandler{
 			// Fetch all Task records from the database
 			
 			const updatedRole = await Roles.findOneAndUpdate(
-                { user_id: user_id },
+                { user_id: user_id,user_id: ngo_id  },
                 {  $set: { role: "Executive" } },
                 { new: true }
             );

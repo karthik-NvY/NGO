@@ -3,7 +3,6 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
-const ExecRoutes = require('./routes/ExecRoutes');
 const taskuserRoute = require('./routes/taskuserRoute');
 
 const templateRoutes = require('./routes/templateRoutes');
@@ -61,7 +60,6 @@ async function main() {
 
   app.use("/task", taskRoutes);
 
-  app.use('/Request',ExecRoutes);
 
   // Route deals with various api services.
   app.use('/api', apiRoutes);
