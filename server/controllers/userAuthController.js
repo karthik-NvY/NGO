@@ -12,6 +12,9 @@ TODO
 */
 const Users = require('../models/userModel'); // User database model.
 const Roles = require('../models/roleModel'); // User roles database model.
+const waitlist= require('../models/signUpExecModel')
+const { VolunteerChoiceModel, AssignedModel } = require('../models/taskInfoModel')
+
 const generateToken = require('../utils/generateToken');
 
 // Class contains methods for authentication.
@@ -173,6 +176,79 @@ class userAuth{
 			message:"Logout successful"
 		})
 	}
-}
 
-module.exports = userAuth // Export class
+
+
+	// Method that runs when signup is requested.
+	static updateUserData = async(req, res) => {
+		try{
+			const {newData} = req.body; // Extract data from req.
+	        // new data is a set with attribute mentioned as per model
+	        const id = req.user_id
+	        if (!newData){
+	        	return res.status(404).json({
+					success: false,
+					error:"No data being updated"
+				});
+	        }
+			const updatedUser = await Users.findOneAndUpdate(
+				{ _id: id },
+				{ $set: newData },
+				{ new: true }
+			);
+			// user has been updated
+			if (!updatedUser) {
+				return res.status(404).json({
+					success: false,
+					error: "No user found with the provided ID"
+				});
+			}
+			return res.status(200).json({
+				success: true,
+				message: "User updated successfully",
+				updatedUser
+			});
+		}
+ 		catch (error) {
+			return res.status(500).json({
+				success: false,
+				message: "Internal server error while updating user profile data",
+			});
+		}
+	};
+
+	static deleteUserData = async(req, res) => {
+		try{
+			const user_id = req.user_id;
+			const del_user = await Users.findOne({_id: user_id })
+			if (!del_user) {
+				return res.status(404).json({
+					success: false,
+					error: "No user found with the provided ID"
+				});
+			}
+			const del = await Promise.all([
+				Roles.deleteMany({ user_id:user_id }),
+				waitlist.deleteMany({user_id: user_id }),
+				VolunteerChoiceModel.deleteMany({ user_id: user_id }),
+				AssignedModel.deleteMany({ user_id :user_id }),
+			]);
+			const deletedUser = await Users.findOneAndDelete({ _id: user_id });
+			// if the provided ID is not there in the schema
+			// user has been deleted
+			return res.status(200).json({
+				success: true,
+				message: "User deleted successfully",
+			});
+		}
+		catch (error) {
+			console.log(error)
+			return res.status(500).json({
+				success: false,
+				message: "Internal server error while updating user profile data",			
+			});
+		}
+	}
+
+}
+module.exports = userAuth // Export classmodule.exports = userAuth // Export class

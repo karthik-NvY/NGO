@@ -3,9 +3,11 @@ const express = require('express');
 const otpRoute = require('./routes/otpRoute');
 const userRoute = require('./routes/userRoute');
 const apiRoutes = require('./routes/apiRoutes');
+const ExecRoutes = require('./routes/ExecRoutes');
 const taskuserRoute = require('./routes/taskuserRoute');
 
 const templateRoutes = require('./routes/templateRoutes');
+const roleRoutes = require('./routes/roleRoutes');
 const globalstatusRoutes = require('./routes/globalstatusRoute');
 
 const taskRoutes = require('./routes/taskRoutes');
@@ -66,6 +68,8 @@ async function main() {
   app.use('/api', apiRoutes);
 
   app.use('/templates',templateRoutes);
+
+  app.use('/roles',roleRoutes);
   
   //Route deals with global status
   app.use('/global', globalstatusRoutes);

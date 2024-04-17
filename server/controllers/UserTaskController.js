@@ -4,7 +4,7 @@
 
 //correct details required for userTaskModel and { task_id, user_id} in it.
 
-const {VolunteerChoiceModel} = require('../models/taskInfoModel');
+const {VolunteerChoiceModel , AssignedModel} = require('../models/taskInfoModel');
 
 class UserTaskhandler{
 
@@ -13,7 +13,7 @@ class UserTaskhandler{
 		try {
 			const { task_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
-			const users = await VolunteerChoiceModel.find( { _id : task_id});
+			const users = await VolunteerChoiceModel.find( { task_id : task_id});
 	
 			// If no users requested for a task found.......
 			if (!users || users.length === 0) {
@@ -53,8 +53,8 @@ class UserTaskhandler{
 	        }
 
 			// Creates new entry by user for the task .
-	        const newrequest = await Users.create({
-            	user_id, task_id
+	        const newrequest = await VolunteerChoiceModel.create({
+            	user_id:user_id, task_id:task_id
         	})
 	        return res.status(201).json({	             
 		            success: true,
@@ -72,10 +72,10 @@ class UserTaskhandler{
 	}
 
 	static deleteTaskusers = async (req, res) => {
-        const { id } = req.body;
+        const { user_id, task_id } = req.body;
 
         try {
-            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ _id: id });
+            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ user_id: user_id, task_id: task_id });
 
             if (!deletedTask) {
                 return res.status(404).json({
@@ -97,6 +97,40 @@ class UserTaskhandler{
             });
         }
     }
+
+
+	static assignUser = async(req, res) => {
+		try {
+			const { task_id, user_id } = req.body;
+
+			const existingrequest = await AssignedModel.find( { task_id : task_id, user_id : user_id});
+	
+			// If user already requested for a task.......
+			if (existingrequest) {
+	            return res.status(404).json({
+	                success: false,
+	                message: "user already assigned for the task"
+	            });
+	        }
+
+			// Creates new entry by user for the task .
+	        const newrequest = await AssignedModel.create({
+            	user_id:user_id, task_id:task_id
+        	})
+	        return res.status(201).json({	             
+		            success: true,
+		            newrequest,
+		            message:"User assignment successfully added"
+	            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while adding user for task",
+	        });
+	    }
+	}
 }
 
 module.exports = UserTaskhandler
