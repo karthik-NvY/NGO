@@ -24,7 +24,28 @@ class TemplateHandler{
                 phoneNumber,
                 contactImage
             } = req.body;
+            if (!logo || 
+                !ngoName ||
+                !heroImages ||
+                !aboutUsText ||
+                // aboutUsImage1,
+                !aboutUsImage2 ||
+                !recentEvents ||
+                !email ||
+                !phoneNumber||
+                !contactImage){
+                    return res.status(400).json({
+                        success: false,
+                        error: "Missing NGO template variables",
+                    });
+            }
             const ngo_id = await Ngohandler.addNgo(ngoName, req.name);
+            if(!ngo_id){
+                return res.status(400).json({
+                        success: false,
+                        error: "NGO already exists",
+                });
+            }
             // Creating a new Template document
             const newTemplate = new Template({
                 logo,
@@ -49,12 +70,16 @@ class TemplateHandler{
 
             await Roles.create(packet);
 
-            res.status(201).json({
+            return res.status(201).json({
+                success:true,
                 message: 'Template saved successfully',
                 //savedTemplate
             }); // Respond with the saved document
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            return res.status(500).json({ 
+                success:false,
+                message: error.message 
+            });
             console.log("Error in template1 controller: ", error.message);
         }
     }
@@ -64,16 +89,27 @@ class TemplateHandler{
         try {
             const { ngo_id } = req.body; // Extracting NGO ID from request parameters
 
+            if(!ngo_id){
+                return res.status(400).json({
+                    success: false,
+                    error: "Missing NGO details",
+                });
+            }
             // Fetching Template document associated with the provided NGO ID
             const template1 = await Template.findOne({ ngo_id: ngo_id });
 
             if (!template1) {
                 return res.status(404).json({ 
-                    message: 'Template not found for the provided NGO ID'
+                    success:true,
+                    error: 'Template not found for the provided NGO ID'
                 });
             }
 
-            res.status(200).json(template1);
+            return res.status(200).json({
+                success:true,
+                message:"Successfully fetched template variables",
+                template1
+            });
         } catch (error) {
             res.status(500).json({ 
                 message: error.message 

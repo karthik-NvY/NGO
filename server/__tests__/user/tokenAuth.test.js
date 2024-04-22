@@ -1,15 +1,20 @@
 const tokenAuth = require("../../middleware/tokenMiddle");
+const request = require('supertest')
 
 process.env.JWT_SECRET = 'T02CS305';
 
 describe('Token Authentication Middleware', () => {
     test('Authenticated Request with Valid Token', async () => {
+        // Login with a known account to get token.
+        const userpacket = { password:"Sai Datta", email:"2021csb1106@iitrpr.ac.in"}
+        const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
+
         // Mock a valid token value
-        const tokenValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FpIERhdHRhIiwiZW1haWwiOiIyMDIxY3NiMTEwNkBpaXRycHIuYWMuaW4iLCJpZCI6IjY1ZGExMTdjMjIxNjExMWJmZjVkMGJhOCIsImlhdCI6MTcxMDc5NjY0MiwiZXhwIjoxNzEwODgzMDQyfQ.NO5ON5RKb23gw3uiJHT61jsArdSfgyILaxFv8VRMEL8';
+        const tokenValue = loginres.body.token;
 
         // Mock a request object with the token cookie
         const req = {
-            cookies: {
+            body: {
                 token: tokenValue
             }
         };
@@ -22,6 +27,7 @@ describe('Token Authentication Middleware', () => {
 
     test('Unauthenticated Request without Token', async () => {
         const req = {
+            body: {},
             cookies: {}
         };
         const res = {
@@ -35,7 +41,7 @@ describe('Token Authentication Middleware', () => {
         expect(res.status).toHaveBeenCalledWith(401);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
-            message: "Autherization failed due to absence of token"
+            error: "Autherization failed due to absence of token"
         });
         expect(next).not.toHaveBeenCalled();
     });
