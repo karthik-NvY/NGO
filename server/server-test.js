@@ -71,8 +71,7 @@ async function main() {
 
   app.use('/roles',roleRoutes);
   
-  //Route deals with global status
-  //app.use('/global', globalstatusRoutes);
+  app.use('/global', globalstatusRoutes);
 
   
   // Route used for simple testing in postman.
@@ -114,4 +113,3 @@ async function main() {
 }
 
 main();
-module.exports = app;
