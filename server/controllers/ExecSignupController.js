@@ -41,7 +41,8 @@ class waitlisthandler{
 	    }
 	}
 	static storeRequest = async(req, res) => {
-		const {user_id,ngo_id} = req.body; // Extract data from req.
+		const {ngo_id} = req.body; // Extract data from req.
+		const user_id = req.user_id;
 
 		// If empty values are submitted.
 	    if (!user_id || !ngo_id){
@@ -70,7 +71,8 @@ class waitlisthandler{
 	    }
 	}
 	static deleteRequest = async(req, res) => {
-		const {user_id} = req.body;
+		const user_id = req.user_id;
+		const {ngo_id} = req.body;
 	      if (!user_id){
 				return res.status(400).json({
 					success: false,
@@ -79,7 +81,7 @@ class waitlisthandler{
 			}
 		try {
 			// Fetch all Task records from the database
-			const deletedrequest = await waitlist.findOneAndDelete({user_id:user_id});
+			const deletedrequest = await waitlist.findOneAndDelete({user_id:user_id, ngo_id: ngo_id});
 	        // if the provided ID is not there in the schema
 			if (!deletedrequest) {
                 return res.status(404).json({
@@ -103,7 +105,8 @@ class waitlisthandler{
 	    }
 	}
 	static updateRole = async(req, res) => {
-		const {user_id, ngo_id} = req.body;
+		const { ngo_id} = req.body;
+		const user_id = req.user_id;
 		if (!user_id || !ngo_id){
 			return res.status(400).json({
 				success: false,

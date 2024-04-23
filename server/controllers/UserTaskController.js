@@ -40,7 +40,8 @@ class UserTaskhandler{
     //method to add new request(user availability) for the task.
 	static addTaskusers = async(req, res) => {
 		try {
-			const { task_id, user_id } = req.body;
+			const { task_id } = req.body;
+			const user_id = req.user_id;
 
 			const existingrequest = await VolunteerChoiceModel.find( { task_id : task_id, user_id : user_id});
 	
@@ -72,7 +73,8 @@ class UserTaskhandler{
 	}
 
 	static deleteTaskusers = async (req, res) => {
-        const { user_id, task_id } = req.body;
+        const { task_id } = req.body;
+		const user_id = req.user_id;
 
         try {
             const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ user_id: user_id, task_id: task_id });
@@ -101,7 +103,8 @@ class UserTaskhandler{
 
 	static assignUser = async(req, res) => {
 		try {
-			const { task_id, user_id } = req.body;
+			const { task_id } = req.body;
+			const user_id = req.user_id;
 
 			const existingrequest = await AssignedModel.find( { task_id : task_id, user_id : user_id});
 	

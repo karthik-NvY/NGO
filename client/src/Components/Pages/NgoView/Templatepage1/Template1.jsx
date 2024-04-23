@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Template1 = () => {
   const [ngo, setNgo] = useState(null);
+  const [userrole, setrole] = useState("");
   const { ngo_id } = useParams();
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
@@ -20,21 +21,56 @@ const Template1 = () => {
           { ngo_id, token },
           { withCredintials: true }
         );
-        setNgo(response.data);
+        setNgo(response.data.template1);
       } catch (error) {
         console.error("Error fetching NGO data:", error);
       }
     };
-
+    const fetchRole = async () => {
+      try{
+        const token = localStorage.getItem("token");
+        const res = await axios.post(
+          `${apiUrl}/roles/fetchRole`,
+          { ngo_id, token },
+          { withCredintials: true }
+        );
+        if(res.status == 200 ){
+          setrole(res.data.role.role);
+        }
+        console.log(res);
+      }
+      catch (error){
+        console.error("Error fetching role:", error);
+      }
+    }
     fetchNgoData();
+    fetchRole();
   }, [ngo_id]);
-
   if (!ngo) {
     return <div>Loading...</div>;
   }
 
   const handleAllTasks = () => {
     navigate("/AllTasks");
+  };
+  const handlerole = async (choosed_role) => {
+    try{
+      const token = localStorage.getItem("token");
+      const role = choosed_role;
+      const res = await axios.post(
+        `${apiUrl}/roles/signupRole`,
+        { ngo_id, token, role },
+        { withCredintials: true }
+      );
+      console.log(res);
+      if(res.status === 201){
+        setrole(res.data.userRole.role);
+        alert("Signed up as volunteer");
+      }
+    }
+    catch (error){
+      console.error("Error storing role:", error);
+    }
   };
 
   return (
@@ -114,10 +150,10 @@ const Template1 = () => {
             <div className="email">{ngo.email}</div>
             <div className="pho.no">{ngo.phoneNumber}</div>
           </div>
-          <div className="contact-buttons">
-            <button className="volunteer-button">Volunteer</button>
+          {userrole === "" && (<div className="contact-buttons">
+            <button className="volunteer-button" onClick={() => handlerole("volunteer")}>Volunteer</button>
             <button className="donor-button">Donor</button>
-          </div>
+          </div>)}
         </div>
       </footer>
     </div>

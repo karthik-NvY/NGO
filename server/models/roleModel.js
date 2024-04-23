@@ -8,15 +8,17 @@ const mongoose = require('mongoose');
 const roleSchema = new mongoose.Schema({
     //id of the user
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
         trim: true,
     },
     // id of the ngo
     ngo_id: {
-        type: String,
-        required : true,
-        trim: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ngos',
+        required: true,
+        trim: true,
     },
     // role of the particular user in the particular ngo
     role:{

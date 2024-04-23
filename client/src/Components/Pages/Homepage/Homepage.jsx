@@ -19,7 +19,7 @@ const Homepage = () => {
         
 
         if(response.status === 200 && response.data.message==="NGOs found"){
-          setNgos(response.data.allNgos);
+          setNgos(response.data.allNgos.reverse());
           console.log(response.data);
        }
       } catch (error) {
