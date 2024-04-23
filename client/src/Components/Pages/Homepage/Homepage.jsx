@@ -16,9 +16,19 @@ const Homepage = () => {
         const token = localStorage.getItem("token");
         setAuthHeaders(token); 
         const response = await axios.post(`${apiUrl}/api/ngoInfo`, { token }, { withCredentials: true });
-        setNgos(response.data.allNgos);
-        console.log(response.data);
+        
+
+        if(response.status === 200 && response.data.message==="NGOs found"){
+          setNgos(response.data.allNgos);
+          console.log(response.data);
+       }
       } catch (error) {
+        if(error.response.status === 500 && error.response.data.message==="Internal server error while fetching Info of NGOs"){
+          alert('internal server error');
+       }
+       if(error.response.status === 404 && error.response.data.message==="No NGOs found"){
+        alert('No Ngos found');
+     }
         console.error("Error fetching NGOs:", error);
       }
     };
