@@ -4,12 +4,9 @@
 const jwt = require('jsonwebtoken'); // JWT tokens.
 
 const tokenAuth = async (req, res, next)=>{
-	//const token = req.headers.Authorization; // Extract token from request.
-	const token = req.body.token;
-
-	if (!token && req.cookies.token) {
-        let token = req.cookies.token;
-    }
+	const bearer = req.headers.authorization.split(' ');
+    const token = bearer[1];
+    
 	// If no token was provided.
 	if (!token){
 		return res.status(401).json({
@@ -18,11 +15,6 @@ const tokenAuth = async (req, res, next)=>{
 		})
 	}
   	try{
-
-		if (token.startsWith('Bearer ')) {
-            token = token.slice(7, token.length);
-        }
-
 		const user = jwt.verify(token, process.env.JWT_SECRET); // Validate token.
 		req.user_id = user.id;
 		req.email = user.email;

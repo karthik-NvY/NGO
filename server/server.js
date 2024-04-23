@@ -16,6 +16,7 @@ const cors = require("cors");
 const DbConnect = require("./configs/mongo");
 require("dotenv").config();
 
+const bodyParser = require('body-parser');
 const app = express();
 
 app.use(express.json()); // For json parsing
