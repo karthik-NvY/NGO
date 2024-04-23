@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AllTasks.css";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 export const AllTasks = () => {
+  let { userRole } = useParams();
   const [tasks, setTasks] = useState([]);
-  const [userRole, setUserRole] = useState(""); // State to store user role
+  //const [userRole, setUserRole] = useState(""); // State to store user role
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export const AllTasks = () => {
         setTasks(response.data.Ngo_tasks);
 
         // Assuming user role is returned in the response
-        setUserRole(response.data.userRole);
+        //setUserRole(response.data.userRole);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }

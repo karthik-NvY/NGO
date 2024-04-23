@@ -33,7 +33,7 @@ function App() {
         <Route path="/Home" element={<Homepage />} />
         <Route path="/templateview" element={<TemplateView />} />
         <Route path="/template1edit" element={<Template1edit />} />
-        <Route path="/AllTasks" element={<AllTasks />} />
+        <Route path="/AllTasks/:userRole" element={<AllTasks />} />
         <Route path ="/taskassign" element = {<TaskAssign/>} />
       </Routes>
     </BrowserRouter>
