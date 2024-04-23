@@ -134,7 +134,8 @@ const Template1edit = () => {
   //   };
 
   const handleAboutUsImage2Change = (event) => {
-    setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+    //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+    setAboutUsImage2(event.target.files[0]);
   };
 
   const handleAboutUsImage2Click = () => {
@@ -191,6 +192,31 @@ const Template1edit = () => {
   const handleImageChange = (event) => {
     setContactImage(URL.createObjectURL(event.target.files[0]));
   };
+  
+
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append('image', aboutUsImage2);
+    for (const entry of formData.entries()) {
+        console.log(entry);
+    }
+    try {
+        const response = await axios.post(
+        `${apiUrl}/templates/storetemplatetmp`,
+        formData,
+        { 
+          withCredentials: true,
+          headers: { 'Content-Type': 'multipart/form-data','Authorization': `Bearer ${token}`},
+        }
+      );
+        console.log(response);
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+};
+
   return (
     <div className="temp1">
       {" "}
@@ -278,6 +304,7 @@ const Template1edit = () => {
               className="Image-3"
             />
           </div>
+          <button onClick={handleUpload}>Upload</button>
         </div>
       </section>
       <section id="Events" className="events-section">

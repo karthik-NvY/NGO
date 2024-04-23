@@ -111,6 +111,7 @@ nav ul li a:hover {
   padding: 20px;
   display: flex;
   flex-direction: row;
+  height: 100vh;
 }
 
 .about-content {

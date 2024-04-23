@@ -5,7 +5,8 @@ class GlobalStatushandler{
     static GlobalAvailable = async(req, res) => {
 		try {
 			
-			const {user_id, ngo_id} = req.body;
+			const { ngo_id} = req.body;
+            const user_id = req.user_id;
 			//returns error if user id not given
 			if(!user_id ){
                 return res.status(400).json({
@@ -51,7 +52,8 @@ class GlobalStatushandler{
     static GlobalNotAvailable = async(req, res) => {
 		try {
 			
-			const {user_id, ngo_id} = req.body;
+			const { ngo_id} = req.body;
+            const user_id = req.user_id;
             
 			//returns error if user id not given
 			

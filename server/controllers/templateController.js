@@ -6,7 +6,13 @@ const Template = require('../models/templateModel'); // Importing the Template m
 const Ngohandler  = require("../controllers/NgoController");
 const Roles = require('../models/roleModel'); // Importing the Template model
 
+// const multer = require('multer');
+
 // Controller function to save Template document to the database
+
+
+// const upload = multer({ dest: 'uploads/' });
+
 
 class TemplateHandler{
     static storeTemplate = async (req, res) => {
@@ -117,6 +123,24 @@ class TemplateHandler{
             console.log("Error in getTemplate controller: ", error.message);
         }
     }   
+
+
+    static storeTemplatetmp = async (req, res) => {
+        console.log(req.file);
+        try {
+            return res.status(201).json({
+                success:true,
+                message: 'Template saved successfully',
+                //savedTemplate
+            }); // Respond with the saved document
+        } catch (error) {
+            return res.status(500).json({ 
+                success:false,
+                message: error.message 
+            });
+            console.log("Error in template1 controller: ", error.message);
+        }
+    };
 }
 
 

@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { signUpForRole, deleteRole } = require('../controllers/RoleController');
+const { signUpForRole,fetchRole, deleteRole } = require('../controllers/RoleController');
+const tokenMiddle = require("../middleware/tokenMiddle");
 
-router.post('/signupRole', signUpForRole);
-router.post('/deleteRole', deleteRole);
+router.post('/signupRole',tokenMiddle, signUpForRole);
+router.post('/fetchRole',tokenMiddle, fetchRole);
+router.post('/deleteRole',tokenMiddle, deleteRole);
 
 module.exports = router;

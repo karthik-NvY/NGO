@@ -31,8 +31,20 @@ const Verification = () => {
       });
       console.log("OTP is verfied", response.data);
       handleSubmit(e);
-    } catch (error) {
-      console.error("OTP verification failed", error);
+    } 
+    catch (error) {
+      if (error.response.status === 401 && error.response.data.message === "Invalid OTP"){
+        alert("OTP wrong");
+      }
+      if (error.response.status === 400 && error.response.data.message === "Missing credentials"){
+        alert("Missing credentials");
+      }
+      if (error.response.status === 400 && error.response.data.message === "Invalid credentials"){
+        alert("Invalid credentials");
+      }
+      if(error.response.status === 500 && error.response.data.message==="Internal server error"){
+        alert("server Error Try again");
+      }
     }
   };
 

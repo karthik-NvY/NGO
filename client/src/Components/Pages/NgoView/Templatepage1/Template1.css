@@ -300,7 +300,8 @@ nav ul li a:hover {
 }
 
 .volunteer-button,
-.donor-button {
+.donor-button,
+.executive-button {
   background-color: #7b736b;
   color: white;
   padding: 15px 25px;
@@ -317,7 +318,8 @@ nav ul li a:hover {
 }
 
 .volunteer-button:hover,
-.donor-button:hover {
+.donor-button:hover,
+.executive-button:hover{
   background-color: #ffff;
   color: black;
 }
