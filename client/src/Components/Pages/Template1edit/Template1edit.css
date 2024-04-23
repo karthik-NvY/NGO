@@ -430,5 +430,6 @@ nav ul li a:hover {
 
 .plus-icon {
   font-size: 34px;
-  color: rgb(5, 0, 0);
+  color: rgb(224, 16, 16);
+  background-color:transparent;
 }
