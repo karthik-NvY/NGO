@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Template1edit.css";
+import { IoAddCircleOutline } from "react-icons/io5";
+
 
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
@@ -111,7 +113,6 @@ const Template1edit = () => {
       const response = await axios.post(
         `${apiUrl}/templates/storetemplate`,
         {
-          token,
           logo,
           ngoName,
           aboutUsText,
@@ -121,7 +122,7 @@ const Template1edit = () => {
           phoneNumber,
           contactImage,
         },
-        { withCredentials: true }
+        { withCredentials: true ,headers: {'Authorization': `Bearer ${token}`}}
       );
       console.log("Success:", response.data);
       // navigate("/Verification");
@@ -359,7 +360,11 @@ const Template1edit = () => {
           </div> */}
           <div className="image-2" onClick={handleAboutUsImage2Click}>
             {aboutUsImage2 && <img src={aboutUsImage2} alt=" About us 2 Pic" />}
-
+            <div className="plus-button">
+                <button>
+                  <span className="plus-icon"><IoAddCircleOutline/></span>
+                </button>
+              </div>
             <input
               type="file"
               accept="image/*"

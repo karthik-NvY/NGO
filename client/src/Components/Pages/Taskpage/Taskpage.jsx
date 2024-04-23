@@ -32,8 +32,8 @@ export const Taskpage = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${apiUrl}/task/storeInfo`,
-        { token, ngo_id, title, description, date, no_volunteer },
-        { withCredentials: true }
+        { ngo_id, title, description, date, no_volunteer },
+        { withCredentials: true ,headers: {'Authorization': `Bearer ${token}`}}
       );
       console.log("Task created:", response.data);
       setTaskData({
