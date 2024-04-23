@@ -14,31 +14,40 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 125px;
   height: 100%;
+  
 }
 
 
 .websites {
-  display: contents;
-  /* grid-template-columns: 1fr 1fr 1fr; */
-  place-items: center;
-  font-size: medium;
-  font-weight: 300;
+  padding-left: 160px;
+  padding-right: 100px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.websites a{
+  text-decoration: none;
 }
 
 .ngo {
-  width: 80vb;
-  height: auto;
+  width: 40vb;
+  height: 40vb;
   background-color: white;
   border-radius: 20px;
   margin-bottom: 10px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .ngo h1{
   font-weight: 500;
+  
 }
 
 .ngo:hover {
@@ -83,4 +92,9 @@ body {
 
 .build button :active {
   opacity: 0.6;
+}
+
+.head{
+  text-align: center;
+  padding-bottom: 20px;
 }

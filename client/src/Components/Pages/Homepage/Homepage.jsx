@@ -46,15 +46,18 @@ const Homepage = () => {
     <div className="home">
       <NavBar />
       <div className="homepage">
+        <h1 className="head">Our Popular Ngos</h1>
         <div className="websites">
-          {Array.isArray(ngos) &&
-            ngos.map((ngo) => (
-              <div className="ngo" key={ngo._id}>
-                <Ngo name={ngo.name} creator={ngo.admin} />
-                <Link to={`/ngo/${ngo.name}/${ngo._id}`} onClick={() => handleViewClick(ngo._id)} className="view-link">View</Link>
-              </div>
-            ))}
-        </div>
+              {Array.isArray(ngos) &&
+                ngos.map((ngo) => (
+                  <a href={`/ngo/${ngo.name}/${ngo._id}`} key={ngo._id} className="ngo-link">
+                    <div className="ngo">
+                      <Ngo name={ngo.name} creator={ngo.admin} />
+                    </div>
+                  </a>
+                ))}
+            </div>
+
       </div>
       <div className="build">
         <p>Wanna add your website</p>
