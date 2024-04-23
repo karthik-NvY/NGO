@@ -18,8 +18,8 @@ export const AllTasks = () => {
         const ngo_id = localStorage.getItem("ngo_id");
         const response = await axios.post(
           `${apiUrl}/api/ngoTask`,
-          { token, ngo_id },
-          { withCredentials: true }
+          { ngo_id },
+          { withCredentials: true,headers: {'Authorization': `Bearer ${token}`} }
         );
         setTasks(response.data.Ngo_tasks);
 

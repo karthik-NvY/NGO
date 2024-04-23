@@ -27,7 +27,7 @@ const fetchRole = async (req, res) => {
     const { ngo_id } = req.body;
     const user_id = req.user_id;
     try {
-         const role = await Roles.findOne({ 
+         const role = await Roles.find({ 
             user_id, 
             ngo_id 
         });

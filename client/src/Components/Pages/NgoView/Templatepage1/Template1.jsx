@@ -18,8 +18,8 @@ const Template1 = () => {
         const token = localStorage.getItem("token");
         const response = await axios.post(
           `${apiUrl}/templates/fetchtemplate`,
-          { ngo_id, token },
-          { withCredintials: true }
+          { ngo_id },
+          { withCredintials: true ,headers: {'Authorization': `Bearer ${token}`}}
         );
         setNgo(response.data.template1);
       } catch (error) {
@@ -31,8 +31,8 @@ const Template1 = () => {
         const token = localStorage.getItem("token");
         const res = await axios.post(
           `${apiUrl}/roles/fetchRole`,
-          { ngo_id, token },
-          { withCredintials: true }
+          { ngo_id },
+          { withCredintials: true,headers: {'Authorization': `Bearer ${token}`} }
         );
         if(res.status === 200 ){
           setrole(res.data.role.role);
@@ -59,8 +59,8 @@ const Template1 = () => {
       const role = choosed_role;
       const res = await axios.post(
         `${apiUrl}/roles/signupRole`,
-        { ngo_id, token, role },
-        { withCredintials: true }
+        { ngo_id, role },
+        { withCredintials: true, headers: {'Authorization': `Bearer ${token}`} }
       );
       console.log(res);
       if(res.status === 201){
