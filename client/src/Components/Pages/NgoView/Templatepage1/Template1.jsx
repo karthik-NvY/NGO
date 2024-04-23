@@ -34,7 +34,7 @@ const Template1 = () => {
           { ngo_id, token },
           { withCredintials: true }
         );
-        if(res.status == 200 ){
+        if(res.status === 200 ){
           setrole(res.data.role.role);
         }
         console.log(res);
@@ -51,7 +51,7 @@ const Template1 = () => {
   }
 
   const handleAllTasks = () => {
-    navigate("/AllTasks");
+    navigate(`/AllTasks/${userrole}`);
   };
   const handlerole = async (choosed_role) => {
     try{
@@ -65,7 +65,7 @@ const Template1 = () => {
       console.log(res);
       if(res.status === 201){
         setrole(res.data.userRole.role);
-        alert("Signed up as volunteer");
+        alert(`Signed up as ${choosed_role}`);
       }
     }
     catch (error){
@@ -152,7 +152,8 @@ const Template1 = () => {
           </div>
           {userrole === "" && (<div className="contact-buttons">
             <button className="volunteer-button" onClick={() => handlerole("volunteer")}>Volunteer</button>
-            <button className="donor-button">Donor</button>
+            <button className="donor-button" onClick={() => handlerole("donor")}>Donor</button>
+            <button className="executive-button" onClick={() => handlerole("executive")}>Executive</button>
           </div>)}
         </div>
       </footer>
