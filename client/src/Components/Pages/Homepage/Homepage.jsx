@@ -50,7 +50,7 @@ const Homepage = () => {
         <div className="websites">
               {Array.isArray(ngos) &&
                 ngos.map((ngo) => (
-                  <a href={`/ngo/${ngo.name}/${ngo._id}`} key={ngo._id} className="ngo-link">
+                  <a href={`/ngo/${ngo.name}/${ngo._id}`} key={ngo._id} onClick={() => handleViewClick(ngo._id)} className="ngo-link">
                     <div className="ngo">
                       <Ngo name={ngo.name} creator={ngo.admin} />
                     </div>

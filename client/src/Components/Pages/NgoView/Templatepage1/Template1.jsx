@@ -15,6 +15,7 @@ const Template1 = () => {
   useEffect(() => {
     const fetchNgoData = async () => {
       try {
+        console.log(ngo_id);
         const token = localStorage.getItem("token");
         const response = await axios.post(
           `${apiUrl}/templates/fetchtemplate`,

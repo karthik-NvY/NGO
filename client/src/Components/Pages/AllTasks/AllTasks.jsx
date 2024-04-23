@@ -16,6 +16,7 @@ export const AllTasks = () => {
       try {
         const token = localStorage.getItem("token");
         const ngo_id = localStorage.getItem("ngo_id");
+        console.log(ngo_id);
         const response = await axios.post(
           `${apiUrl}/api/ngoTask`,
           { ngo_id },

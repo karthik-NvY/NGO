@@ -414,6 +414,10 @@ nav ul li a:hover {
   max-width: 100%;
   height: auto;
 }
+.image-2:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
 
 .image-2:hover .plus-button {
   opacity: 1;
@@ -427,9 +431,74 @@ nav ul li a:hover {
   opacity: 0; /* Initially hidden */
   transition: opacity 0.3s ease; /* Smooth transition */
 }
+.plus-button button{
+  background-color: transparent;
+  border: none;
+}
 
 .plus-icon {
-  font-size: 34px;
-  color: rgb(224, 16, 16);
+  font-size: 350%;
+  color: rgb(0, 0, 0);
+  background-color:transparent;
+}
+
+.image-slider:hover .arrow-button {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.image-slider:hover .arrow-button {
+  transform: scale(2);
+  transition: transform 0.7s  ease-in-out;
+}
+.arrow-button {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(0,0);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.4s ease; /* Smooth transition */
+}
+.arrow-button button{
+  background-color: transparent;
+  border: none;
+}
+
+.arrow-icon {
+  font-size: 350%;
+  color: rgb(255, 255, 255);
+  background-color:transparent;
+}
+
+
+.logopic {
+  position: relative;
+}
+
+
+.logopic:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.logopic:hover .lplus-button {
+  opacity: 1;
+}
+
+.lplus-button {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+.lplus-button button{
+  background-color: transparent;
+  border: none;
+}
+
+.lplus-icon {
+  font-size: 200%;
+  color: rgb(255, 255, 255);
   background-color:transparent;
 }

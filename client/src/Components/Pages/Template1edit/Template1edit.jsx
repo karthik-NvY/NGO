@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Template1edit.css";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline,IoArrowUp  } from "react-icons/io5";
 
 
 import event1 from "../../Assets/event1.png";
@@ -205,6 +205,9 @@ const Template1edit = () => {
   const handleImageChange = (event) => {
     setContactImage(URL.createObjectURL(event.target.files[0]));
   };
+  const handleHeroChange = (event) => {
+    console.log("hero");
+  };
   
 
   const handleUpload = async (event) => {
@@ -267,7 +270,11 @@ const Template1edit = () => {
           <div className="logopic" onClick={handleLogoClick}>
             {!logoUploaded && <img src={logo1} alt="Logo" />}
             {logoUploaded && <img src={URL.createObjectURL(logo)} alt=" Logo" />}
-
+            <div className="lplus-button">
+                <button>
+                  <span className="lplus-icon"><IoAddCircleOutline/></span>
+                </button>
+              </div>
             <input
               type="file"
               accept="image/*"
@@ -306,6 +313,11 @@ const Template1edit = () => {
         <div className="image-slider-container">
           <div className="image-slider">
             <img src={hero} alt="opening face" />
+            <div className="arrow-button">
+                <button onClick={handleHeroChange}>
+                  <span className="arrow-icon"><IoArrowUp /></span>
+                </button>
+              </div>
           </div>
         </div>
       </section>
