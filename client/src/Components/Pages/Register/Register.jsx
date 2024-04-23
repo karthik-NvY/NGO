@@ -54,10 +54,13 @@ const Register = () => {
       const response = await Axios.post(`${apiUrl}/otp/get-otp`, { email });
       console.log("OTP sent", response.data);
       navigate("/Verification");
-    } catch (error) {
-      console.error("Failed to send", error);
-      if(error === 400){
-        alert("Missing Credentials");
+    } 
+    catch (error) {
+      if (error.response.status === 409 && error.response.data.message === "User already exists"){
+        alert("Account already exists. Login to continue");
+      }
+      if (error.response.status === 400 && error.response.data.message === "Missing credentials"){
+        alert("Missing credentials");
       }
     }
   };
@@ -78,7 +81,7 @@ const Register = () => {
       </div>
 
       <div className="right">
-        <form action="">
+        <form onSubmit={(e) => handleRegister(e)} action="">
           <h2>Register</h2>
 
           <div className="inputbox">
@@ -130,7 +133,7 @@ const Register = () => {
           </div>
 
           <div className="inputbox" id="getotp">
-            <button onClick={(e) => handleRegister(e)}>Get OTP</button>
+            <button type="submit">Get OTP</button>
           </div>
         </form>
       </div>
