@@ -6,13 +6,14 @@ const Template = require('../models/templateModel'); // Importing the Template m
 const Ngohandler  = require("../controllers/NgoController");
 const Roles = require('../models/roleModel'); // Importing the Template model
 
-// const multer = require('multer');
+const multer = require('multer');
 
 // Controller function to save Template document to the database
 
 
-// const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: 'uploads/' });
 
+const { uploadToCloudinary } = require('../services/cloudUpload')
 
 class TemplateHandler{
     static storeTemplate = async (req, res) => {
@@ -126,20 +127,24 @@ class TemplateHandler{
 
 
     static storeTemplatetmp = async (req, res) => {
-        console.log(req.file);
-        try {
-            return res.status(201).json({
-                success:true,
-                message: 'Template saved successfully',
-                //savedTemplate
-            }); // Respond with the saved document
-        } catch (error) {
-            return res.status(500).json({ 
-                success:false,
-                message: error.message 
-            });
-            console.log("Error in template1 controller: ", error.message);
-        }
+        const uploadedImages = req.files;
+        console.log(req.files);
+        // Access text data using req.body
+        const { name, aboutUsText } = req.body;
+
+        // Process uploaded files and text data as needed
+        const results = await Promise.all(
+          req.files.map(async (file) => {
+            return await uploadToCloudinary(file.path);
+            console.log(file.path);
+          })
+        );
+        console.log(results);
+        console.log('Title:', name);
+        console.log('Description:', aboutUsText);
+
+        // Respond with success message
+        return res.json({ success: true, message: 'Data uploaded successfully' });
     };
 }
 

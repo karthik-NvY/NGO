@@ -175,6 +175,7 @@ nav ul li a:hover {
   margin-right: 50px;
 }
 
+
 .image-1 {
   margin-top: 50px;
   margin-bottom: 150px;
@@ -402,4 +403,33 @@ nav ul li a:hover {
 .publish-button:hover {
   background-color: #ffff; /* Darker background color on hover */
   color: #000;
+}
+
+.image-2 {
+  position: relative;
+}
+
+.image-2 img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.image-2:hover .plus-button {
+  opacity: 1;
+}
+
+.plus-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.plus-icon {
+  font-size: 34px;
+  color: rgb(224, 16, 16);
+  background-color:transparent;
 }

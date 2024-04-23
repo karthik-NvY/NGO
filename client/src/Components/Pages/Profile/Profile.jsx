@@ -4,10 +4,12 @@ import NavBar from "../Dashboard/NavBar/NavBar";
 import axios from "axios";
 import "./Profile.css";
 import setAuthHeaders from "../../Utils/setAuthHeaders";
+import Ngo from "../Dashboard/Ngo";
 
 export const Profile = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [volunteer, setVolunteer] = useState([]);
   const fileInputRef = useRef(null);
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -18,8 +20,8 @@ export const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-        setAuthHeaders(token);
-      const response = await axios.post(`${apiUrl}/user/profile`, {token} ,{
+      setAuthHeaders(token);
+      const response = await axios.post(`${apiUrl}/user/profile`, { token }, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
@@ -27,12 +29,35 @@ export const Profile = () => {
         },
       });
       setUserData(response.data.data);
-      console.log(response.data)
+      console.log(response.data);
+
+      // Check userData and process ngos array after it's set
+        
+        console.log("asdaadas");
+        let volunteerd = [];
+        let executive = [];
+        let donor = [];
+        for (let i = 0; i < response.data.data.ngos.length; i++) {
+          if (response.data.data.ngos[i].role === 'volunteer') {
+            volunteerd.push(response.data.data.ngos[i]);
+          }
+          if (response.data.data.ngos[i].role === 'donor') {
+            donor.push(response.data.data.ngos[i]);
+          }
+          if (response.data.data.ngos[i].role === 'executive') {
+            executive.push(response.data.data.ngos[i]);
+          }
+        }
+        setVolunteer(volunteerd);
+        console.log(volunteerd);
+        
+        console.log(executive);
+        console.log(donor);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
   };
-
+  console.log(volunteer);
   const handleProfilePicClick = () => {
     fileInputRef.current.click();
   };
@@ -41,6 +66,7 @@ export const Profile = () => {
     const file = event.target.files[0];
     setProfilePic(file);
   };
+
 
   return (
     <>
@@ -83,6 +109,13 @@ export const Profile = () => {
             <div className="right-volunteer">
               <section id="volunteer">
                 <p>Volunteer</p>
+                {Array.isArray(volunteer) && volunteer.map((ngo) => (
+                  <a href={`/ngo/${ngo.ngo_name}/${ngo._id}`} key={ngo._id} className="ngo-link">
+                     <div className="ngo_v">
+                      <Ngo name={ngo.ngo_name} />
+                     </div>
+                 </a>
+        ))}
               </section>
             </div>
             <div className="right-donor">
