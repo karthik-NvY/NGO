@@ -77,7 +77,7 @@ nav ul li a:hover {
 
 .image-slider-container {
   position: relative;
-  height: 800px;
+  height: 90vh;
   overflow: hidden;
   z-index: 1;
 }
@@ -438,7 +438,7 @@ nav ul li a:hover {
 
 .plus-icon {
   font-size: 350%;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   background-color:transparent;
 }
 

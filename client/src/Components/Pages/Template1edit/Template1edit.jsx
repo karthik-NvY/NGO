@@ -12,6 +12,7 @@ import axios from "axios";
 import logo1 from "../../Assets/logo_big.png"
 import ab from "../../Assets/aboutus2.png"
 import contactImagepath from "../../Assets/contactus.png"
+import heropic from "../../Assets/hero.png"
 
 const Template1edit = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -26,7 +27,6 @@ const Template1edit = () => {
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
-  //   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
   const [aboutUsImage2, setAboutUsImage2] = useState(null);
   const [aboutUsImage2Uploaded, setAboutUsImage2Uploaded] = useState(false);
 
@@ -43,6 +43,7 @@ const Template1edit = () => {
   const [contactImageUploaded, setContactImageUploaded] = useState(false);
 
   const logoRef = useRef(null);
+  const heroRef = useRef(null);
   //   const aboutUsImage1Ref = useRef(null);
   const aboutUsImage2Ref = useRef(null);
   const contactImageRef = useRef(null);
@@ -205,21 +206,28 @@ const Template1edit = () => {
   const handleImageChange = (event) => {
     setContactImage(URL.createObjectURL(event.target.files[0]));
   };
+
   const handleHeroChange = (event) => {
-    console.log("hero");
+    setHero(event.target.files[0]);
+    setHeroUploaded(true);
   };
-  
+
+  const handleHeroClick = (event) => {
+    heroRef.current.click();
+  };
 
   const handleUpload = async (event) => {
     event.preventDefault();
 
     const image_files = [
       logo,
+      hero,
       aboutUsImage2,
       contactImage
     ]
     const image_status = [
       logoUploaded,
+      heroUploaded,
       aboutUsImage2Uploaded,
       contactImageUploaded
     ]
@@ -312,7 +320,8 @@ const Template1edit = () => {
       <section id="Home" className="hero-section">
         <div className="image-slider-container">
           <div className="image-slider">
-            <img src={hero} alt="opening face" />
+            {!heroUploaded && <img src='https://lh3.googleusercontent.com/proxy/9GXxfcsv8bagQJIRgnjWj0dmQyoyj8E-DrnOGXYC26We1pzMzH1eVSdHQtSh-OxLyZoj85WWrgAi6qlPka2A7M3OJQWw-DO0' alt="Logo" />}
+            {heroUploaded && <img src={URL.createObjectURL(hero)} alt=" Logo" />}
             <div className="arrow-button">
                 <button onClick={handleHeroChange}>
                   <span className="arrow-icon"><IoArrowUp /></span>
