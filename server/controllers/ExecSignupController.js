@@ -1,12 +1,9 @@
 /*
   File contains controller for executive selection
 */
-const waitlist = require('../models/signUpExecModel'); 
+const {waitlist,requestwindow} = require('../models/signUpExecModel'); 
 const Roles = require('../models/roleModel'); 
 class waitlisthandler{
-
-    
-
     static fetchRequests = async(req, res) => {
 		const {ngo_id} = req.body;
 	      if (!ngo_id){
@@ -143,4 +140,102 @@ class waitlisthandler{
 	    }
 	}
 }
-module.exports = waitlisthandler
+
+class requestwindowHandler{
+	static fetchReqOpening = async(req, res) => {
+		const {ngo_id} = req.body;
+	      if (!ngo_id){
+				return res.status(400).json({
+					success: false,
+					message: "Missing input data",
+				});
+			}
+		try {
+			// Fetch all Task records from the database
+			const fetchrequests = await requestwindow.findOne({ngo_id:ngo_id});
+	        // if the provided ID is not there in the schema
+			if (fetchrequests) {
+                return res.status(200).json({
+                    success: true,
+                    message: "Requests fetched successfully"
+                });
+            }
+            // task has been deleted
+            return res.status(201).json({
+                success: true,
+                message: "No openings requested from this ngo",
+            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching openings",
+	        });
+	    }
+	}
+	static openRequest = async(req, res) => {
+		const {ngo_id} = req.body; // Extract data from req.
+
+		// If empty values are submitted.
+	    if (!ngo_id){
+            return res.status(400).json({
+                success: false,
+                message: "Missing input data",
+            });
+        }
+	    try {
+	        // Adding new task.
+	        const newRequest = await requestwindow.create({
+            	ngo_id
+        	})
+	        return res.status(200).json({	             
+		            success: true,
+		            newRequest,
+		            message:"successfully opened for executive role requests "
+	            });
+	    } 
+	    catch (error) {
+	        console.log(error);
+	        return res.status(500).json({
+	            success: false,
+	            message : "Error opening executives role requests"
+        	})
+	    }
+	}
+	static closeRequest = async(req, res) => {
+		const {ngo_id} = req.body;
+	      if (!ngo_id){
+				return res.status(400).json({
+					success: false,
+					message: "Missing input data",
+				});
+			}
+		try {
+			// Fetch all Task records from the database
+			const deletedrequest = await requestwindow.findOneAndDelete({ ngo_id: ngo_id});
+	        // if the provided ID is not there in the schema
+			if (!deletedrequest) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No opening for Request found with the provided ID"
+                });
+            }
+            // task has been deleted
+            return res.status(200).json({
+                success: true,
+                message: "Requests accepting closed successfully",
+                deletedrequest
+            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while deleting request",
+	        });
+	    }
+	}
+		
+}
+module.exports = {waitlisthandler, requestwindowHandler};
