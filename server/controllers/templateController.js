@@ -128,20 +128,38 @@ class TemplateHandler{
 
     static storeTemplatetmp = async (req, res) => {
         const uploadedImages = req.files;
-        console.log(req.files);
+        //console.log(req.files);
+        const image_status = req.body.image_status;
         // Access text data using req.body
         const { name, aboutUsText } = req.body;
 
-        // Process uploaded files and text data as needed
+        let img_idx = 0;
+
+        const URLS = ['a', 'b']
+        console.log(image_status);
+        console.log(uploadedImages);
+
         const results = await Promise.all(
-          req.files.map(async (file) => {
-            return await uploadToCloudinary(file.path);
-            console.log(file.path);
-          })
+            image_status.map(async (status, index) => {
+                console.log(status, index);
+                if (status==='true') {
+                    try {
+                      const result = await uploadToCloudinary(uploadedImages[img_idx].path);
+                      img_idx += 1;
+                      return result.url;
+                    } catch (error) {
+                      console.error('Error uploading image to Cloudinary:', error);
+                      return null;
+                    }
+                  } 
+                else {
+                    console.log("hihi");
+                    return URLS[index];
+                }
+            })
         );
+
         console.log(results);
-        console.log('Title:', name);
-        console.log('Description:', aboutUsText);
 
         // Respond with success message
         return res.json({ success: true, message: 'Data uploaded successfully' });

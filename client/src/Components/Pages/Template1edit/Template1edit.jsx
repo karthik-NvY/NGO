@@ -9,16 +9,27 @@ import event3 from "../../Assets/event3.png";
 import event4 from "../../Assets/event4.png";
 import axios from "axios";
 
+import logo1 from "../../Assets/logo_big.png"
+import ab from "../../Assets/aboutus2.png"
+import contactImagepath from "../../Assets/contactus.png"
+
 const Template1edit = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+
   const [logo, setLogo] = useState(null);
+  const [logoUploaded, setLogoUploaded] = useState(false);
+
   const [hero, setHero] = useState(null);
+  const [heroUploaded, setHeroUploaded] = useState(false);
+
   const [ngoName, setNgoName] = useState("NGO name");
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
   //   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
   const [aboutUsImage2, setAboutUsImage2] = useState(null);
+  const [aboutUsImage2Uploaded, setAboutUsImage2Uploaded] = useState(false);
+
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: null, description: "Description for Event 1" },
     { id: 2, image: null, description: "Description for Event 2" },
@@ -27,53 +38,9 @@ const Template1edit = () => {
   ]);
   const [email, setEmail] = useState("2021csb1137@iitrpr.ac.in");
   const [phoneNumber, setPhoneNumber] = useState("+91 8985618658");
+  
   const [contactImage, setContactImage] = useState(null);
-
-  useEffect(() => {
-    fetch("../../Assets/logo_big.png")
-      .then(response => response.blob())
-      .then(blob => {
-        const file = new File([blob], 'logo.png', {
-          type: 'image/png',
-          lastModified: new Date().getTime()
-        });
-        setLogo(file);
-      })
-      .catch(error => console.error('Error fetching image:', error));
-
-    fetch("../../Assets/hero.png")
-      .then(response => response.blob())
-      .then(blob => {
-        const file = new File([blob], 'logo.png', {
-          type: 'image/png',
-          lastModified: new Date().getTime()
-        });
-        setHero(file);
-      })
-      .catch(error => console.error('Error fetching image:', error));
-
-    fetch("../../Assets/contactus.png")
-      .then(response => response.blob())
-      .then(blob => {
-        const file = new File([blob], 'logo.png', {
-          type: 'image/png',
-          lastModified: new Date().getTime()
-        });
-        setContactImage(file);
-      })
-      .catch(error => console.error('Error fetching image:', error));
-
-    fetch("../../Assets/aboutus2.png")
-      .then(response => response.blob())
-      .then(blob => {
-        const file = new File([blob], 'logo.png', {
-          type: 'image/png',
-          lastModified: new Date().getTime()
-        });
-        setAboutUsImage2(file);
-      })
-      .catch(error => console.error('Error fetching image:', error));
-  }, []);
+  const [contactImageUploaded, setContactImageUploaded] = useState(false);
 
   const logoRef = useRef(null);
   //   const aboutUsImage1Ref = useRef(null);
@@ -148,6 +115,7 @@ const Template1edit = () => {
   const handleLogoChange = (event) => {
     try {
       setLogo(event.target.files[0]);
+      setLogoUploaded(true);
     } catch (error) {
       console.error("Error creating object URL:", error);
     }
@@ -180,6 +148,7 @@ const Template1edit = () => {
   const handleAboutUsImage2Change = (event) => {
     //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
     setAboutUsImage2(event.target.files[0]);
+    setAboutUsImage2Uploaded(true);
   };
 
   const handleAboutUsImage2Click = () => {
@@ -242,44 +211,52 @@ const Template1edit = () => {
     event.preventDefault();
 
     const image_files = [
-      hero,
       logo,
       aboutUsImage2,
-      contactImage,
+      contactImage
     ]
-    console.log(logo);
+    const image_status = [
+      logoUploaded,
+      aboutUsImage2Uploaded,
+      contactImageUploaded
+    ]
+    
     const texts = {
       name : ngoName,
       aboutUsText: aboutUsText
     }
 
-    // const formData = new FormData();
+    const formData = new FormData();
 
-    // image_files.forEach((file, index) => {
-    //     formData.append('images', file);
-    // });
+    image_files.forEach((file, index) => {
+      formData.append('images', file);
+    });
     
-    // Object.entries(texts).forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
+    image_status.forEach((status, index) => {
+      formData.append('image_status', status); // Use '[]' to indicate an array
+    });
 
-    // const token = localStorage.getItem("token");
-    // try {
-    //     const response = await axios.post(
-    //     `${apiUrl}/templates/storetemplatetmp`,
-    //     formData,
-    //     { 
-    //       withCredentials: true,
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //         'Authorization': `Bearer ${token}`
-    //       },
-    //     }
-    //   );
-    //     console.log(response);
-    // } catch (error) {
-    //     console.error('Error uploading image:', error);
-    // }
+    Object.entries(texts).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.post(
+        `${apiUrl}/templates/storetemplatetmp`,
+        formData,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+          },
+        }
+      );
+        console.log(response);
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
 };
 
   return (
@@ -288,7 +265,8 @@ const Template1edit = () => {
       <header>
         <div className="logo">
           <div className="logopic" onClick={handleLogoClick}>
-            {logo && <img src={logo} alt=" Logo" />}
+            {!logoUploaded && <img src={logo1} alt="Logo" />}
+            {logoUploaded && <img src={URL.createObjectURL(logo)} alt=" Logo" />}
 
             <input
               type="file"
@@ -359,7 +337,8 @@ const Template1edit = () => {
             />
           </div> */}
           <div className="image-2" onClick={handleAboutUsImage2Click}>
-            {aboutUsImage2 && <img src={aboutUsImage2} alt=" About us 2 Pic" />}
+            {!aboutUsImage2Uploaded && <img src={ab} alt="About us 2 Pic" />}
+            {aboutUsImage2Uploaded && <img src={URL.createObjectURL(aboutUsImage2)} alt="About us 2 Pic" />}
             <div className="plus-button">
                 <button>
                   <span className="plus-icon"><IoAddCircleOutline/></span>
@@ -420,7 +399,8 @@ const Template1edit = () => {
         <div className="contact-container">
           <div className="contact-info">
             <div className="image-container" onClick={handleContactImageClick}>
-              {contactImage && <img src={contactImage} alt="Contact Pic" />}
+              {!contactImageUploaded && <img src={contactImagepath} alt="Contact Pic" />}
+              {contactImageUploaded && <img src={URL.createObjectURL(contactImage)} alt="Contact Pic" />}
 
               <input
                 id="contactImageInput"
