@@ -8,6 +8,7 @@ import { FaUser } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { TbLockOpen } from "react-icons/tb";
 import { TbLockCheck } from "react-icons/tb";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const Register = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,6 +20,8 @@ const Register = () => {
   });
 
   const [confirmpassword, setCPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword1, setShowPassword1] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +34,16 @@ const Register = () => {
   const handleCPassword = (e) => {
     const inputvalue = e.target.value;
     setCPassword(inputvalue);
+  };
+
+  const togglePasswordVisibility = (event) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
+  const togglePasswordVisibility1 = (event) => {
+    event.preventDefault();
+    setShowPassword1(!showPassword1);
   };
 
   const navigate = useNavigate(); // Initialize the navigate function
@@ -61,6 +74,9 @@ const Register = () => {
       }
       if (error.response.status === 400 && error.response.data.message === "Missing credentials"){
         alert("Missing credentials");
+      }
+      if(error.response.status === 500 && error.response.data.message==="Internal server error"){
+        alert("server Error Try again");
       }
     }
   };
@@ -110,25 +126,31 @@ const Register = () => {
 
           <div className="inputbox">
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               name="password"
               value={userData.password}
               onChange={handleChange}
               required
             />
+            <button type="button" onClick={togglePasswordVisibility}>
+              {showPassword ? <BsEye className="eye"/> : <BsEyeSlash  className="eye"/>} 
+            </button>
             <TbLockOpen className="icon" />
           </div>
 
           <div className="inputbox">
             <input
-              type="password"
+              type={showPassword1 ? 'text' : 'password'}
               placeholder="Confirm Password"
               name="confirmpassword"
               value={confirmpassword}
               onChange={handleCPassword}
               required
             />
+            <button type="button" onClick={togglePasswordVisibility1}>
+              {showPassword1 ? <BsEye className="eye"/> : <BsEyeSlash  className="eye"/>} 
+            </button>
             <TbLockCheck className="icon" />
           </div>
 
