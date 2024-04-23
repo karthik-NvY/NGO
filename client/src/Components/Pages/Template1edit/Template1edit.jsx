@@ -1,34 +1,77 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Template1edit.css";
-import hero from "../../Assets/hero.png";
-// import aboutus1 from "../../Assets/aboutus1.png";
-import aboutus2 from "../../Assets/aboutus2.png";
+
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
 import event3 from "../../Assets/event3.png";
 import event4 from "../../Assets/event4.png";
-import contactus from "../../Assets/contactus.png";
-import logopic from "../../Assets/logo_big.png";
 import axios from "axios";
 
 const Template1edit = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const [logo, setLogo] = useState(logopic);
+  const [logo, setLogo] = useState(null);
+  const [hero, setHero] = useState(null);
   const [ngoName, setNgoName] = useState("NGO name");
   const [aboutUsText, setAboutUsText] = useState(
     "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
   );
   //   const [aboutUsImage1, setAboutUsImage1] = useState(aboutus1);
-  const [aboutUsImage2, setAboutUsImage2] = useState(aboutus2);
+  const [aboutUsImage2, setAboutUsImage2] = useState(null);
   const [recentEvents, setRecentEvents] = useState([
-    { id: 1, image: event1, description: "Description for Event 1" },
-    { id: 2, image: event2, description: "Description for Event 2" },
-    { id: 3, image: event3, description: "Description for Event 3" },
-    { id: 4, image: event4, description: "Description for Event 4" },
+    { id: 1, image: null, description: "Description for Event 1" },
+    { id: 2, image: null, description: "Description for Event 2" },
+    { id: 3, image: null, description: "Description for Event 3" },
+    { id: 4, image: null, description: "Description for Event 4" },
   ]);
   const [email, setEmail] = useState("2021csb1137@iitrpr.ac.in");
   const [phoneNumber, setPhoneNumber] = useState("+91 8985618658");
-  const [contactImage, setContactImage] = useState(contactus);
+  const [contactImage, setContactImage] = useState(null);
+
+  useEffect(() => {
+    fetch("../../Assets/logo_big.png")
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], 'logo.png', {
+          type: 'image/png',
+          lastModified: new Date().getTime()
+        });
+        setLogo(file);
+      })
+      .catch(error => console.error('Error fetching image:', error));
+
+    fetch("../../Assets/hero.png")
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], 'logo.png', {
+          type: 'image/png',
+          lastModified: new Date().getTime()
+        });
+        setHero(file);
+      })
+      .catch(error => console.error('Error fetching image:', error));
+
+    fetch("../../Assets/contactus.png")
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], 'logo.png', {
+          type: 'image/png',
+          lastModified: new Date().getTime()
+        });
+        setContactImage(file);
+      })
+      .catch(error => console.error('Error fetching image:', error));
+
+    fetch("../../Assets/aboutus2.png")
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], 'logo.png', {
+          type: 'image/png',
+          lastModified: new Date().getTime()
+        });
+        setAboutUsImage2(file);
+      })
+      .catch(error => console.error('Error fetching image:', error));
+  }, []);
 
   const logoRef = useRef(null);
   //   const aboutUsImage1Ref = useRef(null);
@@ -103,7 +146,7 @@ const Template1edit = () => {
 
   const handleLogoChange = (event) => {
     try {
-      setLogo(URL.createObjectURL(event.target.files[0]));
+      setLogo(event.target.files[0]);
     } catch (error) {
       console.error("Error creating object URL:", error);
     }
@@ -196,25 +239,46 @@ const Template1edit = () => {
 
   const handleUpload = async (event) => {
     event.preventDefault();
-    const token = localStorage.getItem("token");
-    const formData = new FormData();
-    formData.append('image', aboutUsImage2);
-    for (const entry of formData.entries()) {
-        console.log(entry);
+
+    const image_files = [
+      hero,
+      logo,
+      aboutUsImage2,
+      contactImage,
+    ]
+    console.log(logo);
+    const texts = {
+      name : ngoName,
+      aboutUsText: aboutUsText
     }
-    try {
-        const response = await axios.post(
-        `${apiUrl}/templates/storetemplatetmp`,
-        formData,
-        { 
-          withCredentials: true,
-          headers: { 'Content-Type': 'multipart/form-data','Authorization': `Bearer ${token}`},
-        }
-      );
-        console.log(response);
-    } catch (error) {
-        console.error('Error uploading image:', error);
-    }
+
+    // const formData = new FormData();
+
+    // image_files.forEach((file, index) => {
+    //     formData.append('images', file);
+    // });
+    
+    // Object.entries(texts).forEach(([key, value]) => {
+    //   formData.append(key, value);
+    // });
+
+    // const token = localStorage.getItem("token");
+    // try {
+    //     const response = await axios.post(
+    //     `${apiUrl}/templates/storetemplatetmp`,
+    //     formData,
+    //     { 
+    //       withCredentials: true,
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //         'Authorization': `Bearer ${token}`
+    //       },
+    //     }
+    //   );
+    //     console.log(response);
+    // } catch (error) {
+    //     console.error('Error uploading image:', error);
+    // }
 };
 
   return (

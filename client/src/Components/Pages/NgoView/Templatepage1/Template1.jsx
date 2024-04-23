@@ -18,8 +18,11 @@ const Template1 = () => {
         const token = localStorage.getItem("token");
         const response = await axios.post(
           `${apiUrl}/templates/fetchtemplate`,
-          { ngo_id, token },
-          { withCredintials: true }
+          ngo_id,
+          { 
+            withCredintials: true, 
+            headers: {'Authorization': `Bearer ${token}`}
+          }
         );
         setNgo(response.data.template1);
       } catch (error) {

@@ -4,6 +4,7 @@
 const jwt = require('jsonwebtoken'); // JWT tokens.
 
 const tokenAuth = async (req, res, next)=>{
+	console.log(req.headers.authorization)
 	const bearer = req.headers.authorization.split(' ');
     const token = bearer[1];
     
