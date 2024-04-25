@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Template1edit.css";
 import { IoAddCircleOutline,IoArrowUp  } from "react-icons/io5";
-
+import { FaUpload } from "react-icons/fa6";
+import { IoIosCloudUpload } from "react-icons/io";
+import anime from 'animejs/lib/anime.es.js';
 
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
@@ -12,7 +14,7 @@ import axios from "axios";
 import logo1 from "../../Assets/logo_big.png"
 import ab from "../../Assets/aboutus2.png"
 import contactImagepath from "../../Assets/contactus.png"
-import heropic from "../../Assets/hero.png"
+import mainbg from "../../Assets/hero.png"
 
 const Template1edit = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -20,15 +22,31 @@ const Template1edit = () => {
   const [logo, setLogo] = useState(null);
   const [logoUploaded, setLogoUploaded] = useState(false);
 
-  const [hero, setHero] = useState(null);
-  const [heroUploaded, setHeroUploaded] = useState(false);
+  const [main, setMain] = useState(null);
+  const [mainUploaded, setMainUploaded] = useState(false);
 
-  const [ngoName, setNgoName] = useState("NGO name");
+  const [ngoName, setNgoName] = useState("Your NGO name");
   const [aboutUsText, setAboutUsText] = useState(
-    "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
+    // "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
+    "Present your features and describe your goals."
   );
+
+  const [visionText, setVisionText] = useState(
+    "Present your Vision"
+  );
+
   const [aboutUsImage2, setAboutUsImage2] = useState(null);
   const [aboutUsImage2Uploaded, setAboutUsImage2Uploaded] = useState(false);
+
+  const [aboutUsImage, setAboutUsImage] = useState(null);
+  const [aboutUsImageUploaded, setAboutUsImageUploaded] = useState(false);
+
+  const [upload_icon_anim, setupload_icon_anim] = useState(null)
+  const [upload_text_anim, setupload_text_anim] = useState(null)
+
+  const [aboutus_heading_anim, setaboutus_heading_anim] = useState(null)
+  const [aboutus_image1_anim, setaboutus_image1_anim] = useState(null)
+  const [aboutus_image2_anim, setaboutus_image2_anim] = useState(null)
 
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: null, description: "Description for Event 1" },
@@ -43,9 +61,10 @@ const Template1edit = () => {
   const [contactImageUploaded, setContactImageUploaded] = useState(false);
 
   const logoRef = useRef(null);
-  const heroRef = useRef(null);
+  const mainRef = useRef(null);
   //   const aboutUsImage1Ref = useRef(null);
   const aboutUsImage2Ref = useRef(null);
+  const aboutUsImageRef = useRef(null);
   const contactImageRef = useRef(null);
 
   //   useEffect(() => {
@@ -146,6 +165,17 @@ const Template1edit = () => {
   //     aboutUsImage1Ref.current.click();
   //   };
 
+
+  const handleAboutUsImageChange = (event) => {
+    //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
+    setAboutUsImage2(event.target.files[0]);
+    setAboutUsImage2Uploaded(true);
+  };
+
+  const handleAboutUsImageClick = () => {
+    aboutUsImage2Ref.current.click();
+  };
+
   const handleAboutUsImage2Change = (event) => {
     //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
     setAboutUsImage2(event.target.files[0]);
@@ -207,33 +237,36 @@ const Template1edit = () => {
     setContactImage(URL.createObjectURL(event.target.files[0]));
   };
 
-  const handleHeroChange = (event) => {
-    setHero(event.target.files[0]);
-    setHeroUploaded(true);
+  const handleMainChange = (event) => {
+    if (event.target.files[0]){
+      setMain(event.target.files[0]);
+      setMainUploaded(true);  
+    }    
   };
 
-  const handleHeroClick = (event) => {
-    heroRef.current.click();
+  const handleMainClick = (event) => {
+    mainRef.current.click();
   };
 
-  const handleUpload = async (event) => {
+  const handleUpload2 = async (event) => {
     event.preventDefault();
 
     const image_files = [
       logo,
-      hero,
+      main,
       aboutUsImage2,
       contactImage
     ]
     const image_status = [
       logoUploaded,
-      heroUploaded,
+      mainUploaded,
       aboutUsImage2Uploaded,
       contactImageUploaded
     ]
     
     const texts = {
       name : ngoName,
+      vision:visionText,
       aboutUsText: aboutUsText
     }
 
@@ -270,6 +303,118 @@ const Template1edit = () => {
     }
 };
 
+
+useEffect(() => {
+  setupload_icon_anim(anime({
+    targets:document.getElementById('upload-icon-id'),
+    duration: 200,
+    easing: 'easeOutCubic',
+    borderColor: '#000000',
+    autoplay:false,
+  }))
+
+  setupload_text_anim(anime({
+    targets:document.getElementById('upload-text-id'),
+    width:['0%', '80%'],
+    duration: 200,
+    easing: 'easeOutCubic',
+    autoplay:false,
+  }));
+
+  setaboutus_heading_anim(anime({
+    targets:document.getElementById('about-heading-id'),
+    fontSize:['1%', '300%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    direction:'alternate',
+    autoplay:false,
+  }));
+
+  // setaboutus_image1_anim(anime({
+  //   targets:document.getElementById('about-images-1-id'),
+  //   width:['0%', '100%'],
+  //   duration:2000,
+  //   easing:'easeOutCubic',
+  //   direction:'alternate',
+  //   autoplay:false,
+  // }));
+  
+  setaboutus_image2_anim(anime({
+    targets:document.getElementById('about-images-2-id'),
+    height:['0%', '100%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    direction:'alternate',
+    autoplay:false,
+  }));
+},[]);
+
+
+      
+
+useEffect(() => {
+    if (aboutus_heading_anim) {
+      window.addEventListener('scroll', ()=>{
+        var scrollstat = (window.scrollY / window.innerHeight);
+        aboutus_heading_anim.seek(scrollstat * aboutus_heading_anim.duration);
+    });   
+  }
+}, [aboutus_heading_anim]);
+
+// useEffect(() => {
+//     if (aboutus_image1_anim) {
+//       window.addEventListener('scroll', ()=>{
+//         var scrollstat = (window.scrollY / window.innerHeight);
+//         aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
+//     });   
+//   }
+// }, [aboutus_image1_anim]);
+
+useEffect(() => {
+    if (aboutus_image2_anim) {
+      window.addEventListener('scroll', ()=>{
+        var scrollstat = (window.scrollY / window.innerHeight);
+        aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
+    });   
+  }
+}, [aboutus_image1_anim]);
+
+const handleUpload = (fileid)=>{
+  document.getElementById(fileid).click()
+}
+
+const handleUploadhover = (fileid) =>{
+  upload_icon_anim.play();
+  upload_text_anim.play();
+  upload_icon_anim.finished.then(() => {
+    upload_icon_anim.reverse();
+  })
+  upload_text_anim.finished.then(() => {
+    upload_text_anim.reverse();
+  })
+}
+
+const handleVisionChange = (event) => {
+    setVisionText(event.target.value);
+  };
+
+// const handleUploadmouseout = (fileid) =>{
+//   console.log("gwgwgww");
+
+//   upload_icon_anim.finished.then(() => {
+//     upload_icon_anim.play();
+//   })
+//   upload_text_anim.finished.then(() => {
+//     upload_text_anim.play();
+//   })
+//   upload_icon_anim.finishedr.then(() => {
+//     upload_icon_anim.reverse();
+//   })
+//   upload_text_anim.finished.then(() => {
+//     upload_text_anim.reverse();
+//   })
+// }
+
   return (
     <div className="temp1">
       {" "}
@@ -280,7 +425,7 @@ const Template1edit = () => {
             {logoUploaded && <img src={URL.createObjectURL(logo)} alt=" Logo" />}
             <div className="lplus-button">
                 <button>
-                  <span className="lplus-icon"><IoAddCircleOutline/></span>
+                  <span className="lplus-icon"><FaUpload /></span>
                 </button>
               </div>
             <input
@@ -317,22 +462,41 @@ const Template1edit = () => {
           </ul>
         </nav>
       </header>
-      <section id="Home" className="hero-section">
-        <div className="image-slider-container">
-          <div className="image-slider">
-            {!heroUploaded && <img src='https://lh3.googleusercontent.com/proxy/9GXxfcsv8bagQJIRgnjWj0dmQyoyj8E-DrnOGXYC26We1pzMzH1eVSdHQtSh-OxLyZoj85WWrgAi6qlPka2A7M3OJQWw-DO0' alt="Logo" />}
-            {heroUploaded && <img src={URL.createObjectURL(hero)} alt=" Logo" />}
-            <div className="arrow-button">
-                <button onClick={handleHeroChange}>
-                  <span className="arrow-icon"><IoArrowUp /></span>
-                </button>
-              </div>
+      <div id="Home" className="main-bg">
+        {!mainUploaded && <img className = "main-bg-image" src='https://static.vecteezy.com/system/resources/thumbnails/007/522/796/small/abstract-geometric-white-stripe-shapes-with-golden-light-in-gradient-white-background-free-vector.jpg' alt="Main" />}
+        {mainUploaded && <img src={URL.createObjectURL(main)} className="main-bg-image" alt="Main" />}        
+        <div className="vision">
+          <textarea
+              type="text"
+              value={visionText}
+              onChange={handleVisionChange}
+              className="vision-textarea"
+              maxLength="50"
+          />
+        </div>
+        <div className="main-upload" id="upload-id">
+          <input
+                type="file"
+                accept="image/*"
+                onChange={handleMainChange}
+                ref={mainRef}
+                className="main-upload-input"
+                id="main-upload-input-id"
+          />
+          <div className="upload-icon" id="upload-icon-id"
+            onClick={() => handleUpload('main-upload-input-id')}
+            onMouseEnter={() => handleUploadhover('upload-id')}
+            onMouseLeave={() => handleUploadhover('upload-id')}>
+            <IoIosCloudUpload />
+          </div>
+          <div className="upload-text" id="upload-text-id">
+            Background
           </div>
         </div>
-      </section>
+      </div>
       <section id="AboutUs" className="about-section">
         <div className="about-content">
-          <div className="about-heading">
+          <div className="about-heading" id="about-heading-id">
             <h2>ABOUT US</h2>
           </div>
 
@@ -342,29 +506,32 @@ const Template1edit = () => {
               value={aboutUsText}
               onChange={handleAboutUsTextChange}
               className="about-textarea"
+              maxLength="300"
             />
           </div>
         </div>
         <div className="about-images">
-          {/* <div className="image-1" onClick={handleAboutUsImage1Click}>
-            {aboutUsImage1 && <img src={aboutUsImage1} alt=" About us 1 Pic" />}
-
+          <div className="about-images-1" onClick={handleAboutUsImageClick} id="about-images-1-id">
+            <div className="about-images-upload">
+              <span className="about-images-upload-icon"><FaUpload /></span>
+            </div>
+            {!aboutUsImageUploaded && <img src={ab} alt="About us 1 Pic"  className="about-image-1img"/>}
+            {aboutUsImageUploaded && <img src={URL.createObjectURL(aboutUsImage)} alt="About us 2 Pic" className="about-image-2img"/>}
+            
             <input
               type="file"
               accept="image/*"
-              onChange={handleAboutUsImage1Change}
-              ref={aboutUsImage1Ref}
-              className="Image-2"
+              onChange={handleAboutUsImageChange}
+              ref={aboutUsImageRef}
+              className="Image-3"
             />
-          </div> */}
-          <div className="image-2" onClick={handleAboutUsImage2Click}>
-            {!aboutUsImage2Uploaded && <img src={ab} alt="About us 2 Pic" />}
-            {aboutUsImage2Uploaded && <img src={URL.createObjectURL(aboutUsImage2)} alt="About us 2 Pic" />}
-            <div className="plus-button">
-                <button>
-                  <span className="plus-icon"><IoAddCircleOutline/></span>
-                </button>
-              </div>
+          </div>
+          <div className="about-images-2" onClick={handleAboutUsImage2Click} id="about-images-2-id">
+            {!aboutUsImage2Uploaded && <img src={ab} alt="About us 2 Pic" className="about-image-2img"/>}
+            {aboutUsImage2Uploaded && <img src={URL.createObjectURL(aboutUsImage2)} alt="About us 2 Pic" className="about-image-2img"/>}
+            <div className="about-images-upload">
+              <span className="about-images-upload-icon"><FaUpload /></span>
+            </div>
             <input
               type="file"
               accept="image/*"
@@ -373,7 +540,7 @@ const Template1edit = () => {
               className="Image-3"
             />
           </div>
-          <button onClick={handleUpload}>Upload</button>
+          {/*<button onClick={handleUpload}>Upload</button>*/}
         </div>
       </section>
       <section id="Events" className="events-section">

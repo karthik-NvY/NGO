@@ -12,6 +12,8 @@
 .temp1 {
   font-family: "Poppins", sans-serif;
   background-color: #d6cfc8;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -23,6 +25,39 @@ header {
   align-items: center;
   height: 70px;
   overflow: hidden;
+}
+
+.logopic {
+  position: relative;
+}
+
+
+.logopic:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.logopic:hover .lplus-button {
+  opacity: 1;
+}
+
+.lplus-button {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+.lplus-button button{
+  background-color: transparent;
+  border: none;
+}
+
+.lplus-icon {
+  font-size: 200%;
+  color: rgb(255, 255, 255);
+  background-color:transparent;
 }
 
 .name textarea {
@@ -70,90 +105,177 @@ nav ul li a:hover {
   background-color: #d6cfc8;
 }
 
-.hero-section {
-  position: relative;
-  margin-bottom: 100px;
-}
-
-.image-slider-container {
-  position: relative;
-  height: 90vh;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.image-slider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.main-bg {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
+  justify-content: center;
+  height: 90vh;
+  z-index: 2;
 }
 
-.image-slider img {
+.main-bg-image{
+  width:100%;
+  object-fit: cover;
+}
+.main-upload {
+  position: absolute;
+  bottom: 1vh;
+  left: 45vw;
+  font-size: 300%;
+  color: rgb(0,0,0);
+  width:25%;
+  background-color:transparent;
+  display: flex;
+  justify-content: space-between;
+  height:10%;  
+}
+
+.main-upload-input{
+  display: none;
+}
+
+.upload-icon{
+  padding:1%;
+  border:3px solid transparent;
+  border-radius: 10%;
+  overflow: hidden;
+}
+
+.vision{
+  position: absolute;
+  width:80vw;
+  top:30vh;
+  left: 10vw;
+}
+
+.vision-textarea{
+  box-sizing: border-box;
+  border: 2;
   width: 100%;
-  height: 1000px;
-  margin-right: 0px;
-  transition: transform 10s;
-  opacity: 0;
-}
-
-.image-slider img:nth-child(1) {
-  opacity: 1;
+  background-color: transparent;
+  outline: none;
+  color: #000;
+  font-size: 500%;
+  resize: none;
+  white-space: normal;
+  overflow: hidden;
+  text-align-last: center;
+  text-align: justify;
 }
 
 .about-section {
   position: relative;
-  margin: 0 10px;
-  padding: 20px;
+  padding: 2%;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   height: 100vh;
+  overflow: hidden;
 }
 
 .about-content {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .about-heading {
-  font-size: 45px;
-  margin-bottom: 40px;
-  margin-left: 140px;
+  text-align: center;
+  color: black;
 }
 
 .about-text {
   position: relative;
-  max-width: 400px;
-  width: 700px;
-  height: 500px;
-  margin-left: 120px;
-  margin-right: 270px;
   font-size: 16px;
   box-sizing: border-box;
+  text-align: center;
+}
+
+.about-images{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+/*  width: 50%;  */
 }
 
 .about-text textarea {
   box-sizing: border-box;
-  border: none;
+  border: 2;
   background-color: transparent;
   outline: none;
   color: #000;
   font-size: 16px;
   width: 500px;
   max-width: calc(100% - 10px);
-  height: 400px;
+  height: 70vh;
   resize: none;
-  word-wrap: break-word;
   white-space: normal;
+  word-wrap: break-word;
+  word-spacing: initial;
   overflow: hidden;
+  text-align-last: center;
+  text-align: justify;
 }
 
 .about-text textarea::placeholder {
   color: #000;
+}
+
+.about-images-1{
+  display: flex;
+  position: relative;
+}
+.about-images-1:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.about-images-1:hover .about-images-upload {
+  opacity: 1;
+}
+
+.about-image-1img{
+  z-index: 0;
+  height: 40vh;
+  width: 50vh;
+  object-fit: cover;
+}
+
+.about-images-2{
+  display: flex;
+  width: 100%;
+  margin-top: 2%;
+  position: relative;
+}
+.about-images-2:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.about-images-2:hover .about-images-upload {
+  opacity: 1;
+}
+
+.about-image-2img{
+  z-index: 0;
+  height: 40vh;
+  width: 50vh;
+  object-fit: cover;
+}
+
+.about-images-upload {
+  position: absolute;
+  z-index: 4;
+  margin-left: 42%;
+  margin-top: 30%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.about-images-upload-icon {
+  font-size: 350%;
+  color: rgb(255, 255, 255);
+  background-color:transparent;
 }
 
 .image-container {
@@ -164,22 +286,6 @@ nav ul li a:hover {
   overflow: hidden;
 }
 
-.image-1,
-.image-2 input {
-  max-width: 100%; /* Ensure the image width doesn't exceed the container's width */
-  height: 350px; /* Maintain aspect ratio */
-  width: 150px; /* Set width to 150px */
-  max-height: 100px; /* Set maximum height to avoid excessive height */
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-right: 50px;
-}
-
-
-.image-1 {
-  margin-top: 50px;
-  margin-bottom: 150px;
-}
 
 @keyframes slide {
   0% {
@@ -354,6 +460,7 @@ nav ul li a:hover {
 .Image-4 {
   display: none;
 }
+
 .contact-buttons {
   position: fixed;
   top: 50%;
@@ -405,43 +512,6 @@ nav ul li a:hover {
   color: #000;
 }
 
-.image-2 {
-  position: relative;
-}
-
-.image-2 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-.image-2:hover img{
-  opacity: 0.75; /* Initially hidden */
-  transition: opacity 0.3s ease;
-}
-
-.image-2:hover .plus-button {
-  opacity: 1;
-}
-
-.plus-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s ease; /* Smooth transition */
-}
-.plus-button button{
-  background-color: transparent;
-  border: none;
-}
-
-.plus-icon {
-  font-size: 350%;
-  color: rgb(255, 255, 255);
-  background-color:transparent;
-}
-
 .image-slider:hover .arrow-button {
   opacity: 1;
   transition: opacity 0.4s ease;
@@ -449,56 +519,4 @@ nav ul li a:hover {
 .image-slider:hover .arrow-button {
   transform: scale(2);
   transition: transform 0.7s  ease-in-out;
-}
-.arrow-button {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translate(0,0);
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.4s ease; /* Smooth transition */
-}
-.arrow-button button{
-  background-color: transparent;
-  border: none;
-}
-
-.arrow-icon {
-  font-size: 350%;
-  color: rgb(255, 255, 255);
-  background-color:transparent;
-}
-
-
-.logopic {
-  position: relative;
-}
-
-
-.logopic:hover img{
-  opacity: 0.75; /* Initially hidden */
-  transition: opacity 0.3s ease;
-}
-
-.logopic:hover .lplus-button {
-  opacity: 1;
-}
-
-.lplus-button {
-  position: absolute;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s ease; /* Smooth transition */
-}
-.lplus-button button{
-  background-color: transparent;
-  border: none;
-}
-
-.lplus-icon {
-  font-size: 200%;
-  color: rgb(255, 255, 255);
-  background-color:transparent;
 }
