@@ -11,8 +11,7 @@ const router = new express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/storetemplate', tokenMiddle, TemplateHandler.storeTemplate);
-router.post('/storetemplatetmp', tokenMiddle,upload.array('images', 2), TemplateHandler.storeTemplatetmp);
+router.post('/storetemplate', tokenMiddle, upload.array('images'), TemplateHandler.storeTemplate);
 router.post('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
 
 module.exports = router;

@@ -9,6 +9,8 @@ import { FaPhone } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
+import { IoMdCloudDone } from "react-icons/io";
+import { MdCloudDone } from "react-icons/md";
 
 import anime from 'animejs/lib/anime.es.js';
 
@@ -59,6 +61,9 @@ const Template1edit = () => {
   const [aboutus_image1_anim, setaboutus_image1_anim] = useState(null)
   const [aboutus_image2_anim, setaboutus_image2_anim] = useState(null)
   const [aboutus_text_anim, setaboutus_text_anim] = useState(null)
+  const [publish_text_anim, setpublish_text_anim] = useState(null)
+  const [publish_icon_anim, setpublish_icon_anim] = useState(null)
+  const [publish_button_anim, setpublish_button_anim] = useState(null)
 
   const [recentEvents, setRecentEvents] = useState([
     { id: 1, image: null, description: "Description for Event", uploaded:false},
@@ -81,7 +86,8 @@ const Template1edit = () => {
   const aboutUsImage2Ref = useRef(null);
   const aboutUsImageRef = useRef(null);
   const contactImageRef = useRef(null);
-  const eventRef = [useRef(null), useRef(null), useRef(null), useRef(null)]
+  const eventRef = [useRef(null), useRef(null), useRef(null), useRef(null),
+    useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
   const sendDataToBackend = async () => {
     // Prepare data object to send to backend
@@ -157,14 +163,33 @@ const Template1edit = () => {
     const Signals = image_status.concat(recentEvents
       .map(event => event.uploaded));
     
+
+    const event_descriptions = recentEvents
+    .filter(event => event.description !== "Description for Event")
+    .map(event => event.description)
+
+
     const texts = {
       name : ngoName,
       visionText:visionText,
       aboutUsText: aboutUsText,
-      eventBottomText: eventText
+      eventBottomText: eventText,
+      email:email !== "Your email" ? email : "",
+      phoneNumber:phoneNumber != "Your Contact" ? phoneNumber : "",
+      instahandle:insta!= "Your Insta handle" ? insta : "",
+      xhandle:x!="Your X handle" ? x : ""
     }
 
     const formData = new FormData();
+
+    recentEvents.forEach((event, index) => {
+      if (event.description !== "Description for Event") {
+        formData.append(`eventDescriptions[${index}]`, event.description);
+      }
+      else{
+        formData.append(`eventDescriptions[${index}]`, '');
+      }
+    });
 
     Images.forEach((file, index) => {
       formData.append('images', file);
@@ -199,11 +224,9 @@ const Template1edit = () => {
   };
 
   const handleLogoChange = (event) => {
-    try {
+    if(event.target.files[0]){
       setLogo(event.target.files[0]);
       setLogoUploaded(true);
-    } catch (error) {
-      console.error("Error creating object URL:", error);
     }
   };
 
@@ -263,17 +286,42 @@ const Template1edit = () => {
   };
 
   const handleAddEvent = () => {
+    const maxId = recentEvents.reduce((max, event) => {
+      return event.id > max ? event.id : max;
+    }, 0);
+
     const newEvent = {
-      id: recentEvents.length + 1,
+      id: maxId + 1,
       image: null,
       description: "Description for Event",
       uploaded:false
     };
     setRecentEvents([...recentEvents, newEvent]);
+    console.log(recentEvents.length);
+    if(recentEvents.length > 8){
+      const add_button = document.getElementById('event-add-button-id');
+      add_button.style.pointerEvents = 'none';
+    }
+    if(recentEvents.length > 1){
+      const delete_spans = document.querySelectorAll('.event-delete-button');
+      delete_spans.forEach(span => {
+          span.style.pointerEvents = 'auto';
+      });
+    }
   };
 
   const handleDeleteEvent = (id) => {
     setRecentEvents(recentEvents.filter((event) => event.id !== id));
+    if(recentEvents.length < 12){
+      const add_button = document.getElementById('event-add-button-id');
+      add_button.style.pointerEvents = 'auto';
+    }
+    if(recentEvents.length < 5){
+      const delete_spans = document.querySelectorAll('.event-delete-button');
+      delete_spans.forEach(span => {
+          span.style.pointerEvents = 'none';
+      });
+    }
   };
 
   const handleEventImageClick = (id) => {
@@ -324,9 +372,6 @@ const Template1edit = () => {
       setContactImageUploaded(true);  
     }
   };
-
-
-
 
 useEffect(() => {
   setupload_icon_anim(anime({
@@ -386,6 +431,32 @@ useEffect(() => {
     easing:'linear',
     loop:true,
     autoplay:false
+  }));
+
+  setpublish_icon_anim(anime({
+    targets:document.getElementById('publish-icon-id'),
+    duration: 200,
+    width:['100%', '30%'],
+    borderLeft:['0px solid transparent', '2px solid white'],
+    easing: 'easeOutCubic',
+    autoplay:false,
+  }))
+
+  setpublish_button_anim(anime({
+    targets:document.getElementById('publish-button-id'),
+    width:['4%', '14%'],
+    borderRadius:['10%', '2%'],
+    duration: 200,
+    easing: 'easeOutCubic',
+    autoplay:false,
+  }));
+
+  setpublish_text_anim(anime({
+    targets:document.getElementById('publish-text-id'),
+    width:['0%', '70%'],
+    duration: 200,
+    easing: 'easeOutCubic',
+    autoplay:false,
   }));
 },[]);
 
@@ -458,6 +529,20 @@ const handleUploadhover = (fileid) =>{
   })
 }
 
+const handlePublishhover = () =>{
+  publish_icon_anim.play();
+  publish_text_anim.play();
+  publish_button_anim.play();
+  publish_icon_anim.finished.then(() => {
+    publish_icon_anim.reverse();
+  })
+  publish_text_anim.finished.then(() => {
+    publish_text_anim.reverse();
+  })
+  publish_button_anim.finished.then(() => {
+    publish_button_anim.reverse();
+  })
+}
 
 // const handleUploadmouseout = (fileid) =>{
 //   console.log("gwgwgww");
@@ -564,7 +649,7 @@ const handleUploadhover = (fileid) =>{
               value={aboutUsText}
               onChange={handleAboutUsTextChange}
               className="about-textarea"
-              maxLength="300"
+              maxLength="1200"
               id="about-text-id"
             />
           </div>
@@ -607,7 +692,7 @@ const handleUploadhover = (fileid) =>{
           {/*<span className="event-add-text">
             Event
           </span>*/}
-          <span className="event-add-button" onClick={handleAddEvent}>
+          <span className="event-add-button" onClick={handleAddEvent} id="event-add-button-id">
             <MdOutlinePostAdd />
           </span>
         </div>
@@ -649,6 +734,7 @@ const handleUploadhover = (fileid) =>{
                   onChange={(e) =>
                     handleEventDescriptionChange(events.id, e.target.value)
                   }
+                  maxLength="70"
                 />
               </div>
 
@@ -699,7 +785,7 @@ const handleUploadhover = (fileid) =>{
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              maxLength="20"
+              
               // onClick={handleEmailClick}
               />
             </div>
@@ -738,11 +824,16 @@ const handleUploadhover = (fileid) =>{
             <button className="volunteer-button">Volunteer</button>
             <button className="donor-button">Donor</button>
           </div>
-          <button className="publish-button" onClick={handlePublish}>
-            Publish
-          </button>
         </div>
       </footer>
+      <div className="publish-button" id="publish-button-id" onClick={handlePublish}>            
+            <div className="publish-icon" id="publish-icon-id"
+              onMouseEnter={() => handlePublishhover()}
+              onMouseLeave={() => handlePublishhover()}>
+              <IoMdCloudDone />
+            </div>            
+            <div className="publish-text" id="publish-text-id">Publish</div>
+      </div>
     </div>
   );
 };

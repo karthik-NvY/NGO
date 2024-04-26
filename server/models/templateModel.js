@@ -4,71 +4,69 @@
 
 const mongoose = require('mongoose');
 
-const Template1Schema = new mongoose.Schema({
+const TemplateSchema = new mongoose.Schema({
     template_id : {
         type: Number,
         default : 1
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    visionText: {
+        type: String,
+        required: true
+    },
+    eventBottomText:{
+        type: String,
+        required: true
+    },
+    eventDescriptions:{
+        type:[String],
+        required:true
     },
     logo: {
         type: String,
         required: true
     },
-    ngoName: {
-        type: String,
-        required: true
+    main:{
+        type:String,
+        required:true
+    },
+    aboutUsImage:{
+        type:String,
+        required:true
+    },
+    aboutUsImage2:{
+        type:String,
+        required:true
+    },
+    contactImage:{
+        type:String,
+        required:true
+    },
+    eventImages:{
+        type:[String],
+        required:true
     },
     ngo_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ngos', // Referencing the Ngos model
         required:true
     },
-    heroImages: [{
-        id: {
-            type: Number
-        },
-        image: {
-            type: String,
-            required: true
-        }
-    }],
-    aboutUsText: {
-        type: String,
-        required: true
-    },
-    // aboutUsImage1: {
-    //     type: String,
-    //     required: true
-    // },
-    aboutUsImage2: {
-        type: String,
-        required: true
-    },
-    recentEvents: [{
-        id: {
-            type: Number
-        },
-        image: {
-            type: String,
-            required: true
-        },
-        description: {
-            type: String,
-            required: true
-        }
-    }],
     email: {
         type: String,
-        required: true
     },
     phoneNumber: {
         type: String,
-        required: true
     },
-    contactImage: {
+    xhandle: {
         type: String,
-        required: true
+    },
+    instahandle: {
+        type: String,
     }
 });
 
 // Creating and exporting Template1 model
-module.exports = mongoose.model('Template1', Template1Schema);
+module.exports = mongoose.model('Template', TemplateSchema);
