@@ -170,6 +170,21 @@ nav ul li a:hover {
   justify-content: space-evenly;
   height: 100vh;
   overflow: hidden;
+  /*background: linear-gradient(45deg, #ff7300, #ffe300, #17b978, #00ded8, #0052cc, #6548ff, #ff4e00, #ff0078);
+  animation: gradientAnimation 5s linear infinite; /* Adjust duration as needed */
+  z-index: 2;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .about-content {
@@ -177,6 +192,8 @@ nav ul li a:hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex-basis: 40%;
+  z-index: 3;
 }
 
 .about-heading {
@@ -186,7 +203,6 @@ nav ul li a:hover {
 
 .about-text {
   position: relative;
-  font-size: 16px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -195,13 +211,14 @@ nav ul li a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 3;
 /*  width: 50%;  */
 }
 
 .about-text textarea {
   box-sizing: border-box;
   border: 2;
-  background-color: transparent;
+  background-color: rgb(255, 255, 255, 0.8);
   outline: none;
   color: #000;
   font-size: 16px;
@@ -224,6 +241,7 @@ nav ul li a:hover {
 .about-images-1{
   display: flex;
   position: relative;
+  border: 1px solid black;
 }
 .about-images-1:hover img{
   opacity: 0.75; /* Initially hidden */
@@ -234,6 +252,9 @@ nav ul li a:hover {
   opacity: 1;
 }
 
+.about-images-upload-icon{
+  color: rgb(0, 0, 0, 1.0);
+}
 .about-image-1img{
   z-index: 0;
   height: 40vh;
@@ -246,6 +267,7 @@ nav ul li a:hover {
   width: 100%;
   margin-top: 2%;
   position: relative;
+  border: 1px solid black;
 }
 .about-images-2:hover img{
   opacity: 0.75; /* Initially hidden */
@@ -274,7 +296,7 @@ nav ul li a:hover {
 
 .about-images-upload-icon {
   font-size: 350%;
-  color: rgb(255, 255, 255);
+  color: rgb(0,0,0,0.4);
   background-color:transparent;
 }
 
@@ -306,29 +328,71 @@ nav ul li a:hover {
   display: flex;
   flex-direction: column;
   overflow-x: auto;
+  height: 100vh;
 }
 
 .event-heading {
-  font-size: 70px;
-  /* padding: 10px; */
-  margin-left: 400px;
-  margin-bottom: 30px;
+  font-size: 400%;
+  text-align: center;
 }
 
 .event-container {
   display: flex;
-  padding: 30px;
+  padding-right: 3%;
+  padding-left: 3%;
   background-color: #f1eeeb;
   scroll-snap-type: x mandatory;
   overflow-x: auto;
   justify-content: space-between;
+  gap:2%;
+}
+
+.event-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.event-add{
+  background-color: #f1eeeb;
+  padding-right: 2%;
+  /*padding-bottom: 1%;
+  padding-top: 1%;*/
+  display: flex;
+  justify-content: flex-end;
+}
+
+/*.event-add-text{
+  flex-basis: 8%;
+  color:rgb(16, 89, 32, 1.0);
+  font-size: 200%;
+  border-left: 2px solid rgb(16, 89, 32, 1.0);
+  border-bottom: 2px solid rgb(16, 89, 32, 1.0);
+  border-top: 2px solid rgb(16, 89, 32, 1.0);
+  overflow: hidden;
+  text-align: center;
+}*/
+
+.event-add-button{
+  font-size: 250%;
+  color: rgb(16, 89, 32, 1.0);
+/*  border-right: 4px solid rgb(16, 89, 32, 0);*/
+  /*border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;*/
+  opacity: 0.7;
+}
+
+.event-add-button:hover{
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  /*border-right: 4px solid rgb(16, 89, 32, 1.0);  
+  transition: border-right 0.2s ease;*/
 }
 
 .event {
   flex-shrink: 0;
   flex-grow: 0;
-  width: 300px;
-  margin-right: 70px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
 }
 
 .event:last-child {
@@ -339,27 +403,110 @@ nav ul li a:hover {
   margin-left: 20px;
 }
 
-.event img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
+.event-image-input{
+  display: none;
 }
 
+.event-image-img {
+  width: 40vw;
+  height: 45vh;
+  object-fit: cover;
+  z-index: 0;
+}
+.event-image{
+  display: flex;
+  position: relative;
+  border: 1px solid black;
+}
+.event-image:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.event-image:hover .event-image-upload {
+  opacity: 1;
+}
+.event-image-upload {
+  position: absolute;
+  z-index: 4;
+  margin-left: 45%;
+  margin-top: 40%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.event-image-upload-icon {
+  font-size: 350%;
+  color: rgb(0,0,0,0.4);
+  background-color:transparent;
+}
+
+.event-description{
+  text-align: center;
+  padding-top: 4%;
+  overflow: hidden;
+}
 .event-description textarea {
   box-sizing: border-box;
-  border: none;
+  border: 2;
   background-color: transparent;
   outline: none;
   color: #000;
-  font-size: 16px;
-
+  font-size: 100%;
   resize: none;
   word-wrap: break-word;
   white-space: normal;
   overflow: hidden;
+  text-align-last: center;
+  text-align: justify;
+  width: 100%;  
 }
 
-.add-button {
+.event-actions{
+  text-align: center;
+}
+
+.event-delete-button{
+  font-size: 250%;
+  /*border: 2px solid rgb(120, 16, 16, 1.0);
+  border-radius: 20%;*/
+  border-top: 2px solid rgb(120, 16, 16, 0);
+  color: rgb(120, 16, 16, 1.0);
+  opacity: 0.5;
+}
+
+.event-delete-button:hover{
+  border-top: 2px solid rgb(120, 16, 16, 1.0);
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  transition: border-top 0.2s ease;
+}
+
+
+.event-bottom-text{
+  text-align: center;
+  flex-grow: 1;
+  padding-top: 1%;
+}
+
+.event-bottom-textarea{
+  box-sizing: border-box;
+  border: 2;
+  background-color: transparent;
+  outline: none;
+  color: #000;
+  font-size: 100%;
+  resize: none;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-align-last: center;
+  text-align: justify;
+  width: 80%;
+  height: 90%;
+}
+
+/*.add-button {
   right: 0;
   width: 150px;
   background-color: #7b736b;
@@ -368,7 +515,7 @@ nav ul li a:hover {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-}
+}*/
 
 .contact-container {
   display: flex;

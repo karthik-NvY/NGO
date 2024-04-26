@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Template1edit.css";
-import { IoAddCircleOutline,IoArrowUp  } from "react-icons/io5";
+
 import { FaUpload } from "react-icons/fa6";
 import { IoIosCloudUpload } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
+import { MdOutlinePostAdd } from "react-icons/md";
 import anime from 'animejs/lib/anime.es.js';
 
 import event1 from "../../Assets/event1.png";
 import event2 from "../../Assets/event2.png";
 import event3 from "../../Assets/event3.png";
 import event4 from "../../Assets/event4.png";
+import ideas from "../../Assets/ideas.png";
+import goals from "../../Assets/goals.png";
 import axios from "axios";
 
 import logo1 from "../../Assets/logo_big.png"
@@ -35,6 +39,10 @@ const Template1edit = () => {
     "Present your Vision"
   );
 
+  const [eventText, seteventText] = useState(
+    "Present overall description about events."
+  );
+
   const [aboutUsImage2, setAboutUsImage2] = useState(null);
   const [aboutUsImage2Uploaded, setAboutUsImage2Uploaded] = useState(false);
 
@@ -44,16 +52,21 @@ const Template1edit = () => {
   const [upload_icon_anim, setupload_icon_anim] = useState(null)
   const [upload_text_anim, setupload_text_anim] = useState(null)
 
+  const [aboutus_anim, setaboutus_anim] = useState(null)
   const [aboutus_heading_anim, setaboutus_heading_anim] = useState(null)
   const [aboutus_image1_anim, setaboutus_image1_anim] = useState(null)
   const [aboutus_image2_anim, setaboutus_image2_anim] = useState(null)
+  const [aboutus_text_anim, setaboutus_text_anim] = useState(null)
+
+  const events_init = [event1, event2, event3, event4]
 
   const [recentEvents, setRecentEvents] = useState([
-    { id: 1, image: null, description: "Description for Event 1" },
-    { id: 2, image: null, description: "Description for Event 2" },
-    { id: 3, image: null, description: "Description for Event 3" },
-    { id: 4, image: null, description: "Description for Event 4" },
+    { id: 1, image: null, description: "Description for Event 1", uploaded:false},
+    { id: 2, image: null, description: "Description for Event 2", uploaded:false},
+    { id: 3, image: null, description: "Description for Event 3", uploaded:false},
+    { id: 4, image: null, description: "Description for Event 4", uploaded:false},
   ]);
+
   const [email, setEmail] = useState("2021csb1137@iitrpr.ac.in");
   const [phoneNumber, setPhoneNumber] = useState("+91 8985618658");
   
@@ -66,6 +79,7 @@ const Template1edit = () => {
   const aboutUsImage2Ref = useRef(null);
   const aboutUsImageRef = useRef(null);
   const contactImageRef = useRef(null);
+  const eventRef = [useRef(null), useRef(null), useRef(null), useRef(null)]
 
   //   useEffect(() => {
   //     // Function to send data to backend whenever inputs change
@@ -168,18 +182,22 @@ const Template1edit = () => {
 
   const handleAboutUsImageChange = (event) => {
     //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
-    setAboutUsImage2(event.target.files[0]);
-    setAboutUsImage2Uploaded(true);
+    if(event.target.files[0]){
+      setAboutUsImage(event.target.files[0]);
+      setAboutUsImageUploaded(true);
+    }
   };
 
   const handleAboutUsImageClick = () => {
-    aboutUsImage2Ref.current.click();
+    aboutUsImageRef.current.click();
   };
 
   const handleAboutUsImage2Change = (event) => {
     //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
-    setAboutUsImage2(event.target.files[0]);
-    setAboutUsImage2Uploaded(true);
+    if(event.target.files[0]){
+      setAboutUsImage2(event.target.files[0]);
+      setAboutUsImage2Uploaded(true);  
+    }
   };
 
   const handleAboutUsImage2Click = () => {
@@ -199,11 +217,16 @@ const Template1edit = () => {
     setRecentEvents(recentEvents.filter((event) => event.id !== id));
   };
 
+  const handleEventImageClick = (id) => {
+    eventRef[id].current.click();
+  };
+
   const handleEventImageChange = (id, file) => {
     setRecentEvents(
       recentEvents.map((event) => {
-        if (event.id === id) {
-          return { ...event, image: URL.createObjectURL(file) };
+        if (event.id === id && file) {
+          event.uploaded = true;
+          return { ...event, image: file };
         }
         return event;
       })
@@ -221,6 +244,9 @@ const Template1edit = () => {
     );
   };
 
+  const handleEventTextChange = (event) => {
+    seteventText(event.target.value);
+  };
   // const handleEmailClick = () => {
   //   window.location.href = mailto:${email};
   // };
@@ -307,7 +333,7 @@ const Template1edit = () => {
 useEffect(() => {
   setupload_icon_anim(anime({
     targets:document.getElementById('upload-icon-id'),
-    duration: 200,
+    duration: 500,
     easing: 'easeOutCubic',
     borderColor: '#000000',
     autoplay:false,
@@ -316,7 +342,7 @@ useEffect(() => {
   setupload_text_anim(anime({
     targets:document.getElementById('upload-text-id'),
     width:['0%', '80%'],
-    duration: 200,
+    duration: 500,
     easing: 'easeOutCubic',
     autoplay:false,
   }));
@@ -326,31 +352,45 @@ useEffect(() => {
     fontSize:['1%', '300%'],
     duration:2000,
     easing:'easeOutCubic',
-    direction:'alternate',
     autoplay:false,
   }));
 
-  // setaboutus_image1_anim(anime({
-  //   targets:document.getElementById('about-images-1-id'),
-  //   width:['0%', '100%'],
-  //   duration:2000,
-  //   easing:'easeOutCubic',
-  //   direction:'alternate',
-  //   autoplay:false,
-  // }));
+  setaboutus_image1_anim(anime({
+    targets:document.getElementById('about-images-1-id'),
+    width:['0%', '100%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    autoplay:false,
+  }));
   
   setaboutus_image2_anim(anime({
     targets:document.getElementById('about-images-2-id'),
-    height:['0%', '100%'],
+    width:['0%', '100%'],
     duration:2000,
     easing:'easeOutCubic',
-    direction:'alternate',
     autoplay:false,
+  }));
+
+  setaboutus_text_anim(anime({
+    targets:document.getElementById('about-text-id'),
+    fontSize:['0%', '100%'],
+    width:['0%', '100%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    autoplay:false,
+  }));
+
+  setaboutus_anim(anime({
+    targets:document.getElementById('about-section-id'),
+    backgroundImage:['linear-gradient(-90deg, rgba(123, 115, 107, 0.9) 0px, rgba(214, 207, 200, 1) 100%)',
+      'linear-gradient(180deg, rgba(123, 115, 107, 0.9) 0px, rgba(214, 207, 200, 1) 100%)'],
+    duration:4000,
+    easing:'easeInCubic',
+    loop:true,
+    autoplay:false
   }));
 },[]);
 
-
-      
 
 useEffect(() => {
     if (aboutus_heading_anim) {
@@ -361,23 +401,52 @@ useEffect(() => {
   }
 }, [aboutus_heading_anim]);
 
-// useEffect(() => {
-//     if (aboutus_image1_anim) {
-//       window.addEventListener('scroll', ()=>{
-//         var scrollstat = (window.scrollY / window.innerHeight);
-//         aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
-//     });   
-//   }
-// }, [aboutus_image1_anim]);
+useEffect(() => {
+    if (aboutus_image1_anim) {
+      window.addEventListener('scroll', ()=>{
+        var scrollstat = (window.scrollY / window.innerHeight);
+        aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
+    });   
+  }
+}, [aboutus_image1_anim]);
 
 useEffect(() => {
     if (aboutus_image2_anim) {
       window.addEventListener('scroll', ()=>{
-        var scrollstat = (window.scrollY / window.innerHeight);
+        if (window.scrollY < window.innerHeight){
+          var scrollstat = (window.scrollY / window.innerHeight);  
+        }
+        else{
+          var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
+        }
         aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
     });   
   }
-}, [aboutus_image1_anim]);
+}, [aboutus_image2_anim]);
+
+useEffect(() => {
+    if (aboutus_text_anim) {
+      window.addEventListener('scroll', ()=>{
+        if (window.scrollY < window.innerHeight){
+          var scrollstat = (window.scrollY / window.innerHeight);  
+        }
+        else{
+          var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
+        }
+        aboutus_text_anim.seek(scrollstat * aboutus_text_anim.duration);
+    });   
+  }
+}, [aboutus_text_anim]);
+
+useEffect(() => {
+    if (aboutus_anim) {
+      window.addEventListener('scroll', ()=>{
+        // var scrollstat = (window.scrollY-window.innerHeight)/window.innerHeight;
+        var scrollstat = (window.scrollY / window.innerHeight);
+        aboutus_anim.seek(scrollstat * aboutus_anim.duration);
+    });   
+  }
+}, [aboutus_anim]);
 
 const handleUpload = (fileid)=>{
   document.getElementById(fileid).click()
@@ -494,19 +563,19 @@ const handleVisionChange = (event) => {
           </div>
         </div>
       </div>
-      <section id="AboutUs" className="about-section">
+      <section id="AboutUs" className="about-section" id="about-section-id">
         <div className="about-content">
           <div className="about-heading" id="about-heading-id">
             <h2>ABOUT US</h2>
           </div>
-
-          <div className="about-text">
+          <div className="about-text" id="about-textarea-id">
             <textarea
               type="text"
               value={aboutUsText}
               onChange={handleAboutUsTextChange}
               className="about-textarea"
               maxLength="300"
+              id="about-text-id"
             />
           </div>
         </div>
@@ -515,9 +584,8 @@ const handleVisionChange = (event) => {
             <div className="about-images-upload">
               <span className="about-images-upload-icon"><FaUpload /></span>
             </div>
-            {!aboutUsImageUploaded && <img src={ab} alt="About us 1 Pic"  className="about-image-1img"/>}
+            {!aboutUsImageUploaded && <img src={ideas} alt="About us 1 Pic"  className="about-image-1img"/>}
             {aboutUsImageUploaded && <img src={URL.createObjectURL(aboutUsImage)} alt="About us 2 Pic" className="about-image-2img"/>}
-            
             <input
               type="file"
               accept="image/*"
@@ -527,7 +595,7 @@ const handleVisionChange = (event) => {
             />
           </div>
           <div className="about-images-2" onClick={handleAboutUsImage2Click} id="about-images-2-id">
-            {!aboutUsImage2Uploaded && <img src={ab} alt="About us 2 Pic" className="about-image-2img"/>}
+            {!aboutUsImage2Uploaded && <img src={goals} alt="About us 2 Pic" className="about-image-2img"/>}
             {aboutUsImage2Uploaded && <img src={URL.createObjectURL(aboutUsImage2)} alt="About us 2 Pic" className="about-image-2img"/>}
             <div className="about-images-upload">
               <span className="about-images-upload-icon"><FaUpload /></span>
@@ -545,43 +613,72 @@ const handleVisionChange = (event) => {
       </section>
       <section id="Events" className="events-section">
         <h2 className="event-heading"> RECENT EVENTS</h2>
+        <div className="event-add">
+          {/*<span className="event-add-text">
+            Event
+          </span>*/}
+          <span className="event-add-button" onClick={handleAddEvent}>
+            <MdOutlinePostAdd />
+          </span>
+        </div>
         <div className="event-container">
-          {recentEvents.map((event) => (
-            <div key={event.id} className="event">
-              {event.image && (
-                <img
-                  src={event.image}
-                  alt={`Event ${event.id}`}
-                  className="event-image"
+          {recentEvents.map((events) => (
+            <div key={events.id} className="event">
+              <div className="event-image" onClick={()=>handleEventImageClick(events.id-1)}>
+                {events.uploaded && (
+                  <img
+                    src={URL.createObjectURL(events.image)}
+                    alt={`Event ${events.id}`}
+                    className="event-image-img"
+                  />
+                )}
+                {!events.uploaded && (
+                  <img
+                    src={events_init[events.id-1]}
+                    alt={`Event ${events.id}`}
+                    className="event-image-img"
+                  />
+                )}
+                <div className="event-image-upload">
+                  <span className="event-image-upload-icon"><FaUpload /></span>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) =>
+                    handleEventImageChange(events.id, e.target.files[0])
+                  }
+                  ref={eventRef[events.id-1]}
+                  className="event-image-input"
                 />
-              )}
+              </div>
               <div className="event-description">
                 <textarea
                   type="text"
-                  value={event.description}
+                  value={events.description}
                   onChange={(e) =>
-                    handleEventDescriptionChange(event.id, e.target.value)
+                    handleEventDescriptionChange(events.id, e.target.value)
                   }
                 />
               </div>
 
               <div className="event-actions">
-                <button onClick={() => handleDeleteEvent(event.id)}>
-                  Delete Event
-                </button>
-                <input
-                  type="file"
-                  onChange={(e) =>
-                    handleEventImageChange(event.id, e.target.files[0])
-                  }
-                />
+                <span onClick={() => handleDeleteEvent(events.id)} className="event-delete-button">
+                  <MdDeleteForever />
+                </span>
               </div>
             </div>
           ))}
+        </div> 
+        <div className="event-bottom-text">
+        <textarea
+              type="text"
+              value={eventText}
+              onChange={handleEventTextChange}
+              className="event-bottom-textarea"
+              maxLength="50"
+        />
         </div>
-        <button className="add-button" onClick={handleAddEvent}>
-          Add Event
-        </button>
       </section>
       <footer id="ContactUs" className="contact-section">
         <div className="contact-container">
