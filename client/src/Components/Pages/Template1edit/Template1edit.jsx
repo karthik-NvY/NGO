@@ -5,12 +5,14 @@ import { FaUpload } from "react-icons/fa6";
 import { IoIosCloudUpload } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import { MdOutlinePostAdd } from "react-icons/md";
+import { FaPhone } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
+
 import anime from 'animejs/lib/anime.es.js';
 
-import event1 from "../../Assets/event1.png";
-import event2 from "../../Assets/event2.png";
-import event3 from "../../Assets/event3.png";
-import event4 from "../../Assets/event4.png";
+import eventpic from "../../Assets/event.png";
 import ideas from "../../Assets/ideas.png";
 import goals from "../../Assets/goals.png";
 import axios from "axios";
@@ -58,17 +60,17 @@ const Template1edit = () => {
   const [aboutus_image2_anim, setaboutus_image2_anim] = useState(null)
   const [aboutus_text_anim, setaboutus_text_anim] = useState(null)
 
-  const events_init = [event1, event2, event3, event4]
-
   const [recentEvents, setRecentEvents] = useState([
-    { id: 1, image: null, description: "Description for Event 1", uploaded:false},
-    { id: 2, image: null, description: "Description for Event 2", uploaded:false},
-    { id: 3, image: null, description: "Description for Event 3", uploaded:false},
-    { id: 4, image: null, description: "Description for Event 4", uploaded:false},
+    { id: 1, image: null, description: "Description for Event", uploaded:false},
+    { id: 2, image: null, description: "Description for Event", uploaded:false},
+    { id: 3, image: null, description: "Description for Event", uploaded:false},
+    { id: 4, image: null, description: "Description for Event", uploaded:false},
   ]);
 
-  const [email, setEmail] = useState("2021csb1137@iitrpr.ac.in");
-  const [phoneNumber, setPhoneNumber] = useState("+91 8985618658");
+  const [email, setEmail] = useState("Your email");
+  const [phoneNumber, setPhoneNumber] = useState("Your contact");
+  const [x, setX] = useState("Your X handle");
+  const [insta, setInsta] = useState("Your Insta handle");
   
   const [contactImage, setContactImage] = useState(null);
   const [contactImageUploaded, setContactImageUploaded] = useState(false);
@@ -80,21 +82,6 @@ const Template1edit = () => {
   const aboutUsImageRef = useRef(null);
   const contactImageRef = useRef(null);
   const eventRef = [useRef(null), useRef(null), useRef(null), useRef(null)]
-
-  //   useEffect(() => {
-  //     // Function to send data to backend whenever inputs change
-  //     sendDataToBackend();
-  //   }, [
-  //     logo,
-  //     ngoName,
-  //     aboutUsText,
-  //     //aboutUsImage1,
-  //     aboutUsImage2,
-  //     recentEvents,
-  //     email,
-  //     phoneNumber,
-  //     contactImage,
-  //   ]);
 
   const sendDataToBackend = async () => {
     // Prepare data object to send to backend
@@ -142,8 +129,73 @@ const Template1edit = () => {
   //     // Handle error
   //   });
 
-  const handlePublish = () => {
-    sendDataToBackend();
+  const handlePublish = async (event) => {
+    event.preventDefault();
+
+    const image_files = [
+      logo,
+      main,
+      aboutUsImage,
+      aboutUsImage2,
+      contactImage
+    ]
+
+    const event_images = recentEvents
+    .filter(event => event.uploaded)
+    .map(event => event.image)
+
+    const Images = image_files.concat(event_images);
+
+    const image_status = [
+      logoUploaded,
+      mainUploaded,
+      aboutUsImageUploaded,
+      aboutUsImage2Uploaded,
+      contactImageUploaded
+    ]
+
+    const Signals = image_status.concat(recentEvents
+      .map(event => event.uploaded));
+    
+    const texts = {
+      name : ngoName,
+      visionText:visionText,
+      aboutUsText: aboutUsText,
+      eventBottomText: eventText
+    }
+
+    const formData = new FormData();
+
+    Images.forEach((file, index) => {
+      formData.append('images', file);
+    });
+    
+    Signals.forEach((status, index) => {
+      formData.append('image_status', status); // Use '[]' to indicate an array
+    });
+
+    Object.entries(texts).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.post(
+        `${apiUrl}/templates/storetemplatetmp`,
+        formData,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+          },
+        }
+      );
+        console.log(response);
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+    //sendDataToBackend();
   };
 
   const handleLogoChange = (event) => {
@@ -167,18 +219,24 @@ const Template1edit = () => {
     }
   };
 
+  const handleMainChange = (event) => {
+    if (event.target.files[0]){
+      setMain(event.target.files[0]);
+      setMainUploaded(true);  
+    }    
+  };
+
+  const handleMainClick = (event) => {
+    mainRef.current.click();
+  };
+
+  const handleVisionChange = (event) => {
+    setVisionText(event.target.value);
+  };
+
   const handleAboutUsTextChange = (event) => {
     setAboutUsText(event.target.value);
   };
-
-  //   const handleAboutUsImage1Change = (event) => {
-  //     setAboutUsImage1(URL.createObjectURL(event.target.files[0]));
-  //   };
-
-  //   const handleAboutUsImage1Click = () => {
-  //     aboutUsImage1Ref.current.click();
-  //   };
-
 
   const handleAboutUsImageChange = (event) => {
     //setAboutUsImage2(URL.createObjectURL(event.target.files[0]));
@@ -208,7 +266,8 @@ const Template1edit = () => {
     const newEvent = {
       id: recentEvents.length + 1,
       image: null,
-      description: "",
+      description: "Description for Event",
+      uploaded:false
     };
     setRecentEvents([...recentEvents, newEvent]);
   };
@@ -259,81 +318,20 @@ const Template1edit = () => {
     contactImageRef.current.click();
   };
 
-  const handleImageChange = (event) => {
-    setContactImage(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const handleMainChange = (event) => {
-    if (event.target.files[0]){
-      setMain(event.target.files[0]);
-      setMainUploaded(true);  
-    }    
-  };
-
-  const handleMainClick = (event) => {
-    mainRef.current.click();
-  };
-
-  const handleUpload2 = async (event) => {
-    event.preventDefault();
-
-    const image_files = [
-      logo,
-      main,
-      aboutUsImage2,
-      contactImage
-    ]
-    const image_status = [
-      logoUploaded,
-      mainUploaded,
-      aboutUsImage2Uploaded,
-      contactImageUploaded
-    ]
-    
-    const texts = {
-      name : ngoName,
-      vision:visionText,
-      aboutUsText: aboutUsText
+  const handleContactImageChange = (event) => {
+    if(event.target.files[0]){
+      setContactImage(event.target.files[0]);
+      setContactImageUploaded(true);  
     }
+  };
 
-    const formData = new FormData();
 
-    image_files.forEach((file, index) => {
-      formData.append('images', file);
-    });
-    
-    image_status.forEach((status, index) => {
-      formData.append('image_status', status); // Use '[]' to indicate an array
-    });
-
-    Object.entries(texts).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    const token = localStorage.getItem("token");
-    try {
-        const response = await axios.post(
-        `${apiUrl}/templates/storetemplatetmp`,
-        formData,
-        { 
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
-          },
-        }
-      );
-        console.log(response);
-    } catch (error) {
-        console.error('Error uploading image:', error);
-    }
-};
 
 
 useEffect(() => {
   setupload_icon_anim(anime({
     targets:document.getElementById('upload-icon-id'),
-    duration: 500,
+    duration: 200,
     easing: 'easeOutCubic',
     borderColor: '#000000',
     autoplay:false,
@@ -342,7 +340,7 @@ useEffect(() => {
   setupload_text_anim(anime({
     targets:document.getElementById('upload-text-id'),
     width:['0%', '80%'],
-    duration: 500,
+    duration: 200,
     easing: 'easeOutCubic',
     autoplay:false,
   }));
@@ -355,21 +353,21 @@ useEffect(() => {
     autoplay:false,
   }));
 
-  setaboutus_image1_anim(anime({
-    targets:document.getElementById('about-images-1-id'),
-    width:['0%', '100%'],
-    duration:2000,
-    easing:'easeOutCubic',
-    autoplay:false,
-  }));
+  // setaboutus_image1_anim(anime({
+  //   targets:document.getElementById('about-images-1-id'),
+  //   width:['0%', '100%'],
+  //   duration:2000,
+  //   easing:'easeOutCubic',
+  //   autoplay:false,
+  // }));
   
-  setaboutus_image2_anim(anime({
-    targets:document.getElementById('about-images-2-id'),
-    width:['0%', '100%'],
-    duration:2000,
-    easing:'easeOutCubic',
-    autoplay:false,
-  }));
+  // setaboutus_image2_anim(anime({
+  //   targets:document.getElementById('about-images-2-id'),
+  //   width:['0%', '100%'],
+  //   duration:2000,
+  //   easing:'easeOutCubic',
+  //   autoplay:false,
+  // }));
 
   setaboutus_text_anim(anime({
     targets:document.getElementById('about-text-id'),
@@ -382,10 +380,10 @@ useEffect(() => {
 
   setaboutus_anim(anime({
     targets:document.getElementById('about-section-id'),
-    backgroundImage:['linear-gradient(-90deg, rgba(123, 115, 107, 0.9) 0px, rgba(214, 207, 200, 1) 100%)',
-      'linear-gradient(180deg, rgba(123, 115, 107, 0.9) 0px, rgba(214, 207, 200, 1) 100%)'],
+    backgroundImage:['linear-gradient(-90deg, rgba(123, 115, 107, 1) 0px, rgba(214, 207, 200, 1) 100%)',
+      'linear-gradient(180deg, rgba(123, 115, 107, 1) 0px, rgba(214, 207, 200, 1) 100%)'],
     duration:4000,
-    easing:'easeInCubic',
+    easing:'linear',
     loop:true,
     autoplay:false
   }));
@@ -401,28 +399,28 @@ useEffect(() => {
   }
 }, [aboutus_heading_anim]);
 
-useEffect(() => {
-    if (aboutus_image1_anim) {
-      window.addEventListener('scroll', ()=>{
-        var scrollstat = (window.scrollY / window.innerHeight);
-        aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
-    });   
-  }
-}, [aboutus_image1_anim]);
+// useEffect(() => {
+//     if (aboutus_image1_anim) {
+//       window.addEventListener('scroll', ()=>{
+//         var scrollstat = (window.scrollY / window.innerHeight);
+//         aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
+//     });   
+//   }
+// }, [aboutus_image1_anim]);
 
-useEffect(() => {
-    if (aboutus_image2_anim) {
-      window.addEventListener('scroll', ()=>{
-        if (window.scrollY < window.innerHeight){
-          var scrollstat = (window.scrollY / window.innerHeight);  
-        }
-        else{
-          var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
-        }
-        aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
-    });   
-  }
-}, [aboutus_image2_anim]);
+// useEffect(() => {
+//     if (aboutus_image2_anim) {
+//       window.addEventListener('scroll', ()=>{
+//         if (window.scrollY < window.innerHeight){
+//           var scrollstat = (window.scrollY / window.innerHeight);  
+//         }
+//         else{
+//           var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
+//         }
+//         aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
+//     });   
+//   }
+// }, [aboutus_image2_anim]);
 
 useEffect(() => {
     if (aboutus_text_anim) {
@@ -448,9 +446,6 @@ useEffect(() => {
   }
 }, [aboutus_anim]);
 
-const handleUpload = (fileid)=>{
-  document.getElementById(fileid).click()
-}
 
 const handleUploadhover = (fileid) =>{
   upload_icon_anim.play();
@@ -463,9 +458,6 @@ const handleUploadhover = (fileid) =>{
   })
 }
 
-const handleVisionChange = (event) => {
-    setVisionText(event.target.value);
-  };
 
 // const handleUploadmouseout = (fileid) =>{
 //   console.log("gwgwgww");
@@ -490,19 +482,17 @@ const handleVisionChange = (event) => {
       <header>
         <div className="logo">
           <div className="logopic" onClick={handleLogoClick}>
-            {!logoUploaded && <img src={logo1} alt="Logo" />}
-            {logoUploaded && <img src={URL.createObjectURL(logo)} alt=" Logo" />}
+            {!logoUploaded && <img src={logo1} alt="Logo" className="logo-img"/>}
+            {logoUploaded && <img src={URL.createObjectURL(logo)} alt=" Logo" className="logo-img"/>}
             <div className="lplus-button">
-                <button>
                   <span className="lplus-icon"><FaUpload /></span>
-                </button>
-              </div>
+            </div>
             <input
               type="file"
               accept="image/*"
               onChange={handleLogoChange}
               ref={logoRef}
-              className="Image-1"
+              className="logo-input"
             />
           </div>
           <div className="name">
@@ -553,7 +543,7 @@ const handleVisionChange = (event) => {
                 id="main-upload-input-id"
           />
           <div className="upload-icon" id="upload-icon-id"
-            onClick={() => handleUpload('main-upload-input-id')}
+            onClick={() => document.getElementById('main-upload-input-id').click()}
             onMouseEnter={() => handleUploadhover('upload-id')}
             onMouseLeave={() => handleUploadhover('upload-id')}>
             <IoIosCloudUpload />
@@ -591,7 +581,7 @@ const handleVisionChange = (event) => {
               accept="image/*"
               onChange={handleAboutUsImageChange}
               ref={aboutUsImageRef}
-              className="Image-3"
+              className="about-images-input"
             />
           </div>
           <div className="about-images-2" onClick={handleAboutUsImage2Click} id="about-images-2-id">
@@ -605,7 +595,7 @@ const handleVisionChange = (event) => {
               accept="image/*"
               onChange={handleAboutUsImage2Change}
               ref={aboutUsImage2Ref}
-              className="Image-3"
+              className="about-images-input"
             />
           </div>
           {/*<button onClick={handleUpload}>Upload</button>*/}
@@ -634,7 +624,7 @@ const handleVisionChange = (event) => {
                 )}
                 {!events.uploaded && (
                   <img
-                    src={events_init[events.id-1]}
+                    src={eventpic}
                     alt={`Event ${events.id}`}
                     className="event-image-img"
                   />
@@ -676,7 +666,8 @@ const handleVisionChange = (event) => {
               value={eventText}
               onChange={handleEventTextChange}
               className="event-bottom-textarea"
-              maxLength="50"
+              maxLength="300"
+              rows="2"
         />
         </div>
       </section>
@@ -684,37 +675,64 @@ const handleVisionChange = (event) => {
         <div className="contact-container">
           <div className="contact-info">
             <div className="image-container" onClick={handleContactImageClick}>
+              <div className="contact-image-upload">
+                <span className="contact-image-upload-icon"><FaUpload /></span>
+              </div>
               {!contactImageUploaded && <img src={contactImagepath} alt="Contact Pic" />}
               {contactImageUploaded && <img src={URL.createObjectURL(contactImage)} alt="Contact Pic" />}
-
               <input
                 id="contactImageInput"
                 type="file"
-                onChange={handleImageChange}
+                onChange={handleContactImageChange}
                 ref={contactImageRef}
-                className="Image-4"
+                className="contact-image-input"
               />
-            </div>
-
-            <div className="connect-text">
+            </div>            
+          </div>
+          <div className="connect-text">
               <h2>Connect With Us</h2>
-            </div>
           </div>
           <div className="contact-details">
-            <textarea
+            <div className="contact-details-email">
+              <span className="contact-details-email-icon"><IoIosMail /></span>
+              <textarea
               type="email"
-              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              maxLength="20"
               // onClick={handleEmailClick}
-            />
-            <textarea
-              type="tel"
-              placeholder="Enter your phone number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              // onClick={handlePhoneClick}
-            />
+              />
+            </div>
+            <div className="contact-details-phone">
+              <span className="contact-details-phone-icon"><FaPhone /></span>
+              <textarea
+                type="tel"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                maxLength="14"
+                // onClick={handlePhoneClick}
+              />
+            </div>            
+            <div className="contact-details-x">
+              <span className="contact-details-x-icon"><FaXTwitter /></span>
+              <textarea
+                type="text"
+                value={x}
+                onChange={(e) => setX(e.target.value)}
+                maxLength="14"
+                // onClick={handlePhoneClick}
+              />
+            </div>
+            <div className="contact-details-insta">
+              <span className="contact-details-insta-icon"><FaInstagram /></span>
+              <textarea
+                type="text"
+                value={insta}
+                onChange={(e) => setInsta(e.target.value)}
+                maxLength="14"
+                // onClick={handlePhoneClick}
+              />
+            </div>
           </div>
           <div className="contact-buttons">
             <button className="volunteer-button">Volunteer</button>

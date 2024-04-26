@@ -19,11 +19,11 @@
 header {
   position: relative;
   background-color: #7b736b;
-  padding: 10px 20px;
+  padding: 0% 1% 0% 1%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 10vh;
   overflow: hidden;
 }
 
@@ -31,6 +31,11 @@ header {
   position: relative;
 }
 
+.logo-img{
+  height: 8vh;
+  width: 8vw;
+  object-fit: contain;
+}
 
 .logopic:hover img{
   opacity: 0.75; /* Initially hidden */
@@ -79,10 +84,9 @@ header {
   align-items: center; /* Center items vertically */
 }
 
-.logo img {
-  max-width: 100px;
-  height: 50px;
-  margin-right: 10px;
+
+.logo-input{
+  display: none;
 }
 
 nav ul {
@@ -300,6 +304,10 @@ nav ul li a:hover {
   background-color:transparent;
 }
 
+.about-images-input{
+  display: none;
+}
+
 .image-container {
   display: flex;
   flex-direction: column;
@@ -487,6 +495,7 @@ nav ul li a:hover {
   text-align: center;
   flex-grow: 1;
   padding-top: 1%;
+  font-size: 120%;
 }
 
 .event-bottom-textarea{
@@ -504,6 +513,7 @@ nav ul li a:hover {
   text-align: justify;
   width: 80%;
   height: 90%;
+  padding:0.5%;
 }
 
 /*.add-button {
@@ -521,7 +531,8 @@ nav ul li a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px;
+  padding: 4%;
+  background-color: #7b736b;
 }
 
 .contact-info {
@@ -529,20 +540,45 @@ nav ul li a:hover {
   align-items: center;
 }
 
-.image-container {
-  margin-right: 20px;
+.image-container{
+  display: flex;
+  position: relative;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.image-container:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .contact-image-upload {
+  opacity: 1;
+}
+
+.contact-image-upload-icon{
+  color: rgb(0, 0, 0, 1.0);
+}
+
+.contact-image-upload {
+  position: absolute;
+  z-index: 4;
+  margin-right: 40%;
+  margin-top: 40%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-image-upload-icon{
+  font-size: 350%;
+  color: rgb(0,0,0,0.4);
+  background-color:transparent;
 }
 
 .image-container img {
-  width: 300px;
-  height: 500px;
-  margin-bottom: 0px;
-}
-
-.connect-text {
-  text-align: center;
-  font-size: 50px;
-  margin-right: 30px;
+  width: 30vw;
+  height: 50vh;
+  object-fit: cover;
 }
 
 .connect-text h2 {
@@ -551,13 +587,19 @@ nav ul li a:hover {
 
 .connect-text {
   text-align: center;
-  font-size: 50px;
-  margin-right: 30px;
-  position: relative; /* Add position: relative to establish a positioning context */
-  overflow: hidden; /* Ensure overflow is visible */
+  font-size: 350%;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: border 1s ease-out;
 }
 
-.connect-text h2::before {
+.connect-text:hover {
+  border-color: white;
+}
+
+/*.connect-text h2::before {
   content: "";
   position: absolute;
   bottom: 220px;
@@ -580,7 +622,7 @@ nav ul li a:hover {
 
 .connect-text h2::after {
   right: 0px;
-}
+}*/
 
 .contact-details textarea {
   text-align: center;
@@ -591,20 +633,63 @@ nav ul li a:hover {
   color: #000;
   font-size: 15px;
   resize: none;
-  width: 200px;
   word-wrap: break-word;
   white-space: normal;
   overflow: hidden;
 }
 
-.contact-details p {
-  margin: 10px 10px;
+.contact-details{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 0% 1% 0% 1%;
 }
 
-.Image-1,
-.Image-2,
-.Image-3,
-.Image-4 {
+.contact-details-email{
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+  padding-top: 10%;
+}
+.contact-details-email-icon{
+  color: white;
+  font-size: 200%;
+}
+.contact-details-phone{
+  padding-top: 10%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.contact-details-phone-icon{
+  color: white;
+  font-size: 150%;
+}
+
+.contact-details-x{
+  padding-top: 10%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.contact-details-x-icon{
+  color: white;
+  font-size: 150%;
+}
+
+.contact-details-insta{
+  padding-top: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+.contact-details-insta-icon{
+  color: white;
+  font-size: 150%;
+}
+
+.contact-image-input{
   display: none;
 }
 

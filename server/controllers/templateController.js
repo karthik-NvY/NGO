@@ -128,38 +128,77 @@ class TemplateHandler{
 
     static storeTemplatetmp = async (req, res) => {
         const uploadedImages = req.files;
-        //console.log(req.files);
         const image_status = req.body.image_status;
-        // Access text data using req.body
-        const { name, aboutUsText } = req.body;
+        const { name, visionText, aboutUsText, eventBottomText } = req.body;
 
+        const default_images = [
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+        ]
+
+        const packet = {
+            name : name,
+            visionText:visionText,
+            aboutUsText: aboutUsText,
+            eventBottomText: eventBottomText,
+            logo:default_images[0],
+            main:default_images[1],
+            aboutUsImage:default_images[2],
+            aboutUsImage2:default_images[3],
+            contactImage:default_images[4],
+            eventImages:[]
+        }
+
+        const im_map = {
+            0:"logo", 
+            1:"main", 
+            2:"aboutUsImage", 
+            3:"aboutUsImage2",
+            4:"contactImage",
+        }
+
+        const eventImages = []
         let img_idx = 0;
-
-        const URLS = ['a', 'b']
-        console.log(image_status);
-        console.log(uploadedImages);
-
-        const results = await Promise.all(
+        image_status.map(async (status, index) => {
+            if(index > 4 && status==='true'){
+                uploadedImages[img_idx]
+            }
+        })
+        await Promise.all(
             image_status.map(async (status, index) => {
                 console.log(status, index);
                 if (status==='true') {
                     try {
-                      const result = await uploadToCloudinary(uploadedImages[img_idx].path);
-                      img_idx += 1;
-                      return result.url;
-                    } catch (error) {
-                      console.error('Error uploading image to Cloudinary:', error);
-                      return null;
+                        // const result = await uploadToCloudinary(uploadedImages[img_idx].path);
+                        const result = {"url":"Fu"}
+                        img_idx += 1;
+                        if (index < 5){
+                            packet[im_map[index]] = result.url;
+                        }
+                        else{
+                            packet["eventImages"].push(result.url);
+                        }
+                        return true;
+                    } 
+                    catch (error) {
+                        console.error('Error uploading image to Cloudinary:', error);
+                        return false;
                     }
                   } 
                 else {
-                    console.log("hihi");
-                    return URLS[index];
+                    if(index > 4){
+                        console.log(packet["eventImages"]);
+                        packet["eventImages"].push(default_images[default_images.length-1])
+                    }
+                    return true;
                 }
-            })
+            })           
         );
-
-        console.log(results);
+        console.log(packet)
 
         // Respond with success message
         return res.json({ success: true, message: 'Data uploaded successfully' });
