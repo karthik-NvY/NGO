@@ -118,16 +118,8 @@ class TemplateHandler{
             success:true,
             message: 'Template saved successfully',
             response
-        }); 
-        } 
-        catch (error) {
-            return res.status(500).json({ 
-                success:false,
-                message: error.message 
-            });
-            console.log("Error in template controller: ", error.message);
-        }
-    }
+        });  
+    };
 
     // Controller function to fetch Template document associated with the provided NGO ID
     static fetchTemplate = async (req, res) => {
