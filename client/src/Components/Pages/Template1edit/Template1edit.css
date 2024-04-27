@@ -29,6 +29,7 @@ header {
 
 .logopic {
   position: relative;
+  overflow: hidden;
 }
 
 .logo-img{
@@ -40,6 +41,10 @@ header {
 .logopic:hover img{
   opacity: 0.75; /* Initially hidden */
   transition: opacity 0.3s ease;
+}
+
+.logo-name{
+  overflow: hidden;
 }
 
 .logopic:hover .lplus-button {
@@ -75,7 +80,7 @@ header {
   background-color:transparent;
 }
 
-.name textarea {
+.logo-name textarea {
   background-color: transparent;
   outline: none;
   color: #fff;
@@ -144,6 +149,9 @@ nav ul li a:hover {
   overflow: hidden;
 }
 
+.upload-text{
+  overflow: hidden;
+}
 .vision{
   position: absolute;
   width:80vw;
@@ -401,6 +409,7 @@ nav ul li a:hover {
   width: 30%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .event:last-child {
@@ -425,6 +434,7 @@ nav ul li a:hover {
   display: flex;
   position: relative;
   border: 1px solid black;
+  overflow: hidden;
 }
 .event-image:hover img{
   opacity: 0.75; /* Initially hidden */
@@ -593,7 +603,7 @@ nav ul li a:hover {
   overflow: hidden;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  transition: border 1s ease-out;
+  transition: border 0.5s ease-out;
 }
 
 .connect-text:hover {
@@ -742,6 +752,7 @@ nav ul li a:hover {
 .publish-icon{
   font-size: 250%;
   color: white;
+  overflow: hidden;
 }
 .publish-text{
   color: white;
@@ -749,6 +760,7 @@ nav ul li a:hover {
   font-size: 200%;
   padding-left: 5%;
   padding-right: 5%;
+  overflow: hidden;
 }
 .image-slider:hover .arrow-button {
   opacity: 1;

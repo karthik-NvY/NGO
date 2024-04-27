@@ -580,7 +580,7 @@ const handlePublishhover = () =>{
               className="logo-input"
             />
           </div>
-          <div className="name">
+          <div className="logo-name">
             <textarea
               type="text"
               value={ngoName}
@@ -638,7 +638,7 @@ const handlePublishhover = () =>{
           </div>
         </div>
       </div>
-      <section  className="about-section" id="about-section-id">
+      <section className="about-section" id="about-section-id">
         <div className="about-content">
           <div className="about-heading" id="about-heading-id">
             <h2>ABOUT US</h2>
