@@ -502,3 +502,32 @@ nav ul li a:hover {
   color: rgb(255, 255, 255);
   background-color:transparent;
 }
+
+
+.image-container:hover img{
+  opacity: 0.75; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .cplus-button {
+  opacity: 1;
+}
+
+.cplus-button {
+  position:absolute;
+  top: 340%;
+  left: 12%;
+  /* transform: translate(-50%, -50%); */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+.cplus-button button{
+  background-color: transparent;
+  border: none;
+}
+
+.cplus-icon {
+  font-size: 350%;
+  color: rgb(255, 255, 255);
+  background-color:transparent;
+}

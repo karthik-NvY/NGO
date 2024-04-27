@@ -23,12 +23,14 @@ function WelcomePage() {
       </div>
       <div className="main-container">
         {/* <img src={welcome} alt="" /> */}
-        <div className="matter">
-          <p>
-            "Empower NGO's worldwide with an intuitive website hosting platform,
-            where simplicity meets impact."
-          </p>
-        </div>
+       
+          <span className="first-line">
+            <p>
+              "Empower NGO's worldwide with an intuitive website hosting platform
+                where simplicity meets impact"
+            </p>
+          </span >
+  
       </div>
 
       {/* About Us */}

@@ -413,7 +413,11 @@ const Template1edit = () => {
             <div className="image-container" onClick={handleContactImageClick}>
               {!contactImageUploaded && <img src={contactImagepath} alt="Contact Pic" />}
               {contactImageUploaded && <img src={URL.createObjectURL(contactImage)} alt="Contact Pic" />}
-
+              <div className="cplus-button">
+                <button>
+                  <span className="cplus-icon"><IoAddCircleOutline/></span>
+                </button>
+              </div>
               <input
                 id="contactImageInput"
                 type="file"

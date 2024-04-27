@@ -9,7 +9,8 @@
   z-index: 1000;
   position: absolute;
   top: 0;
-  background-color: #6fb3bb;
+  /* background-color: #6fb3bb; */
+  background-image: linear-gradient(#a1cdd2,#378f99);
   display: flex;
   width: 100%;
   align-items: center;
