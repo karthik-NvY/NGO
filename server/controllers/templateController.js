@@ -127,9 +127,7 @@ class TemplateHandler{
             });
             console.log("Error in template controller: ", error.message);
         }
-    }
-
-    // Controller function to fetch Template document associated with the provided NGO ID
+         // Controller function to fetch Template document associated with the provided NGO ID
     static fetchTemplate = async (req, res) => {
         try {
             const { ngo_id } = req.body; // Extracting NGO ID from request parameters
@@ -163,6 +161,6 @@ class TemplateHandler{
             console.log("Error in getTemplate controller: ", error.message);
         }
     }   
-}
+    }
 
 module.exports = { TemplateHandler };
