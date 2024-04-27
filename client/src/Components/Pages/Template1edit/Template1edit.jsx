@@ -206,7 +206,7 @@ const Template1edit = () => {
     const token = localStorage.getItem("token");
     try {
         const response = await axios.post(
-        `${apiUrl}/templates/storetemplatetmp`,
+        `${apiUrl}/templates/storetemplate`,
         formData,
         { 
           withCredentials: true,
@@ -220,6 +220,7 @@ const Template1edit = () => {
     } catch (error) {
         console.error('Error uploading image:', error);
     }
+
     //sendDataToBackend();
   };
 
