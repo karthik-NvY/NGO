@@ -1,4 +1,5 @@
 //import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const fetchAPI = async (url, data, method, isTokenRequired = true) => {
     const headers = {
@@ -22,18 +23,21 @@ const fetchAPI = async (url, data, method, isTokenRequired = true) => {
         headers: headers,
       };
     }
-  
-    return fetch(url, options)
-      .then((response) => {
-        if (!response.ok) {
-        //  throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error('There was a problem with the fetch operation:', error);
-        throw error;
-      });
+    console.log("here0");
+    return await axios.post(url,data,{ withCredintials: true, headers: headers} );
+    // return fetch(url, options)
+    //   .then((response) => {
+    //     console.log(response);
+    //     // if (!response.ok) {
+    //     //   console.log("err");
+    //     // //  throw new Error('Network response was not ok');
+    //     // }
+    //     return response.json();
+    //   })
+    //   .catch((error) => {
+    //     console.error('There was a problem with the fetch operation:', error);
+    //     throw error;
+    //   });
   };
   
 

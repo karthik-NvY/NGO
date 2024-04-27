@@ -51,7 +51,8 @@ const Template1 = () => {
   }
 
   const handleAllTasks = () => {
-    navigate(`/AllTasks/${userrole}`);
+    // navigate(`/AllTasks/${userrole}`);
+    navigate("/taskassign");
   };
   const handlerole = async (choosed_role) => {
     try{

@@ -17,7 +17,7 @@ class UserTaskhandler{
 	
 			// If no users requested for a task found.......
 			if (!users || users.length === 0) {
-	            return res.status(404).json({
+	            return res.status(201).json({
 	                success: false,
 	                message: "No users requested for the task"
 	            });
@@ -25,7 +25,11 @@ class UserTaskhandler{
 
 			if (users) {
 				// If users requested for a task found, send the data in the response
-				res.status(200).json(users);
+				res.status(200).json({
+					success: true,
+					users,
+				}
+				);
 			}
 		}
 		catch (error) {

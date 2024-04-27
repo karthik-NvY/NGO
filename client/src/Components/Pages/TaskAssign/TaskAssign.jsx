@@ -4,21 +4,25 @@ import NavBar from "../Dashboard/NavBar/NavBar"; // Optional NavBar component
 import { FaCheck, FaTimes } from "react-icons/fa";
 import fetchAPI from "../../Utils/FetchAPI";
 
-const port_address = `http://localhost:8080`;
+const port_address = process.env.REACT_APP_API_URL;;
 
-const ngo_id1 = "65da11a82216111bff5d0bc0";
+
 const task_id = "66026442e2b18cac8fdda359";
 
 const TaskAssign = () => {
+  const ngo_id1 = localStorage.getItem("ngo_id");;
   // State to hold task list fetched from backend
   const [taskList, setTaskList] = useState([]);
   const [taskInfo, setTaskInfo] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetchAPI(`${port_address}/api/ngoTask`, { ngo_id: ngo_id1 }, "POST", false);
-      if (response.success) {
-        setTaskList(response.Ngo_tasks);
+      console.log("fetch tasks1");
+      let response = await fetchAPI(`${port_address}/api/ngoTask`, { ngo_id: ngo_id1 }, "POST");
+      console.log(response);
+      if (response.data.success) {
+        console.log(response.data.Ngo_tasksz);
+        setTaskList(response.data.Ngo_tasks);
       } else {
         console.log("Error from backend:", response.message);
       }
@@ -28,12 +32,14 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchTaskInfo = async (taskId) => {
-      let response = await fetchAPI(`${port_address}/task/fetchInfo`, { _id: taskId }, "POST", false);
-      return response.success ? response.task : null;
+      console.log("fetch task info");
+      let response = await fetchAPI(`${port_address}/task/fetchInfo`, { id: taskId }, "POST"); console.log(response);
+      return response.data.success ? response.data.taskinfo : null;
     };
 
     const fetchDataForTasks = async () => {
-      const tasksInfo = await Promise.all(taskList.map(fetchTaskInfo));
+      console.log(taskList);
+      const tasksInfo = await Promise.all(taskList.map(fetchTaskInfo)); 
       setTaskInfo(tasksInfo.filter(task => task !== null));
     };
 
@@ -42,37 +48,45 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchTaskUsers = async (taskId) => {
-      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { _id:taskId }, "POST", false);
-      return response.success ? response.users : [];
+      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { task_id:taskId }, "POST");
+      console.log(response);
+      return response.data.success ? response.data.users : null;
     };
 
     const fetchUserDetails = async (userId) => {
-      let response = await fetchAPI(`${port_address}/user/fetchInfo`, { id: userId }, "POST", false);
-      return response.success ? response.user : null;
+      let response = await fetchAPI(`${port_address}/user/fetch_user`, { id: userId }, "POST");
+      console.log(response);
+      return response.data.success ? response.data.user : null;
     };
 
     const fetchUsersForTasks = async () => {
+      console.log(taskInfo);
+      if(taskInfo != null){
       const updatedTaskInfo = await Promise.all(taskInfo.map(async task => {
         const users = await fetchTaskUsers(task._id);
-        const usersWithDetails = await Promise.all(users.map(user => fetchUserDetails(user._id)));
-        return {
-          ...task,
-          users: users.map((user, index) => ({
-            ...user,
-            details: usersWithDetails[index]
-          }))
+        if(users != null){
+          const usersWithDetails = await Promise.all(users.map(user => fetchUserDetails(user._id)));
+          return {
+            ...task,
+            users: users.map((user, index) => ({
+              ...user,
+              details: usersWithDetails[index]
+            }))
         };
+      }
       }));
       setTaskInfo(updatedTaskInfo);
-    };
+    } 
+   };
 
     fetchUsersForTasks();
   }, [taskInfo]);
 
   // Function to handle selection of a user for a task
   const handleUserSelect = async (taskId, userId) => {
-    let response = await fetchAPI(`${port_address}/taskuser/add_task`, { taskId, userId }, "POST", false);
-    if (response.success) {
+    let response = await fetchAPI(`${port_address}/taskuser/add_task`, { taskId, userId }, "POST");
+    console.log(response);
+    if (response.data.success) {
       const updatedTaskList = taskList.map((task) => {
         if (task.task === taskId) {
           const updatedUsers = task.users.filter((user) => user.id !== userId);
@@ -89,8 +103,9 @@ const TaskAssign = () => {
   };
 
   const handleUserReject = async (taskId, userId) => {
-    let response = await fetchAPI(`${port_address}/taskuser/delete_task`, { taskId, userId }, "POST", false);
-    if (response.success) {
+    let response = await fetchAPI(`${port_address}/taskuser/delete_task`, { taskId, userId }, "POST");
+    console.log(response);
+    if (response.data.success) {
       const updatedTaskList = taskList.map((task) => {
         if (task.task === taskId) {
           const updatedUsers = task.users.filter((user) => user.id !== userId);
