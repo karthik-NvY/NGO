@@ -78,22 +78,22 @@ class TemplateHandler{
             4:"contactImage",
         }
         const eventImages = []
+        
+        const image_status_to_image = {}
         let img_idx = 0;
-        image_status.map(async (status, index) => {
-            if(index > 4 && status==='true'){
-                uploadedImages[img_idx]
+        for(let index = 0; index < image_status.length; index++) {
+            if(image_status[index]==='true'){
+                image_status_to_image[index] = img_idx;
+                img_idx++;
             }
-        })
+        }
         await Promise.all(
             image_status.map(async (status, index) => {
                 if (status==='true') {
                     try {
-                        console.log("storing");
-                        const result = await uploadToCloudinary(uploadedImages[img_idx].path);
-                        // console.log("Image uploaded");
-                        //const result = {"url":"Fu"}
-                        console.log("stored");
-                        img_idx += 1;
+                        console.log("storing ", uploadedImages[image_status_to_image[index]].path);
+                        const result = await uploadToCloudinary(uploadedImages[image_status_to_image[index]].path);
+                        console.log("stored", uploadedImages[image_status_to_image[index]].path);
                         if (index < 5){
                             packet[im_map[index]] = result.url;
                         }
@@ -103,7 +103,7 @@ class TemplateHandler{
                         return true;
                     } 
                     catch (error) {
-                        console.error('Error uploading image to Cloudinary:', error);
+                        console.error('Error in uploading image to Cloudinary:', error);
                         return false;
                     }
                   } 
