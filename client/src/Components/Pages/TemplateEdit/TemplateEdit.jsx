@@ -176,6 +176,7 @@ const TemplateEdit = () => {
         if(response.status==201 && response.data.success){
           const res_id = response.data.response.ngo_id
           const res_name = response.data.response.name
+          localStorage.setItem("ngo_id", res_id);
           navigate(`/ngo/${res_name}/${res_id}`, { replace: true });
         }
         console.log(response);

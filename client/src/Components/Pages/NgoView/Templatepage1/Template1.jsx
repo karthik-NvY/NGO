@@ -17,7 +17,7 @@ import anime from 'animejs/lib/anime.es.js';
 import axios from "axios";
 
 import setAuthHeaders from "../../../Utils/setAuthHeaders";
-
+console.log("wughwhiowfwo")
 const Template1 = () => {
   
   const [upload_icon_anim, setupload_icon_anim] = useState(null)
@@ -184,6 +184,7 @@ const Template1 = () => {
         try {
           const token = localStorage.getItem("token");
           const ngo_id = localStorage.getItem("ngo_id");
+          console.log("hooo", ngo_id)
           setAuthHeaders(token);
           const response = await axios.post(`${apiUrl}/templates/fetchtemplate`, { token, ngo_id }, {
             withCredentials: true,
