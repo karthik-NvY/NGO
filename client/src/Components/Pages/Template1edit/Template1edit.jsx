@@ -35,7 +35,6 @@ const Template1edit = () => {
 
   const [ngoName, setNgoName] = useState("Your NGO name");
   const [aboutUsText, setAboutUsText] = useState(
-    // "Welcome to our website! We are a team of passionate individuals who and engaging. We are committed to delivering value to our users and helping them achieve their goals. Our team consists of experienced professionals who are experts in their respective fields. We have a diverse range of skills and expertise, allowing us to create a wide variety of content that caters to the needs of our users.We are constantly striving to improve and grow, and we welcome any feedback or suggestions from our users. Thank you for choosing to be a part of our community."
     "Present your features and describe your goals."
   );
 
@@ -220,7 +219,6 @@ const Template1edit = () => {
     } catch (error) {
         console.error('Error uploading image:', error);
     }
-
     //sendDataToBackend();
   };
 

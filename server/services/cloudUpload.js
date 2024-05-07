@@ -4,17 +4,22 @@ const {cloudinary} = require('../configs/cloud.js')
 async function uploadToCloudinary(locaFilePath) {
   var mainFolderName = "main"
   var filePathOnCloudinary = mainFolderName + "/" + locaFilePath
-  return cloudinary.uploader.upload(locaFilePath,{"public_id":filePathOnCloudinary})
-  .then((result) => {
-    fs.unlinkSync(locaFilePath)
-    return {
-      message: "Success",
-      url:result.url
-    };
-  }).catch((error) => {
-    fs.unlinkSync(locaFilePath)
-    return {message: "Fail",};
-  });
+  const res = await cloudinary.uploader.upload(locaFilePath,{"public_id":filePathOnCloudinary})
+  console.log(res);
+  return {
+        message: "Success",
+        url:res.url
+      };
+  // .then((result) => {
+  //   fs.unlinkSync(locaFilePath)
+  //   return {
+  //     message: "Success",
+  //     url:result.url
+  //   };
+  // }).catch((error) => {
+  //   fs.unlinkSync(locaFilePath)
+  //   return {message: "Fail",};
+  // });
 }
 
 module.exports = { uploadToCloudinary };

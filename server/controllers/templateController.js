@@ -88,9 +88,11 @@ class TemplateHandler{
             image_status.map(async (status, index) => {
                 if (status==='true') {
                     try {
+                        console.log("storing");
                         const result = await uploadToCloudinary(uploadedImages[img_idx].path);
                         // console.log("Image uploaded");
                         //const result = {"url":"Fu"}
+                        console.log("stored");
                         img_idx += 1;
                         if (index < 5){
                             packet[im_map[index]] = result.url;
