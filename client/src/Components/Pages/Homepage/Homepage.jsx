@@ -61,7 +61,7 @@ const Homepage = () => {
       </div>
       <div className="build">
         <p>Wanna add your website</p>
-        <Link to="/templateView">
+        <Link to="/templateEdit">
           <button>Build your own website</button>
         </Link>
       </div>

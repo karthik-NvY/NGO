@@ -14,15 +14,8 @@ import { MdCloudDone } from "react-icons/md";
 
 import anime from 'animejs/lib/anime.es.js';
 
-import eventpic from "../../../Assets/event.png";
-import ideas from "../../../Assets/ideas.png";
-import goals from "../../../Assets/goals.png";
 import axios from "axios";
 
-import logo1 from "../../../Assets/logo_big.png"
-import ab from "../../../Assets/aboutus2.png"
-import contactImagepath from "../../../Assets/contactus.png"
-import mainbg from "../../../Assets/hero.png"
 import setAuthHeaders from "../../../Utils/setAuthHeaders";
 
 const Template1 = () => {

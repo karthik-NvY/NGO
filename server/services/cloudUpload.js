@@ -6,7 +6,6 @@ async function uploadToCloudinary(locaFilePath) {
   var filePathOnCloudinary = mainFolderName + "/" + locaFilePath
   try{
     const result = await cloudinary.uploader.upload(locaFilePath,{"public_id":filePathOnCloudinary})
-    console.log(locaFilePath)
     fs.unlinkSync(locaFilePath);
     return {
       message: "Success",

@@ -46,11 +46,11 @@ class TemplateHandler{
 
         const default_images = [
             'https://res.cloudinary.com/dvhwtxtna/image/upload/v1714162595/main/uploads/lffl2zhkzevtuxvthidl.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086155/main/uploads/jneerypmrwiy0fmug8cz.jpg', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086070/main/uploads/ipe9djkbaoynauiuvyhs.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086070/main/uploads/ipe9djkbaoynauiuvyhs.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715087260/main/uploads/orugv9fktluhjkgh5shw.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715087403/main/uploads/ajx5cuskp6l6865mihsw.png', 
         ]
         const packet = {
             name : name,
@@ -87,7 +87,8 @@ class TemplateHandler{
                 img_idx++;
             }
         }
-        await Promise.all(
+        
+        const upload_status = await Promise.all(
             image_status.map(async (status, index) => {
                 if (status==='true') {
                     try {
@@ -115,6 +116,14 @@ class TemplateHandler{
                 }
             })           
         );
+        for(let i=0; i<upload_status.length; i++){
+            if(upload_status[i]==false){
+                return res.status(400).json({
+                    success:false,
+                    message: 'Template saving failed',
+            });
+            }
+        }
         const response = await Template.create(packet);
         return res.status(201).json({
             success:true,
