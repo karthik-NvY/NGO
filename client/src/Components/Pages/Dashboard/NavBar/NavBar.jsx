@@ -31,9 +31,11 @@ const NavBar = () => {
 
   return (
     <div className="navbar">
-      <div className="logo">
-        <img src={logo} alt="" className="logoimg" />
-        <h1>CauseCraft</h1>
+      <div className="causecraft">
+        <div className="logo">
+          <img src={logo} alt="" className="logoimg" />
+        </div>      
+        <div className="text">CauseCraft</div>
       </div>
 
       {/* <div className="searchbox">

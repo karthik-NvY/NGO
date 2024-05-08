@@ -166,6 +166,33 @@ class TemplateHandler{
             console.log("Error in getTemplate controller: ", error.message);
         }
     }   
-    }
+
+    static fetchNgoBack = async(req, res)=>{
+        try {
+            console.log("fjwieuoghwui")
+            // Fetching Template document associated with the provided NGO ID
+            const ngo = await Template.find().select('main visionText ngo_id');
+            if (!ngo) {
+                return res.status(404).json({ 
+                    success:true,
+                    error: 'Template not founds'
+                });
+            }
+            console.log(ngo);
+            return res.status(200).json({
+                success:true,
+                message:"Successfully fetched NGO background",
+                ngo
+            });
+        } 
+        catch (error) {
+            res.status(500).json({ 
+                message: error.message 
+            });
+            console.log("Error in getting NGO back: ", error.message);
+        }
+
+    };
+}
 
 module.exports = { TemplateHandler };

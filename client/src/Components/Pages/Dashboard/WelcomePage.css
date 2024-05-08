@@ -90,17 +90,17 @@
   font-size: 30px;
   margin-left: 3%;
 }
-.logo {
+.welcomelogo {
   display: flex;
   align-items: center;
 }
 
-.logo h1 {
+.welcomelogo h1 {
   font-weight: 600;
   text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.logoimg {
+.welcomelogoimg {
   height: 60px;
   width: 55px;
   border-radius: 50%;

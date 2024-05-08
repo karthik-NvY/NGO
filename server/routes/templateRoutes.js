@@ -13,5 +13,6 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/storetemplate', tokenMiddle, upload.array('images'), TemplateHandler.storeTemplate);
 router.post('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
+router.post("/ngoBack", tokenMiddle, TemplateHandler.fetchNgoBack);
 
 module.exports = router;
