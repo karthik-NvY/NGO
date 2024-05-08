@@ -17,6 +17,10 @@ const TemplateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    aboutUsText: {
+        type: String,
+        required: true
+    },
     eventBottomText:{
         type: String,
         required: true

@@ -46,11 +46,11 @@ class TemplateHandler{
 
         const default_images = [
             'https://res.cloudinary.com/dvhwtxtna/image/upload/v1714162595/main/uploads/lffl2zhkzevtuxvthidl.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
-            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1713906646/main/uploads/87bb7bea86951b8c2463a848c3d75293.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086155/main/uploads/jneerypmrwiy0fmug8cz.jpg', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086070/main/uploads/ipe9djkbaoynauiuvyhs.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715086070/main/uploads/ipe9djkbaoynauiuvyhs.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715087260/main/uploads/orugv9fktluhjkgh5shw.png', 
+            'https://res.cloudinary.com/dvhwtxtna/image/upload/v1715087403/main/uploads/ajx5cuskp6l6865mihsw.png', 
         ]
         const packet = {
             name : name,
@@ -78,20 +78,23 @@ class TemplateHandler{
             4:"contactImage",
         }
         const eventImages = []
+        
+        const image_status_to_image = {}
         let img_idx = 0;
-        image_status.map(async (status, index) => {
-            if(index > 4 && status==='true'){
-                uploadedImages[img_idx]
+        for(let index = 0; index < image_status.length; index++) {
+            if(image_status[index]==='true'){
+                image_status_to_image[index] = img_idx;
+                img_idx++;
             }
-        })
-        await Promise.all(
+        }
+        
+        const upload_status = await Promise.all(
             image_status.map(async (status, index) => {
                 if (status==='true') {
                     try {
-                        //const result = await uploadToCloudinary(uploadedImages[img_idx].path);
-                        // console.log("Image uploaded");
-                        const result = {"url":"Fu"}
-                        img_idx += 1;
+                        console.log("storing ", uploadedImages[image_status_to_image[index]].path);
+                        const result = await uploadToCloudinary(uploadedImages[image_status_to_image[index]].path);
+                        console.log("stored", uploadedImages[image_status_to_image[index]].path);
                         if (index < 5){
                             packet[im_map[index]] = result.url;
                         }
@@ -101,7 +104,7 @@ class TemplateHandler{
                         return true;
                     } 
                     catch (error) {
-                        console.error('Error uploading image to Cloudinary:', error);
+                        console.error('Error in uploading image to Cloudinary:', error);
                         return false;
                     }
                   } 
@@ -113,6 +116,14 @@ class TemplateHandler{
                 }
             })           
         );
+        for(let i=0; i<upload_status.length; i++){
+            if(upload_status[i]==false){
+                return res.status(400).json({
+                    success:false,
+                    message: 'Template saving failed',
+            });
+            }
+        }
         const response = await Template.create(packet);
         return res.status(201).json({
             success:true,
@@ -155,6 +166,6 @@ class TemplateHandler{
             console.log("Error in getTemplate controller: ", error.message);
         }
     }   
-}
+    }
 
 module.exports = { TemplateHandler };
