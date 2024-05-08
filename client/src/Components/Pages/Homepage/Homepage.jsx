@@ -94,10 +94,14 @@ const Homepage = () => {
           </div>
         </div>
       <div className="build">
-        <p>Wanna add your website</p>
-        <Link to="/templateEdit">
-          <button>Build your own website</button>
-        </Link>
+        <div className="markngo">
+          <p>Want to mark your NGO ?</p>
+        </div>
+        <div className="buildbuttondiv">
+          <Link to="/templateEdit">
+            <button>Build your own NGO</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -73,21 +73,35 @@ body {
   /* opacity: 0.8; */
   border-radius: 20px;
   bottom: 3%;
-  height: 100px;
-  width: 700px;
+  left:1%;
+  height: 10%;
+  width: 35%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
 .build button {
   border: none;
   background-color: #6fb3bb;
-  padding: 5px 5px;
-  margin: 20px 20px;
+  /*padding: 5px 5px;
+  margin: 20px 20px;*/
   border-radius: 20px;
-  height: 60px;
-  width: 300px;
-  font-size: 15px;
+  height: 80%;
+  width: 80%;
+  font-size: 110%;
   transition: opacity 0.15s, box-shadow 0.15s;
+}
+
+.buildbuttondiv{
+  width: 50%;
+  height: 100%;
+  padding-top: 3%;
+}
+
+.markngo{
+  height: 100%;
+  width: 50%;
+  padding-top: 6%;
+  padding-left: 4%;
 }
 
 .build button :hover {

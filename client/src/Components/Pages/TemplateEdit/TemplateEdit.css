@@ -30,6 +30,7 @@ header {
 .logopic {
   position: relative;
   overflow: hidden;
+  width: 50%;
 }
 
 .logo-img{
