@@ -1,10 +1,14 @@
 import React from "react";
+import "./Ngo.css";
 
-function Ngo({name, creator}) {
+function Ngo({name, creator, back}) {
     return(
         <div className="ngolist">
-            <h1>{name}</h1>
-            <p>{creator}</p>
+            <div className="ngoName">{name}</div>
+            {/*<p>{creator}</p>*/}
+            <div className="ngoImagediv">
+                <img src={back} className="homeNgoimg"></img>
+            </div>            
         </div>
     )
 }

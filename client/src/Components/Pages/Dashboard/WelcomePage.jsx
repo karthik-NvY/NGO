@@ -7,8 +7,8 @@ function WelcomePage() {
   return (
     <div className="container-welcome">
       <div className="nav-bar">
-        <div className="logo">
-          <img src={logo} alt="" className="logoimg" />
+        <div className="welcomelogo">
+          <img src={logo} alt="" className="welcomelogoimg" />
           <h1>CauseCraft</h1>
                 
         </div>
