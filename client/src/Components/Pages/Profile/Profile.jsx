@@ -58,7 +58,6 @@ export const Profile = () => {
       console.error("Error fetching user profile:", error);
     }
   };
-  console.log(volunteer);
   const handleProfilePicClick = () => {
     fileInputRef.current.click();
   };
@@ -117,9 +116,9 @@ export const Profile = () => {
       <section id="volunteer">
         <h1 className="roles">Volunteer</h1>
         {volunteer.map((ngo) => (
-          <a href={`/ngo/${ngo.ngo_name}/${ngo.ngo_id}`} key={ngo.ngo_id} onClick={() => handleViewClick(ngo.ngo_id)} className="ngo-link">
+          <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
             <div className="ngo_v">
-              <Ngo name={ngo.ngo_name} />
+              <Ngo name={ngo.ngo_id.name} />
             </div>
           </a>
         ))}
@@ -132,11 +131,11 @@ export const Profile = () => {
       <section id="donor">
         <h1 className="roles">Donor</h1>
         {donor.map((ngo) => (
-          <a href={`/ngo/${ngo.ngo_name}/${ngo.ngo_id}`} key={ngo.ngo_id} onClick={() => handleViewClick(ngo.ngo_id)} className="ngo-link">
-            <div className="ngo_v">
-              <Ngo name={ngo.ngo_name} />
-            </div>
-          </a>
+           <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
+           <div className="ngo_v">
+             <Ngo name={ngo.ngo_id.name} />
+           </div>
+         </a>
         ))}
       </section>
     </div>
@@ -147,11 +146,11 @@ export const Profile = () => {
       <section id="executive">
         <h1 className="roles">Executive</h1>
         {Executive.map((ngo) => (
-          <a href={`/ngo/${ngo.ngo_name}/${ngo.ngo_id}`} key={ngo.ngo_id} onClick={() => handleViewClick(ngo.ngo_id)} className="ngo-link">
-            <div className="ngo_v">
-              <h1>{ngo.ngo_name}</h1>
-            </div>
-          </a>
+           <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
+           <div className="ngo_v">
+             <Ngo name={ngo.ngo_id.name} />
+           </div>
+         </a>
         ))}
       </section>
     </div>
