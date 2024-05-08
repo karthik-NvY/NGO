@@ -34,7 +34,9 @@ export const AllTasks = () => {
   const handleCreate = () => {
     navigate("/Taskpage");
   };
-
+  const handleAssign = () => {
+    navigate("/TaskAssign");
+  };
   const handleSelect = () => {
     // Handle selection logic, e.g., navigate to task selection page
   };
@@ -47,9 +49,15 @@ export const AllTasks = () => {
           {tasks && tasks.map((task) => <li key={task._id}>{task.title}</li>)}
         </ul>
         {/* Only show Create Task button if user role is "executive" */}
-        {userRole === "executive" && (
+        {userRole === "executive" || userRole === "admin" && (
           <button className="ct" onClick={handleCreate}>
             Create Task
+          </button>
+        )}
+        {/* Only show Create Task button if user role is "executive" */}
+        {userRole === "executive" || userRole === "admin" && (
+          <button className="At" onClick={handleAssign}>
+            Task Assignments
           </button>
         )}
         {/* Only show Select Task button if user role is "volunteer" */}

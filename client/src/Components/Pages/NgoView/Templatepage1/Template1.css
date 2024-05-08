@@ -725,3 +725,29 @@ nav ul li a:hover {
   padding-right: 5%;
   overflow: hidden;
 }
+
+.list-icon{
+  position: fixed;
+  bottom: 3vh;
+  color: #000000;
+  right: 5vw;
+  background-color:cyan; /* Button background color */
+  border: none; /* Remove button border */
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  font-size: 250%;
+  z-index: 10;
+  padding: 1%;
+
+
+}
+title{
+  font-size: larger;
+}
+.list-icon:hover{
+  background-color:bisque;
+  color: #000;
+}
+

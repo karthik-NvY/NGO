@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Template1.css";
-
-
+import { useNavigate } from "react-router-dom";
 import { FaPhone } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
+import { LuListTodo } from "react-icons/lu";
 import anime from 'animejs/lib/anime.es.js';
 
 
@@ -15,14 +15,17 @@ import setAuthHeaders from "../../../Utils/setAuthHeaders";
 console.log("wughwhiowfwo")
 const Template1 = () => {
   
-
+  
+  const [userrole, setrole] = useState("");
   const [aboutus_anim1, setaboutus_anim] = useState(null)
   const [aboutus_heading_anim1, setaboutus_heading_anim] = useState(null)
   const [aboutus_text_anim1, setaboutus_text_anim] = useState(null)
+  const navigate = useNavigate();
     const [templateData,setTemplateData]=useState();
     const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
-        fetchTemplateData(); // Fetch user profile data when component mounts
+        fetchTemplateData();
+        fetchRole(); // Fetch user profile data when component mounts
       }, []);
       useEffect(() => {  
         setaboutus_heading_anim(anime({
@@ -111,7 +114,48 @@ const Template1 = () => {
           console.error("Error fetching Template data :", error);
         }
       }
-      ;
+      const handlerole = async (choosed_role) => {
+        try{
+          const token = localStorage.getItem("token");
+          const ngo_id = localStorage.getItem("ngo_id");
+          const role = choosed_role;
+          const res = await axios.post(
+            `${apiUrl}/roles/signupRole`,
+            { ngo_id, role },
+            { withCredintials: true, headers: {'Authorization': `Bearer ${token}`} }
+          );
+          console.log(res);
+          if(res.status === 201){
+            setrole(res.data.userRole.role);
+            alert(`Signed up as ${choosed_role}`);
+          }
+        }
+        catch (error){
+          console.error("Error storing role:", error);
+        }
+      };
+      const fetchRole = async () => {
+        try{
+          const token = localStorage.getItem("token");
+          const ngo_id = localStorage.getItem("ngo_id");
+          const res = await axios.post(
+            `${apiUrl}/roles/fetchRole`,
+            { ngo_id },
+            { withCredintials: true,headers: {'Authorization': `Bearer ${token}`} }
+          );
+          if(res.status === 200 ){
+            setrole(res.data.role.role);
+          }
+          console.log(res);
+        }
+        catch (error){
+          console.error("Error fetching role:", error);
+        }
+      }
+      const handleAllTasks = () => {
+         navigate(`/AllTasks/${userrole}`);
+        //navigate("/taskassign");
+      };
   return (
       <div className="temp1">
     {templateData && (
@@ -228,9 +272,20 @@ const Template1 = () => {
               {templateData.instahandle}
             </div>}
           </div>
-          <div className="contact-buttons1">
-            <button className="volunteer-button1">Want to contribute ? SignUp here to become volunteer</button>
+         {userrole === "" && <div className="contact-buttons1">
+            <button className="volunteer-button1" onClick={() => handlerole("volunteer")}>Want to contribute ? Click here to become a Volunteer</button>
+            
           </div>
+          }
+          {/* {userrole === "volunteer" && <div className="contact-buttons1">
+            <button className="volunteer-button1" onClick={() => handlerole("volunteer")}>Request to become Executive</button>
+            
+          </div>
+          } */}
+          { userrole !== "" && <div className=" list-icon" title="Explore Tasks">
+             <LuListTodo  className="icon_list" onClick={handleAllTasks}/>
+          </div>}
+          
         </div>
       </footer>
         </>
