@@ -666,30 +666,33 @@ nav ul li a:hover {
 }
 
 .contact-buttons1 {
-  position: fixed;
-  bottom: 3vh;
-  right: 10vw; /* Button background color */
+  position:absolute;
+  bottom: 2vh;
+  left: 35%;
   border: none; /* Remove button border */
   cursor: pointer;
   text-align: center;
-  height:6%;
+  height:7%;
   display: flex;
   z-index: 10;
-  width: 20%;
+  width: 60%;
 }
 
 .volunteer-button1{
   background-color: antiquewhite;
   border-radius: 20px;
   border: none;
-  padding-left: 5%;
-  padding-right: 5%;
-  font-size: large;
+  padding-left: 2%; /* Adjusted padding */
+  padding-right: 2%; /* Adjusted padding */
+  font-size: 100%; 
 }
 
 .volunteer-button1:hover{
   background-color:bisque;
   color: #000;
+  border-radius:0px;
+  border: none;
+  transition: 0.2s ease-in-out;
 }
 
 
