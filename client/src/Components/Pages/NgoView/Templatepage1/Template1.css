@@ -666,9 +666,10 @@ nav ul li a:hover {
 }
 
 .contact-buttons1 {
-  position:absolute;
-  bottom: 2vh;
-  left: 35%;
+  position:fixed;
+  justify-content: center;
+  bottom: 0vh;
+  left: 20%;
   border: none; /* Remove button border */
   cursor: pointer;
   text-align: center;
@@ -679,8 +680,12 @@ nav ul li a:hover {
 }
 
 .volunteer-button1{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bolder;
   background-color: antiquewhite;
   border-radius: 20px;
+  border-bottom-left-radius:0px;
+  border-bottom-Right-radius: 0px;
   border: none;
   padding-left: 2%; /* Adjusted padding */
   padding-right: 2%; /* Adjusted padding */
@@ -690,9 +695,6 @@ nav ul li a:hover {
 .volunteer-button1:hover{
   background-color:bisque;
   color: #000;
-  border-radius:0px;
-  border: none;
-  transition: 0.2s ease-in-out;
 }
 
 
