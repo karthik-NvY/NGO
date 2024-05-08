@@ -190,6 +190,7 @@ nav ul li a:hover {
 
 .about-content1 {
   position: relative;
+  top: 30%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -429,6 +430,7 @@ nav ul li a:hover {
   text-align: center;
   padding-top: 4%;
   overflow: hidden;
+  padding-bottom: 4%;
 }
 .event-description1-in{
   border: 2;
@@ -665,34 +667,31 @@ nav ul li a:hover {
 
 .contact-buttons1 {
   position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 999;
-}
-
-.volunteer-button1,
-.donor-button1 {
-  background-color: #7b736b;
-  color: white;
-  padding: 15px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
+  bottom: 3vh;
+  right: 10vw; /* Button background color */
+  border: none; /* Remove button border */
   cursor: pointer;
-  margin-bottom: 50px;
-  transition: background-color 0.3s ease;
-  margin-right: 10px;
+  text-align: center;
+  height:6%;
+  display: flex;
+  z-index: 10;
+  width: 20%;
 }
 
-.volunteer-button1:hover,
-.donor-button1:hover {
-  background-color: #ffff;
-  color: black;
+.volunteer-button1{
+  background-color: antiquewhite;
+  border-radius: 20px;
+  border: none;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-size: large;
 }
+
+.volunteer-button1:hover{
+  background-color:bisque;
+  color: #000;
+}
+
 
 .publish-button1 {
   position: fixed;
