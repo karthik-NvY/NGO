@@ -21,7 +21,11 @@ class TaskInfohandler{
 
 			if (taskinfo) {
 				// If Task Infos found, send the data in the response
-				res.status(200).json(taskinfo);
+				res.status(200).json({
+					success: true,
+					taskinfo
+				}
+				);
 			}
 		}
 		catch (error) {

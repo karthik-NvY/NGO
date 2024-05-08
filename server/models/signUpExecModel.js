@@ -19,4 +19,15 @@ const RequestForExec = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('waitlist', RequestForExec)
+const ExecReq = new mongoose.Schema({
+    ngo_id: {
+        type: String,
+        required : true,
+        ref : 'ngos'
+    },
+})
+
+const waitlist = mongoose.model('waitlist', RequestForExec);
+const requestwindow = mongoose.model('openExecRequests', ExecReq); 
+
+module.exports = {waitlist , requestwindow};

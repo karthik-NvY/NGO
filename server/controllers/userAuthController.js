@@ -216,7 +216,31 @@ class userAuth{
 			});
 		}
 	};
+	static fetchuser = async(req, res) => {
+		try{
+			const {user_id} = req.body;
+			const user = await Users.findOne({ user_id: user_id });
+			if (!user) {
+	            return res.status(404).json({
+	                success: false,
+	                message: "User not found"
+	            });
+	        }
+			return res.status(200).json({
+				success:true,
+				data:user,
+				message:"User found"
+			});
 
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching user profile data",
+	        });
+	    }
+	}
 	static deleteUserData = async(req, res) => {
 		try{
 			const user_id = req.user_id;

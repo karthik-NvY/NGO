@@ -23,9 +23,6 @@ export const AllTasks = () => {
           { withCredentials: true,headers: {'Authorization': `Bearer ${token}`} }
         );
         setTasks(response.data.Ngo_tasks);
-
-        // Assuming user role is returned in the response
-        //setUserRole(response.data.userRole);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }

@@ -16,5 +16,6 @@ router.post("/update", tokenMiddle, userAuth.updateUserData);
 router.post("/profile", tokenMiddle, userAuth.fetchUserProfile); //Route /user/profile
 //router.post("/profile", userAuth.fetchUserProfile); //Route /user/profile
 router.post("/logout", tokenMiddle, userAuth.logOut); //Route /user/profile
+router.post("/fetch_user",tokenMiddle,userAuth.fetchuser);
 
 module.exports = router;
