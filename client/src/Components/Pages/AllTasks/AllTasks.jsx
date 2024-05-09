@@ -149,8 +149,8 @@ export const AllTasks = () => {
                 <div className="taskstats">
                   <div>Date: {taskinfo[task._id].date}</div>
                   <div>Volunteers: {taskinfo[task._id].no_volunteer}</div>
-                  {!requests[task._id] && <div className="taskrequest" onClick={() => handleTaskRequest(task._id)}>Request:<TbSquareRoundedPlusFilled style={{ width: '80%', height:'60%'}}/></div>}
-                  {requests[task._id] && <span className="taskrequest_dead"><s>Request:</s><PiPlusSquareFill style={{ width: '80%', height:'60%'}}/></span>}
+                  {userRole=="volunteer" && !requests[task._id] && <div className="taskrequest" onClick={() => handleTaskRequest(task._id)}>Request:<TbSquareRoundedPlusFilled style={{ width: '80%', height:'60%'}}/></div>}
+                  {userRole=="volunteer" && requests[task._id] && <span className="taskrequest_dead"><s>Request:</s><PiPlusSquareFill style={{ width: '80%', height:'60%'}}/></span>}
                 </div>
                 </>              
               }
