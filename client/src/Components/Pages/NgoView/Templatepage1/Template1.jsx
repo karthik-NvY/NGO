@@ -5,6 +5,7 @@ import { FaPhone } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
+import { MdManageAccounts } from "react-icons/md";
 import { LuListTodo } from "react-icons/lu";
 import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ import axios from "axios";
 import setAuthHeaders from "../../../Utils/setAuthHeaders";
 console.log("wughwhiowfwo")
 const Template1 = () => {
-  
+  const [request, setRequest]=useState(false);
   const [userrole, setrole] = useState("");
   const [aboutus_anim1, setaboutus_anim] = useState(null)
   const [aboutus_heading_anim1, setaboutus_heading_anim] = useState(null)
@@ -136,6 +137,29 @@ const Template1 = () => {
           console.error("Error storing role:", error);
         }
       };
+      const handleExecrole = async (choosed_role) => {
+        try{
+          const token = localStorage.getItem("token");
+          const ngo_id = localStorage.getItem("ngo_id");
+          const res = await axios.post(
+            `${apiUrl}/api/add`,
+            { ngo_id},
+            { withCredintials: true, headers: {'Authorization': `Bearer ${token}`} }
+          );
+          console.log(res);
+          if(res.status === 201){
+            alert(`Request sent to admin to become an ${choosed_role}`);
+          }
+          else if (res.status === 210){
+            setRequest(true);
+            alert(`Request already sent to admin to become an ${choosed_role}`);
+          }
+        }
+        catch (error){
+          console.error("Error storing role:", error);
+        }
+      };
+      
       const fetchRole = async () => {
         try{
           const token = localStorage.getItem("token");
@@ -158,6 +182,12 @@ const Template1 = () => {
         localStorage.setItem("ngo_name", templateData.name);
         localStorage.setItem("ngo_logo", templateData.logo);
          navigate(`/AllTasks/${userrole}`);
+        //navigate("/taskassign");
+      };
+      const handleExecSign = () => {
+        localStorage.setItem("ngo_name", templateData.name);
+        localStorage.setItem("ngo_logo", templateData.logo);
+         navigate(`/ExecSign/${userrole}`);
         //navigate("/taskassign");
       };
 
@@ -259,13 +289,19 @@ const Template1 = () => {
             
           </div>
           }
-          {/* {userrole === "volunteer" && <div className="contact-buttons1">
-            <button className="volunteer-button1" onClick={() => handlerole("volunteer")}>Request to become Executive</button>
+          {request ?(userrole === "volunteer" && <div className="contact-buttons1">
+            <button className="volunteer-button1" >Requested to become an Executive</button>
             
-          </div>
-          } */}
+          </div>) : (userrole === "volunteer" && <div className="contact-buttons1">
+            <button className="volunteer-button1" onClick={() => handleExecrole("Executive")}>Request to become an Executive</button>
+            
+          </div>)
+          }
           { userrole !== "" && <div className=" list-icon" title="Explore Tasks" onClick={handleAllTasks}>
              <LuListTodo  className="icon_list"/>
+          </div>}
+          { userrole === "admin" && <div className=" manage-icon" title="Explore Tasks" onClick={handleExecSign}>
+             <MdManageAccounts className="manage_list"/>
           </div>}
           
         </div>

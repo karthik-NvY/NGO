@@ -14,6 +14,7 @@ import TemplateEdit  from "./Components/Pages/TemplateEdit/TemplateEdit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
 
 import TaskAssign from "./Components/Pages/TaskAssign/TaskAssign";
+import ExecSignUp from "./Components/Pages/ExecSignUpPage/ExecSignUp";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         // <Route path="/templateview" element={<TemplateView />} />
         <Route path="/TemplateEdit" element={<TemplateEdit />} />
         <Route path="/AllTasks/:userRole" element={<AllTasks />} />
+        <Route path="/ExecSign/:userRole" element={<ExecSignUp />} />
         <Route path ="/taskassign" element = {<TaskAssign/>} />
       </Routes>
     </BrowserRouter>

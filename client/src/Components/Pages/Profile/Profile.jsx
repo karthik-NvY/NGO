@@ -43,7 +43,7 @@ export const Profile = () => {
           if (response.data.data.ngos[i].role === 'volunteer') {
             volunteer_d.push(response.data.data.ngos[i]);
           }
-          if (response.data.data.ngos[i].role === 'donor') {
+          if (response.data.data.ngos[i].role === 'admin' && response.data.data.ngos[i].ngo_id !== null) {
             donor_d.push(response.data.data.ngos[i]);
           }
           if (response.data.data.ngos[i].role === 'executive') {
@@ -129,7 +129,7 @@ export const Profile = () => {
   {donor.length > 0 && (
     <div className="right-donor">
       <section id="donor">
-        <h1 className="roles">Donor</h1>
+        <h1 className="roles">Admin</h1>
         {donor.map((ngo) => (
            <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
            <div className="ngo_v">
