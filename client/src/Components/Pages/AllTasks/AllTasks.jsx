@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import NGONavbar from '../NgoView/NGONavbar/NGONavbar'
 import { TbSquareRoundedPlusFilled } from "react-icons/tb";
+import { PiPlusSquareFill } from "react-icons/pi";
 import anime from 'animejs/lib/anime.es.js';
 
 export const AllTasks = () => {
@@ -13,6 +14,7 @@ export const AllTasks = () => {
   const [clicked, setclicked] = useState(null);
   const [anims, setanims] = useState(null);
   const [taskinfo, settaskinfo] = useState(null);
+  const [requests, setrequests] = useState(null);
   //const [userRole, setUserRole] = useState(""); // State to store user role
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ export const AllTasks = () => {
         const tmp = {}
         const anim = {}
         const infos = {}
+        const tmp_requests = {}
         response.data.Ngo_tasks.forEach(item => {
           tmp[item._id] = false;
           anim[item._id] = anime({
@@ -43,10 +46,12 @@ export const AllTasks = () => {
             autoplay:false,
           });
           infos[item._id] = null;
+          tmp_requests[item._id] = false;
         });
         setclicked(tmp);
         setanims(anim);
         settaskinfo(infos);
+        setrequests(tmp_requests);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
@@ -66,9 +71,13 @@ export const AllTasks = () => {
   };
 
   const handleTask = async (id) =>{
+    anims[id].play()
+    anims[id].finished.then(() => {
+      anims[id].reverse();
+    })
+    const token = localStorage.getItem("token");
     if(!taskinfo[id]){
       const ngo_id = localStorage.getItem('ngo_id'); // Retrieve ngo_id from local storage
-      const token = localStorage.getItem("token");
 
       const response = await axios.post(`${apiUrl}/task/fetchInfo`, { token, ngo_id, id }, {
         withCredentials: true,
@@ -77,14 +86,7 @@ export const AllTasks = () => {
           'Authorization': `Bearer ${token}`
         },        
       });  
-      const response2 = await axios.post(`${apiUrl}/taskuser/user_requested`, { token, ngo_id, task_id:id }, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },        
-      });
-      console.log(response2);
+      
       const infotmp = {...taskinfo};
       infotmp[id] = response.data.taskinfo
       const date = new Date(infotmp[id].date);
@@ -97,16 +99,41 @@ export const AllTasks = () => {
       infotmp[id].date = newdate
       settaskinfo(infotmp);
     }
-    
-    anims[id].play()
-    anims[id].finished.then(() => {
-      anims[id].reverse();
-    })
+    if(!requests[id]){
+      const response2 = await axios.post(`${apiUrl}/taskuser/user_requested`, { token, task_id:id }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },        
+      });
+      const req = {...requests};
+      req[id] = response2.data.requested;
+      setrequests(req);
+    }
     const tmp = {...clicked};
     tmp[id] = !tmp[id];
     setclicked(tmp);
   }
 
+  const handleTaskRequest = async (id) =>{
+    const token = localStorage.getItem("token");
+    const response = await axios.post(`${apiUrl}/taskuser/add_task`, { token, task_id:id }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },        
+    });
+    console.log(response);
+    if(response.status==201 && response.data.message=="User availability successfully added"){
+      console.log("fw")
+      const req = {...requests};
+      req[id] = true;
+      setrequests(req);
+      alert("Successfully Requested for task.")
+    }
+  };
   return (
     <div className="main">
       <NGONavbar name={localStorage.getItem("ngo_name")} logo={localStorage.getItem("ngo_logo")} id={localStorage.getItem("ngo_id")}/>
@@ -122,7 +149,8 @@ export const AllTasks = () => {
                 <div className="taskstats">
                   <div>Date: {taskinfo[task._id].date}</div>
                   <div>Volunteers: {taskinfo[task._id].no_volunteer}</div>
-                  <div className="taskrequest"><TbSquareRoundedPlusFilled /></div>
+                  {!requests[task._id] && <div className="taskrequest" onClick={() => handleTaskRequest(task._id)}>Request:<TbSquareRoundedPlusFilled style={{ width: '80%', height:'60%'}}/></div>}
+                  {requests[task._id] && <span className="taskrequest_dead"><s>Request:</s><PiPlusSquareFill style={{ width: '80%', height:'60%'}}/></span>}
                 </div>
                 </>              
               }
@@ -141,12 +169,7 @@ export const AllTasks = () => {
             Task Assignments
           </button>
         )}
-        {/* Only show Select Task button if user role is "volunteer" */}
-        {userRole === "volunteer" && (
-          <button className="st" onClick={handleSelect}>
-            Select Task
-          </button>
-        )}
+        
       </div>
     </div>
   );

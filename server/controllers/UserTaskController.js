@@ -13,7 +13,7 @@ class UserTaskhandler{
 		try {
 			const { task_id } = req.body;
 			// Fetch all Tasks of given Ngo from the database
-			const users = await VolunteerChoiceModel.find( { task_id : task_id});
+			const users = await VolunteerChoiceModel.find( { chosenTask : task_id});
 	
 			// If no users requested for a task found.......
 			if (!users || users.length === 0) {
@@ -47,10 +47,10 @@ class UserTaskhandler{
 			const { task_id } = req.body;
 			const user_id = req.user_id;
 
-			const existingrequest = await VolunteerChoiceModel.find( { task_id : task_id, user_id : user_id});
+			const existingrequest = await VolunteerChoiceModel.find( { chosenTask : task_id, user_id : user_id});
 	
 			// If user already requested for a task.......
-			if (existingrequest) {
+			if (existingrequest.length) {
 	            return res.status(404).json({
 	                success: false,
 	                message: "user already requested for the task"
@@ -59,7 +59,7 @@ class UserTaskhandler{
 
 			// Creates new entry by user for the task .
 	        const newrequest = await VolunteerChoiceModel.create({
-            	user_id:user_id, task_id:task_id
+            	user_id:user_id, chosenTask:task_id
         	})
 	        return res.status(201).json({	             
 		            success: true,
@@ -81,8 +81,7 @@ class UserTaskhandler{
 			const { task_id } = req.body;
 			const user_id = req.user_id;
 
-			const existingrequest = await VolunteerChoiceModel.find( { task_id : task_id, user_id : user_id});
-	
+			const existingrequest = await VolunteerChoiceModel.find( { chosenTask : task_id, user_id : user_id});
 			// If user already requested for a task.......
 			if (existingrequest.length) {
 	            return res.status(200).json({
@@ -111,7 +110,7 @@ class UserTaskhandler{
 		const user_id = req.user_id;
 
         try {
-            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ user_id: user_id, task_id: task_id });
+            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ user_id: user_id, chosenTask: task_id });
 
             if (!deletedTask) {
                 return res.status(404).json({
