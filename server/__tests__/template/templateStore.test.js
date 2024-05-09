@@ -7,6 +7,7 @@ describe("Storing template variables", ()=>{
         // Login to get token.
         const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
         loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+		token = loginres.body.token
     });
 
 	test('Return error if token is not set properly', async () => {
@@ -19,7 +20,8 @@ describe("Storing template variables", ()=>{
 	test("Missing NGO template varibles", async ()=>{
 		// No Template values are given.
 		packet = { token:loginres.body.token }
-		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet)
+		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet).set('Authorization', `Bearer ${token}`)
+
 
 		expect(res.status).toBe(400);
         expect(res.body.error).toBe('Missing NGO template variables');
@@ -39,7 +41,8 @@ describe("Storing template variables", ()=>{
 		    phoneNumber: "phoneNumber",
 		    contactImage: "contactImage"
 		}
-		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet)
+		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet).set('Authorization', `Bearer ${token}`)
+
 
 		expect(res.status).toBe(400);
         expect(res.body.error).toBe('NGO already exists');
@@ -68,7 +71,7 @@ describe("Storing template variables", ()=>{
 		    phoneNumber: "phoneNumber",
 		    contactImage: "contactImage"
 		}
-		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet)
+		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet).set('Authorization', `Bearer ${token}`)
 
 		expect(res.status).toBe(201);
         expect(res.body.message).toBe('Template saved successfully');
