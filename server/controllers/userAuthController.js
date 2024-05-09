@@ -148,8 +148,8 @@ class userAuth{
 			// Prepare user's NGO info
 			// creates new array of records with proper structure
 			const userNGOs = userRoles.map(userRole => ({
-				ngo_id: userRole.ngo_id.ngo_id,
-				ngo_name: userRole.ngo_id.name,
+				ngo_id: userRole.ngo_id,
+				ngo_name: userRole.name,
 				role: userRole.role
 			}));
 

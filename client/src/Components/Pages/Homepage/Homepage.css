@@ -13,20 +13,24 @@ body {
 .home {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-top: 100px;
-  padding-bottom: 125px;
+  justify-direction: column;
   height: 100%;
   
 }
 
+.popular{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 6%;
+}
 
 .websites {
-  padding-left: 160px;
-  padding-right: 100px;
+  padding-left: 15%;
+  padding-right: 10%;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 1%;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
@@ -40,19 +44,18 @@ body {
   width: 40vb;
   height: 40vb;
   background-color: white;
-  border-radius: 20px;
-  margin-bottom: 10px;
-  padding: 10px;
+  border-radius: 10%;
+  margin-bottom: 5%;
+  padding: 5%;
   cursor: pointer;
 }
 
 .ngo h1{
   font-weight: 500;
-  
 }
 
 .ngo:hover {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 .ngo button{
@@ -70,21 +73,35 @@ body {
   /* opacity: 0.8; */
   border-radius: 20px;
   bottom: 3%;
-  height: 100px;
-  width: 700px;
+  left:1%;
+  height: 10%;
+  width: 35%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
 .build button {
   border: none;
   background-color: #6fb3bb;
-  padding: 5px 5px;
-  margin: 20px 20px;
+  /*padding: 5px 5px;
+  margin: 20px 20px;*/
   border-radius: 20px;
-  height: 60px;
-  width: 300px;
-  font-size: 15px;
+  height: 80%;
+  width: 80%;
+  font-size: 110%;
   transition: opacity 0.15s, box-shadow 0.15s;
+}
+
+.buildbuttondiv{
+  width: 50%;
+  height: 100%;
+  padding-top: 3%;
+}
+
+.markngo{
+  height: 100%;
+  width: 50%;
+  padding-top: 6%;
+  padding-left: 4%;
 }
 
 .build button :hover {
@@ -97,5 +114,6 @@ body {
 
 .head{
   text-align: center;
-  padding-bottom: 20px;
+  font-size:300% ;
+  font-weight: 500;
 }
