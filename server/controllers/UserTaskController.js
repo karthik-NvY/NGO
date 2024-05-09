@@ -76,6 +76,36 @@ class UserTaskhandler{
 	    }
 	}
 
+	static IfUserRequested = async(req, res) => {
+		try {
+			const { task_id } = req.body;
+			const user_id = req.user_id;
+
+			const existingrequest = await VolunteerChoiceModel.find( { task_id : task_id, user_id : user_id});
+	
+			// If user already requested for a task.......
+			if (existingrequest.length) {
+	            return res.status(200).json({
+	                success: true,
+	                requested:true,
+	                message: "User requested fetched"
+	            });
+	        }
+	        return res.status(200).json({	             
+		            success: true,
+		            requested:false,
+		            message:"User not requested"
+	            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while fetching user for task",
+	        });
+	    }
+	}
+
 	static deleteTaskusers = async (req, res) => {
         const { task_id } = req.body;
 		const user_id = req.user_id;

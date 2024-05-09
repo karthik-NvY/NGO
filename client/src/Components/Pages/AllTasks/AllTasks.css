@@ -5,7 +5,7 @@
 
 .tasks {
   margin-bottom: auto;
-  width: 80%;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,6 @@
 }
 
 .tasks div {
-  border: 1px solid #ccc; /* Border style */
   border-radius: 10px; /* Border radius */
 }
 
@@ -35,7 +34,30 @@
 }
 
 .singletask{
-  height: 10%;
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  border: 1px solid black;
+}
+
+.tasktitle{
+  font-size:120%;
+}
+
+.taskdesc{
+  font-size: 80%;
+  border: 1px solid black;
+  margin:0% 10% 0% 10%;
+  text-align: center;
+  height: 50%;
+  padding: 1.5%;
+  background-color: white;
+}
+
+.taskstats{
+  display: flex;
+  justify-content: space-around;
 }
 
 .ct {
