@@ -766,13 +766,10 @@ nav ul li a:hover {
 }
 .image-slider:hover .arrow-button {
   opacity: 1;
-  transition: opacity 0.4s ease;
-}
-.image-slider:hover .arrow-button {
   transform: scale(2);
   transition: transform 0.7s  ease-in-out;
+  /* transition: opacity 0.4s ease; */
 }
-
 
 .loading-overlay {
   position: fixed;

@@ -23,37 +23,40 @@ export const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       setAuthHeaders(token);
-      const response = await axios.post(`${apiUrl}/user/profile`, { token }, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      });
+      const response = await axios.post(
+        `${apiUrl}/user/profile`,
+        { token },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUserData(response.data.data);
       console.log(response.data);
 
       // Check userData and process ngos array after it's set
-        
-        console.log("asdaadas");
-        let volunteer_d = [];
-        let executive_d = [];
-        let donor_d = [];
-        for (let i = 0; i < response.data.data.ngos.length; i++) {
-          if (response.data.data.ngos[i].role === 'volunteer') {
-            volunteer_d.push(response.data.data.ngos[i]);
-          }
-          if (response.data.data.ngos[i].role === 'donor') {
-            donor_d.push(response.data.data.ngos[i]);
-          }
-          if (response.data.data.ngos[i].role === 'executive') {
-            executive_d.push(response.data.data.ngos[i]);
-          }
+
+      console.log("asdaadas");
+      let volunteer_d = [];
+      let executive_d = [];
+      let donor_d = [];
+      for (let i = 0; i < response.data.data.ngos.length; i++) {
+        if (response.data.data.ngos[i].role === "volunteer") {
+          volunteer_d.push(response.data.data.ngos[i]);
         }
-        setVolunteer(volunteer_d);
-        setDonor(donor_d);
-        setExecutive(executive_d);
-        
+        if (response.data.data.ngos[i].role === "donor") {
+          donor_d.push(response.data.data.ngos[i]);
+        }
+        if (response.data.data.ngos[i].role === "executive") {
+          executive_d.push(response.data.data.ngos[i]);
+        }
+      }
+      setVolunteer(volunteer_d);
+      setDonor(donor_d);
+      setExecutive(executive_d);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
@@ -70,7 +73,6 @@ export const Profile = () => {
     const file = event.target.files[0];
     setProfilePic(file);
   };
-
 
   return (
     <>
@@ -110,53 +112,67 @@ export const Profile = () => {
             <p>Tasks</p>
           </div>
           <div className="rightpart">
-          <div className="rightpart">
-  {volunteer.length > 0 && (
-    <div className="right-volunteer">
-      <section id="volunteer">
-        <h1 className="roles">Volunteer</h1>
-        {volunteer.map((ngo) => (
-          <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
-            <div className="ngo_v">
-              <Ngo name={ngo.ngo_id.name} />
-            </div>
-          </a>
-        ))}
-      </section>
-    </div>
-  )}
-  
-  {donor.length > 0 && (
-    <div className="right-donor">
-      <section id="donor">
-        <h1 className="roles">Donor</h1>
-        {donor.map((ngo) => (
-           <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
-           <div className="ngo_v">
-             <Ngo name={ngo.ngo_id.name} />
-           </div>
-         </a>
-        ))}
-      </section>
-    </div>
-  )}
-  
-  {Executive.length > 0 && (
-    <div className="right-executive">
-      <section id="executive">
-        <h1 className="roles">Executive</h1>
-        {Executive.map((ngo) => (
-           <a href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`} key={ngo.ngo_id.ngo_id} onClick={() => handleViewClick(ngo.ngo_id.ngo_id)} className="ngo-link">
-           <div className="ngo_v">
-             <Ngo name={ngo.ngo_id.name} />
-           </div>
-         </a>
-        ))}
-      </section>
-    </div>
-  )}
-</div>
+            <div className="rightpart">
+              {volunteer.length > 0 && (
+                <div className="right-volunteer">
+                  <section id="volunteer">
+                    <h1 className="roles">Volunteer</h1>
+                    {volunteer.map((ngo) => (
+                      <a
+                        href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
+                        key={ngo.ngo_id.ngo_id}
+                        onClick={() => handleViewClick(ngo.ngo_id.ngo_id)}
+                        className="ngo-link"
+                      >
+                        <div className="ngo_v">
+                          <Ngo name={ngo.ngo_id.name} />
+                        </div>
+                      </a>
+                    ))}
+                  </section>
+                </div>
+              )}
 
+              {donor.length > 0 && (
+                <div className="right-donor">
+                  <section id="donor">
+                    <h1 className="roles">Donor</h1>
+                    {donor.map((ngo) => (
+                      <a
+                        href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
+                        key={ngo.ngo_id.ngo_id}
+                        onClick={() => handleViewClick(ngo.ngo_id.ngo_id)}
+                        className="ngo-link"
+                      >
+                        <div className="ngo_v">
+                          <Ngo name={ngo.ngo_id.name} />
+                        </div>
+                      </a>
+                    ))}
+                  </section>
+                </div>
+              )}
+
+              {Executive.length > 0 && (
+                <div className="right-executive">
+                  <section id="executive">
+                    <h1 className="roles">Executive</h1>
+                    {Executive.map((ngo) => (
+                      <a
+                        href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
+                        key={ngo.ngo_id.ngo_id}
+                        onClick={() => handleViewClick(ngo.ngo_id.ngo_id)}
+                        className="ngo-link"
+                      >
+                        <div className="ngo_v">
+                          <Ngo name={ngo.ngo_id.name} />
+                        </div>
+                      </a>
+                    ))}
+                  </section>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

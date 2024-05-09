@@ -731,7 +731,7 @@ nav ul li a:hover {
   bottom: 3vh;
   color: #000000;
   right: 5vw;
-  background-color:cyan; /* Button background color */
+  background-color: #6fb3bb; /* Button background color */
   border: none; /* Remove button border */
   border-radius: 10px;
   cursor: pointer;
@@ -747,7 +747,8 @@ title{
   font-size: larger;
 }
 .list-icon:hover{
-  background-color:bisque;
+  /* background-color:bisque; */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
   color: #000;
 }
 
