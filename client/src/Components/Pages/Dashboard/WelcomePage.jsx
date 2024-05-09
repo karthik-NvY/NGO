@@ -10,26 +10,25 @@ function WelcomePage() {
         <div className="welcomelogo">
           <img src={logo} alt="" className="welcomelogoimg" />
           <h1>CauseCraft</h1>
-                
         </div>
         <div className="login-signup">
-          <Link to="/login" className="Loginn">
-            Login
+          <Link to="/login" >
+          <button className="Login-button">Login</button>
           </Link>
-          <Link to="/signup" className="Signupp">
-            Sign Up
+          <Link to="/signup" >
+          <button className="Signup-button">Sign Up</button>
           </Link>
         </div>
       </div>
       <div className="main-container">
         {/* <img src={welcome} alt="" /> */}
        
-          <span className="first-line">
+          <div className="first-line">
             <p>
               "Empower NGO's worldwide with an intuitive website hosting platform
                 where simplicity meets impact"
             </p>
-          </span >
+          </div >
   
       </div>
 

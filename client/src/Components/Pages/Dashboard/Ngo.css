@@ -18,4 +18,5 @@
 
 .ngoImagediv{
 	height: 70%;
+	overflow: hidden;
 }
