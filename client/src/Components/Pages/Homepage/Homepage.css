@@ -25,14 +25,15 @@ body {
 }
 
 .websites {
-  padding-left: 15%;
+  padding-left: 21%;
   padding-right: 10%;
   display: flex;
   flex-direction: row;
-  gap: 1%;
+  gap: 1.5%;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .websites a {
   text-decoration: none;
@@ -74,7 +75,7 @@ body {
   /* opacity: 0.8; */
   border-radius: 20px;
   bottom: 3%;
-  left: 32%;
+  left: 33%;
   height: 10%;
   width: 35%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
@@ -115,6 +116,6 @@ body {
 
 .head {
   text-align: center;
-  font-size: 300%;
+  font-size: 250%;
   font-weight: 500;
 }

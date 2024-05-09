@@ -101,7 +101,7 @@ const Homepage = () => {
     <div className="home">
       <NavBar />
       <div className="popular">
-        <div className="head">NGO Websites</div>
+        <div className="head">Popular NGOs</div>
         <div className="websites">
           {Array.isArray(ngos) &&
             ngos.map((ngo) => (
