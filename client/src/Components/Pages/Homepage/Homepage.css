@@ -15,10 +15,9 @@ body {
   align-items: center;
   /* justify-direction: column; */
   height: 100%;
-  
 }
 
-.popular{
+.popular {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -35,7 +34,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
-.websites a{
+.websites a {
   text-decoration: none;
   color: black;
 }
@@ -50,7 +49,7 @@ body {
   cursor: pointer;
 }
 
-.ngo h1{
+.ngo h1 {
   font-weight: 500;
 }
 
@@ -58,7 +57,7 @@ body {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
-.ngo button{
+.ngo button {
   width: 5rem;
   height: 2rem;
   border-radius: 20px;
@@ -69,11 +68,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: rgb(227, 255, 255);
+  /* background-color: azure; */
+
   /* opacity: 0.8; */
   border-radius: 20px;
   bottom: 3%;
-  left:1%;
+  left: 32%;
   height: 10%;
   width: 35%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
@@ -91,13 +92,13 @@ body {
   transition: opacity 0.15s, box-shadow 0.15s;
 }
 
-.buildbuttondiv{
+.buildbuttondiv {
   width: 50%;
   height: 100%;
   padding-top: 3%;
 }
 
-.markngo{
+.markngo {
   height: 100%;
   width: 50%;
   padding-top: 6%;
@@ -112,8 +113,8 @@ body {
   opacity: 0.6;
 }
 
-.head{
+.head {
   text-align: center;
-  font-size:300% ;
+  font-size: 300%;
   font-weight: 500;
 }
