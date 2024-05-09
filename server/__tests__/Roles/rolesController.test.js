@@ -32,7 +32,7 @@ describe('Adding Role on signup', () => {
  
 });
 
-describe('deleting Role on signup', () => {
+describe('deleting Role', () => {
     test('Successfully deleted role of a user for an Ngo', async () => {
         const packet = {
             ngo_id: '65da11a82216111bff5d0bae',

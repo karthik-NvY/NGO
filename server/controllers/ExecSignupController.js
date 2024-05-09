@@ -113,7 +113,7 @@ class waitlisthandler{
 			// Fetch all Task records from the database
 			
 			const updatedRole = await Roles.findOneAndUpdate(
-                { user_id: user_id,user_id: ngo_id  },
+                { user_id: user_id,ngo_id: ngo_id  },
                 {  $set: { role: "Executive" } },
                 { new: true }
             );

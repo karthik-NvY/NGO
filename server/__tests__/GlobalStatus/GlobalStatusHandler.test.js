@@ -4,25 +4,23 @@ describe('Adding Global available status for a user for an Ngo', () => {
     beforeAll(async () => {
         // Login to get token.
         const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
-        loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+        loginres = (await request("http://localhost:8080").post('/user/login').send(userpacket))
         token = loginres.body.token;
     });
-    test('Return error if user id is missing', async () => {
+    test('Return error if token is not set properly', async () => {
         const packet = { 
             ngo_id :  "65f04de683c50c03dfd91263",  
-            token:token 
         };
-        const res = await request("http://localhost:8080").post('/global/available').send(packet)
+        const res = await request("http://localhost:8080").post('/global/available').send(packet)//.set('Authorization', `Bearer ${token}`)
         console.log(res.body);
-        expect(res.status).toBe(400);
-        expect(res.body.message).toBe('Missing USER ID');
+        expect(res.status).toBe(401);
+        expect(res.body.error).toBe('Autherization failed due to absence of token');
     });
     test('Return error if ngo id is missing', async () => {
         const packet = { 
-            user_id :  "65f04de683c50c03dfd91263",
-            token:token   
+            user_id :  "65f04de683c50c03dfd91263",  
         };
-        const res = await request("http://localhost:8080").post('/global/available').send(packet)
+        const res = await request("http://localhost:8080").post('/global/available').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(400);
         expect(res.body.message).toBe('Missing NGO Id');
@@ -32,7 +30,7 @@ describe('Adding Global available status for a user for an Ngo', () => {
             ngo_id: '65da11a82216111bff5d0bae',
             user_id: '65da117c2216111bff5d0b44' ,
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/available').send(packet)
+        const res = await request("http://localhost:8080").post('/global/available').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('User Global status marked to available');
@@ -42,7 +40,7 @@ describe('Adding Global available status for a user for an Ngo', () => {
             ngo_id: '65da11a82216111bff5d0bae',
             user_id: '65da117c2216111bff5d0b44' ,
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/available').send(packet)
+        const res = await request("http://localhost:8080").post('/global/available').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(404);
         expect(res.body.message).toBe('User already marked as available ');
@@ -62,7 +60,7 @@ describe('Fetching available users for an Ngo', () => {
             user_id :  "65f04de683c50c03dfd91263",
             token:token   
         };
-        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet)
+        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(400);
         expect(res.body.message).toBe('Missing NGO ID');
@@ -71,7 +69,7 @@ describe('Fetching available users for an Ngo', () => {
         const packet = {
             ngo_id: '65da11a82216111bff5d0bae',
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet)
+        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('Users with global status successfully fetched');
@@ -81,7 +79,7 @@ describe('Fetching available users for an Ngo', () => {
             ngo_id: '65da11a82216111bff5d0baf',
             user_id: '65da117c2216111bff5d0b44' ,
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet)
+        const res = await request("http://localhost:8080").post('/global/fetchglobals').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('No Global Status found in given NGO');
@@ -95,22 +93,22 @@ describe('Deleting Global available status (i.e Not available) for a user for an
         loginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
         token = loginres.body.token;
     });
-    test('Return error if user id is missing', async () => {
+    test('Return error if token not set properly', async () => {
         const packet = { 
             ngo_id :  "65f04de683c50c03dfd91263",  
             token:token 
         };
         const res = await request("http://localhost:8080").post('/global/notavailable').send(packet)
         console.log(res.body);
-        expect(res.status).toBe(400);
-        expect(res.body.message).toBe('Missing USER ID');
+        expect(res.status).toBe(401);
+        expect(res.body.error).toBe('Autherization failed due to absence of token');
     });
     test('Return error if ngo id is missing', async () => {
         const packet = { 
             user_id :  "65f04de683c50c03dfd91263",
             token:token   
         };
-        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet)
+        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(400);
         expect(res.body.message).toBe('Missing NGO id');
@@ -120,7 +118,7 @@ describe('Deleting Global available status (i.e Not available) for a user for an
             ngo_id: '65da11a82216111bff5d0bae',
             user_id: '65da117c2216111bff5d0b44' ,
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet)
+        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('User Global status marked to not available');
@@ -130,7 +128,7 @@ describe('Deleting Global available status (i.e Not available) for a user for an
             ngo_id: '65da11a82216111bff5d0bae',
             user_id: '65da117c2216111bff5d0b44' ,
             token:token           };
-        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet)
+        const res = await request("http://localhost:8080").post('/global/notavailable').send(packet).set('Authorization', `Bearer ${token}`)
         console.log(res.body);
         expect(res.status).toBe(404);
         expect(res.body.message).toBe('User already marked as not available');

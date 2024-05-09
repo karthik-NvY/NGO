@@ -45,10 +45,17 @@ describe('Ngo Info', () => {
 jest.resetAllMocks();
 
 describe('Ngo Info without mock', () => {
+    let newloginres
+    beforeAll(async () => {
+        // Login to get token.
+        const userpacket = { password: "Sai Datta", email: "2021csb1106@iitrpr.ac.in" };
+        newloginres = await request("http://localhost:8080").post('/user/login').send(userpacket);
+        token = newloginres.body.token
+    });
 
     test('Returns Ngo\'s data if found', async () => {
         const packet = {};
-        const res = await request("http://localhost:8080").post('/api/ngoInfo').send(packet)
+        const res = await request("http://localhost:8080").post('/api/ngoInfo').send(packet).set('Authorization', `Bearer ${token}`)
         expect(res.status).toBe(200);
         expect(res.body.message).toBe("NGOs found");
     }); 
