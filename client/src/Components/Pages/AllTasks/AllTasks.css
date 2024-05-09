@@ -5,25 +5,17 @@
 
 .tasks {
   margin-bottom: auto;
-  padding: 20px;
-
   width: 80%;
-  max-width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap:4%;
+
 }
 
-.tasks ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tasks li {
+.tasks div {
   border: 1px solid #ccc; /* Border style */
-  height: 50px; /* Height */
-  width: 40vb; /* Width */
   border-radius: 10px; /* Border radius */
-  margin-bottom: 10px;
-  padding: 10px;
 }
 
 .tasks li:hover {
@@ -31,9 +23,19 @@
 }
 
 .tasks h2 {
-  margin-bottom: 10px;
   text-align: top;
   font-family: "Poppins", sans-serif;
+}
+
+.tasklist{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap:3%;
+}
+
+.singletask{
+  height: 10%;
 }
 
 .ct {

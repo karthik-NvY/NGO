@@ -7,7 +7,8 @@ import { FaInstagram } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
 import { LuListTodo } from "react-icons/lu";
 import anime from 'animejs/lib/anime.es.js';
-
+import { Link } from 'react-router-dom';
+import NGONavbar from '../NGONavbar/NGONavbar'
 
 import axios from "axios";
 
@@ -15,14 +16,15 @@ import setAuthHeaders from "../../../Utils/setAuthHeaders";
 console.log("wughwhiowfwo")
 const Template1 = () => {
   
-  
   const [userrole, setrole] = useState("");
   const [aboutus_anim1, setaboutus_anim] = useState(null)
   const [aboutus_heading_anim1, setaboutus_heading_anim] = useState(null)
   const [aboutus_text_anim1, setaboutus_text_anim] = useState(null)
   const navigate = useNavigate();
-    const [templateData,setTemplateData]=useState();
-    const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [templateData,setTemplateData]=useState();
+  const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         fetchTemplateData();
         fetchRole(); // Fetch user profile data when component mounts
@@ -153,40 +155,20 @@ const Template1 = () => {
         }
       }
       const handleAllTasks = () => {
+        localStorage.setItem("ngo_name", templateData.name);
+        localStorage.setItem("ngo_logo", templateData.logo);
          navigate(`/AllTasks/${userrole}`);
         //navigate("/taskassign");
+      };
+
+      const handlehomeClick = () => {
+          navigate(`/ngo/${templateData.name}/${templateData.ngo_id}`);
       };
   return (
       <div className="temp1">
     {templateData && (
       <>
-        <header>
-          <div className="logo1">
-            <div className="logopic1">
-              {/* Check if logo exists before rendering */}
-              {templateData.logo && <img src={templateData.logo} alt="Logo" className="logo-img1"/>}
-            </div>
-            <div className="logo-name1">
-              {templateData.name}
-            </div>
-          </div>
-          <nav>
-            <ul>
-              <li>
-                <a href="#Home">Home</a>
-              </li>
-              <li>
-                <a href="#AboutUs">About Us</a>
-              </li>
-              <li>
-                <a href="#Events">Recent Events</a>
-              </li>
-              <li>
-                <a href="#ContactUs">Contact Us</a>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <NGONavbar name={templateData.name} logo={templateData.logo} id={templateData.ngo_id}/>
         <div id="Home" className="main-bg1">
           {/* Check if main exists before rendering */}
           {templateData.main && <img src={templateData.main} className="main-bg-image1" alt="Main" />}
@@ -282,8 +264,8 @@ const Template1 = () => {
             
           </div>
           } */}
-          { userrole !== "" && <div className=" list-icon" title="Explore Tasks">
-             <LuListTodo  className="icon_list" onClick={handleAllTasks}/>
+          { userrole !== "" && <div className=" list-icon" title="Explore Tasks" onClick={handleAllTasks}>
+             <LuListTodo  className="icon_list"/>
           </div>}
           
         </div>

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./AllTasks.css";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import NGONavbar from '../NgoView/NGONavbar/NGONavbar'
 
 export const AllTasks = () => {
   let { userRole } = useParams();
@@ -38,16 +39,35 @@ export const AllTasks = () => {
     navigate("/TaskAssign");
   };
   const handleSelect = () => {
-    // Handle selection logic, e.g., navigate to task selection page
+    navigate("/Description");
   };
+
+  const handleTask = async (id) =>{
+    const ngo_id = localStorage.getItem('ngo_id'); // Retrieve ngo_id from local storage
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(`${apiUrl}/task/fetchInfo`, { token, ngo_id, id }, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    console.log(response);
+  }
 
   return (
     <div className="main">
+      <NGONavbar name={localStorage.getItem("ngo_name")} logo={localStorage.getItem("ngo_logo")} id={localStorage.getItem("ngo_id")}/>
       <div className="tasks">
         <h2>NGO Tasks</h2>
-        <ul>
-          {tasks && tasks.map((task) => <li key={task._id}>{task.title}</li>)}
-        </ul>
+        <div className="tasklist">
+          {tasks && tasks.map((task) => 
+            <div key={task._id} className="singletask" onClick={() => handleTask(task._id)}>
+              {task.title}
+            </div>)}
+        </div>
+        
         {/* Only show Create Task button if user role is "executive" */}
         {userRole === "executive" || userRole === "admin" && (
           <button className="ct" onClick={handleCreate}>
