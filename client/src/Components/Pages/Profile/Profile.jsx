@@ -112,11 +112,11 @@ export const Profile = () => {
             <p>Tasks</p>
           </div>
           <div className="rightpart">
-            <div className="rightpart">
-              {volunteer.length > 0 && (
-                <div className="right-volunteer">
-                  <section id="volunteer">
-                    <h1 className="roles">Volunteer</h1>
+            {volunteer.length > 0 && (
+              <div className="right-volunteer">
+                <section id="volunteer">
+                  <h1 className="roles">Volunteer</h1>
+                  <div className="ngo-rows">
                     {volunteer.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -125,18 +125,20 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                          <Ngo name={ngo.ngo_id.name} />
+                          <p>{ngo.ngo_id.name}</p>
                         </div>
                       </a>
                     ))}
-                  </section>
-                </div>
-              )}
+                  </div>
+                </section>
+              </div>
+            )}
 
-              {donor.length > 0 && (
-                <div className="right-donor">
-                  <section id="donor">
-                    <h1 className="roles">Donor</h1>
+            {donor.length > 0 && (
+              <div className="right-donor">
+                <section id="donor">
+                  <h1 className="roles">Donor</h1>
+                  <div className="ngo-rows">
                     {donor.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -145,18 +147,20 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                          <Ngo name={ngo.ngo_id.name} />
+                        <p>{ngo.ngo_id.name}</p>
                         </div>
                       </a>
                     ))}
-                  </section>
-                </div>
-              )}
+                  </div>
+                </section>
+              </div>
+            )}
 
-              {Executive.length > 0 && (
-                <div className="right-executive">
-                  <section id="executive">
-                    <h1 className="roles">Executive</h1>
+            {Executive.length > 0 && (
+              <div className="right-executive">
+                <section id="executive">
+                  <h1 className="roles">Executive</h1>
+                  <div className="ngo-rows">
                     {Executive.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -165,14 +169,14 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                          <Ngo name={ngo.ngo_id.name} />
+                          <p>{ngo.ngo_id.name}</p>
                         </div>
                       </a>
                     ))}
-                  </section>
-                </div>
-              )}
-            </div>
+                  </div>
+                </section>
+              </div>
+            )}
           </div>
         </div>
       </div>
