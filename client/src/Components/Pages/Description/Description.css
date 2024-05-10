@@ -1,0 +1,44 @@
+/* TaskPage2.css */
+
+/* Main container */
+.big {
+    margin: 20px;
+}
+
+/* Title details */
+.title-details {
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+
+/* Title style */
+.title-details h1 {
+    font-size: 28px;
+}
+
+/* Subheading style */
+.description-details h3,
+.volunteers-details h3,
+.date-details h3,
+.ngoid-details h3,
+.chosentask-details h3,
+.taskid-details h3 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.taking-input {
+    margin-top: 5px;
+}
+
+.taking-input input[type='email'] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    /* Remove border */
+    outline: none;
+    /* Remove outline */
+    background-color: transparent;
+    /* Make background transparent */
+}

@@ -39,11 +39,9 @@ header {
 }
 
 
-
 .logo-name1{
   overflow: hidden;
 }
-
 
 
 .logo1 {
@@ -730,7 +728,25 @@ nav ul li a:hover {
   bottom: 3vh;
   color: #000000;
   right: 5vw;
-  background-color: #6fb3bb; /* Button background color */
+  background-color: white; /* Button background color */
+  border: none; /* Remove button border */
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  font-size: 250%;
+  z-index: 10;
+  padding: 1%;
+
+
+}
+
+.manage-icon{
+  position: fixed;
+  bottom: 3vh;
+  color: #000000;
+  left: 5vw;
+  background-color:white; /* Button background color */
   border: none; /* Remove button border */
   border-radius: 10px;
   cursor: pointer;
@@ -750,4 +766,3 @@ title{
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
   color: #000;
 }
-

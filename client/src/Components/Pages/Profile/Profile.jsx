@@ -47,7 +47,10 @@ export const Profile = () => {
         if (response.data.data.ngos[i].role === "volunteer") {
           volunteer_d.push(response.data.data.ngos[i]);
         }
-        if (response.data.data.ngos[i].role === "donor") {
+        if (
+          response.data.data.ngos[i].role === "admin" &&
+          response.data.data.ngos[i].ngo_id !== null
+        ) {
           donor_d.push(response.data.data.ngos[i]);
         }
         if (response.data.data.ngos[i].role === "executive") {
@@ -112,11 +115,12 @@ export const Profile = () => {
             <p>Tasks</p>
           </div>
           <div className="rightpart">
-            {volunteer.length > 0 && (
-              <div className="right-volunteer">
-                <section id="volunteer">
-                  <h1 className="roles">Volunteer</h1>
-                  <div className="ngo-rows">
+            <div className="rightpart">
+              {volunteer.length > 0 && (
+                <div className="right-volunteer">
+                  <section id="volunteer">
+                    <h1 className="roles">Volunteer</h1>
+                    <div className="ngo-rows">
                     {volunteer.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -125,20 +129,20 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                          <p>{ngo.ngo_id.name}</p>
+                          <Ngo name={ngo.ngo_id.name} />
                         </div>
                       </a>
                     ))}
-                  </div>
-                </section>
-              </div>
-            )}
+                    </div>
+                  </section>
+                </div>
+              )}
 
-            {donor.length > 0 && (
-              <div className="right-donor">
-                <section id="donor">
-                  <h1 className="roles">Donor</h1>
-                  <div className="ngo-rows">
+              {donor.length > 0 && (
+                <div className="right-donor">
+                  <section id="donor">
+                    <h1 className="roles">Admin</h1>
+                    <div className="ngo-rows">
                     {donor.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -147,20 +151,19 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                        <p>{ngo.ngo_id.name}</p>
+                          <Ngo name={ngo.ngo_id.name} />
                         </div>
                       </a>
                     ))}
-                  </div>
-                </section>
-              </div>
-            )}
+                    </div>
+                  </section>
+                </div>
+              )}
 
-            {Executive.length > 0 && (
-              <div className="right-executive">
-                <section id="executive">
-                  <h1 className="roles">Executive</h1>
-                  <div className="ngo-rows">
+              {Executive.length > 0 && (
+                <div className="right-executive">
+                  <section id="executive">
+                    <h1 className="roles">Executive</h1>
                     {Executive.map((ngo) => (
                       <a
                         href={`/ngo/${ngo.ngo_id.name}/${ngo.ngo_id.ngo_id}`}
@@ -169,14 +172,14 @@ export const Profile = () => {
                         className="ngo-link"
                       >
                         <div className="ngo_v">
-                          <p>{ngo.ngo_id.name}</p>
+                          <Ngo name={ngo.ngo_id.name} />
                         </div>
                       </a>
                     ))}
-                  </div>
-                </section>
-              </div>
-            )}
+                  </section>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

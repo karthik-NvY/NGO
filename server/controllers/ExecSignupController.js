@@ -49,16 +49,26 @@ class waitlisthandler{
             });
         }
 	    try {
-	        // Adding new task.
-	        const newRequest = await waitlist.create({
-            	user_id,ngo_id
-        	})
-	        return res.status(201).json({	             
-		            success: true,
-		            newRequest,
-		            message:"successfully request added"
-	            });
-	    } 
+			// Check if the request already exists.
+			const existingRequest = await waitlist.findOne({ user_id, ngo_id });
+	
+			if (existingRequest) {
+				return res.status(210).json({
+					success: false,
+					message: "Request already exists",
+					existingRequest,
+				});
+			}
+	
+			// Adding new request.
+			const newRequest = await waitlist.create({ user_id, ngo_id });
+	
+			return res.status(201).json({
+				success: true,
+				newRequest,
+				message: "Successfully request added",
+			});
+		} 
 	    catch (error) {
 	        console.log(error);
 	        return res.status(500).json({

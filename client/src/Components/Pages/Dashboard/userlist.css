@@ -1,0 +1,14 @@
+
+
+.ngolist1{
+	height:100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.ngoName1{
+	font-size: 200%;
+	height: 20%;
+    color:black;
+}

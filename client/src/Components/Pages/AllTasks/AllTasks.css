@@ -1,29 +1,21 @@
 .main {
   display: flex;
   flex-direction: column;
+  background-color: rgb(250, 240, 227);
 }
 
 .tasks {
   margin-bottom: auto;
-  padding: 20px;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap:4%;
 
-  width: 80%;
-  max-width: 600px;
 }
 
-.tasks ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tasks li {
-  border: 1px solid #ccc; /* Border style */
-  height: 50px; /* Height */
-  width: 40vb; /* Width */
+.tasks div {
   border-radius: 10px; /* Border radius */
-  margin-bottom: 10px;
-  padding: 10px;
 }
 
 .tasks li:hover {
@@ -31,16 +23,61 @@
 }
 
 .tasks h2 {
-  margin-bottom: 10px;
   text-align: top;
   font-family: "Poppins", sans-serif;
+}
+
+.tasklist{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap:3%;
+}
+
+.singletask{
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  border: 1px solid black;
+}
+
+.tasktitle{
+  font-size:120%;
+}
+
+.taskdesc{
+  font-size: 80%;
+  border: 1px solid black;
+  margin:0% 10% 0% 10%;
+  text-align: center;
+  height: 50%;
+  padding: 1.5%;
+  background-color: white;
+}
+
+.taskstats{
+  display: flex;
+  justify-content: space-around;
+}
+
+.taskrequest{
+  color: green;
+  width:10%;
+  font-size: 50%;
+}
+
+.taskrequest_dead{
+  opacity: 0.5;
+  pointerEvents: 'none';
+  width:10%;
+  font-size: 50%;
 }
 
 .ct {
   position: fixed;
   bottom: 160px; /* Adjust this value to adjust vertical position */
   right: 80px; /* Adjust this value to adjust horizontal position */
-  background-color: #6fb3bb; /* Button background color */
+  background-color: #7b736b; /* Button background color */
   color: black; /* Button text color */
   padding: 10px 20px; /* Padding around button text */
   border: none; /* Remove button border */
@@ -54,7 +91,7 @@
   position: fixed;
   bottom: 80px; /* Adjust this value to adjust vertical position */
   right: 80px; /* Adjust this value to adjust horizontal position */
-  background-color: #6fb3bb; /* Button background color */
+  background-color: #7b736b; /* Button background color */
   color: black; /* Button text color */
   padding: 10px 20px; /* Padding around button text */
   border: none; /* Remove button border */
@@ -69,7 +106,7 @@
   position: fixed;
   bottom: 600px; /* Adjust this value to adjust vertical position */
   right: 80px; /* Adjust this value to adjust horizontal position */
-  background-color: #6fb3bb; /* Button background color */
+  background-color: #7b736b; /* Button background color */
   color: black; /* Button text color */
   padding: 10px 20px; /* Padding around button text */
   border: none; /* Remove button border */
@@ -81,5 +118,5 @@
 }
 
 .ct:hover {
-  background-color: #6fb3bb;
+  opacity: 0.6;
 }

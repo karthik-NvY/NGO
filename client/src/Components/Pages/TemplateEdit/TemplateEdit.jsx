@@ -362,21 +362,21 @@ useEffect(() => {
     autoplay:false,
   }));
 
-  // setaboutus_image1_anim(anime({
-  //   targets:document.getElementById('about-images-1-id'),
-  //   width:['0%', '100%'],
-  //   duration:2000,
-  //   easing:'easeOutCubic',
-  //   autoplay:false,
-  // }));
+  setaboutus_image1_anim(anime({
+    targets:document.getElementById('about-images-1-id'),
+    width:['0%', '100%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    autoplay:false,
+  }));
   
-  // setaboutus_image2_anim(anime({
-  //   targets:document.getElementById('about-images-2-id'),
-  //   width:['0%', '100%'],
-  //   duration:2000,
-  //   easing:'easeOutCubic',
-  //   autoplay:false,
-  // }));
+  setaboutus_image2_anim(anime({
+    targets:document.getElementById('about-images-2-id'),
+    width:['0%', '100%'],
+    duration:2000,
+    easing:'easeOutCubic',
+    autoplay:false,
+  }));
 
   setaboutus_text_anim(anime({
     targets:document.getElementById('about-text-id'),
@@ -434,28 +434,28 @@ useEffect(() => {
   }
 }, [aboutus_heading_anim]);
 
-// useEffect(() => {
-//     if (aboutus_image1_anim) {
-//       window.addEventListener('scroll', ()=>{
-//         var scrollstat = (window.scrollY / window.innerHeight);
-//         aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
-//     });   
-//   }
-// }, [aboutus_image1_anim]);
+useEffect(() => {
+    if (aboutus_image1_anim) {
+      window.addEventListener('scroll', ()=>{
+        var scrollstat = (window.scrollY / window.innerHeight);
+        aboutus_image1_anim.seek(scrollstat * aboutus_image1_anim.duration);
+    });   
+  }
+}, [aboutus_image1_anim]);
 
-// useEffect(() => {
-//     if (aboutus_image2_anim) {
-//       window.addEventListener('scroll', ()=>{
-//         if (window.scrollY < window.innerHeight){
-//           var scrollstat = (window.scrollY / window.innerHeight);  
-//         }
-//         else{
-//           var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
-//         }
-//         aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
-//     });   
-//   }
-// }, [aboutus_image2_anim]);
+useEffect(() => {
+    if (aboutus_image2_anim) {
+      window.addEventListener('scroll', ()=>{
+        if (window.scrollY < window.innerHeight){
+          var scrollstat = (window.scrollY / window.innerHeight);  
+        }
+        else{
+          var scrollstat = (2*window.innerHeight - window.scrollY)/window.innerHeight  
+        }
+        aboutus_image2_anim.seek(scrollstat * aboutus_image2_anim.duration);
+    });   
+  }
+}, [aboutus_image2_anim]);
 
 useEffect(() => {
     if (aboutus_text_anim) {
