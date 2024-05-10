@@ -37,16 +37,17 @@ describe('User Signup', () => {
 
     test('Successful registration of a new user', async () => {
         // Make a new user
-        const newuserpacket = {name:"name", password:"pass", email:"tmp@gmail.com"}
+        const newuserpacket = {name:"name", password:"pass", email:"temp@gmail.com"}
         const res = await request("http://localhost:8080").post('/user/signup').send(newuserpacket)
         expect(res.status).toBe(201);
         expect(res.body.message).toBe('User registration successfully done');
 
         // Login with new user to get token.
         const newloginres = await request("http://localhost:8080").post('/user/login').send(newuserpacket)
+        const token = newloginres.body.token
 
         // Delete new user.
         const deletepacket = {token:newloginres.body.token};
-        await request("http://localhost:8080").post('/user/delete').send(deletepacket)
+        await request("http://localhost:8080").post('/user/delete').send(deletepacket).set('Authorization', `Bearer ${token}`);
     });    
 });

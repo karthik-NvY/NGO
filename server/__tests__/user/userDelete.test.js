@@ -17,17 +17,17 @@ describe('User Delete', () => {
         const deletepacket = {token:newloginres.body.token};
 
         // Delete the new user.
-        const delres = await request("http://localhost:8080").post('/user/delete').send(deletepacket)
+        const delres = await request("http://localhost:8080").post('/user/delete').send(deletepacket).set('Authorization', `Bearer ${newloginres.body.token}`);
 
         // Try to delete again. No entry will be there in Users collection.
-        const res = await request("http://localhost:8080").post('/user/delete').send(deletepacket);
+        const res = await request("http://localhost:8080").post('/user/delete').send(deletepacket).set('Authorization', `Bearer ${newloginres.body.token}`);
         
         expect(res.status).toBe(404);
         expect(res.body.error).toBe('No user found with the provided ID');
     });
     test('Successful delete', async () => {
         // Make a new user.
-        const newuserpacket = {name:"name", password:"pass", email:"tmp@gmail.com"}
+        const newuserpacket = {name:"name", password:"pass", email:"temp@gmail.com"}
         const newres = await request("http://localhost:8080").post('/user/signup').send(newuserpacket)
 
         // Login with new user to get token.
@@ -35,7 +35,7 @@ describe('User Delete', () => {
 
         // Use token and delete the newly created user.
         const deletepacket = {token:newloginres.body.token};
-        const res = await request("http://localhost:8080").post('/user/delete').send(deletepacket)
+        const res = await request("http://localhost:8080").post('/user/delete').send(deletepacket).set('Authorization', `Bearer ${newloginres.body.token}`);
 
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('User deleted successfully');

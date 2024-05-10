@@ -12,7 +12,7 @@ TODO
 */
 const Users = require('../models/userModel'); // User database model.
 const Roles = require('../models/roleModel'); // User roles database model.
-const waitlist= require('../models/signUpExecModel')
+const {waitlist}= require('../models/signUpExecModel')
 const { VolunteerChoiceModel, AssignedModel } = require('../models/taskInfoModel')
 
 const generateToken = require('../utils/generateToken');

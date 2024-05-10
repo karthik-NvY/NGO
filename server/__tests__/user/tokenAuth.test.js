@@ -10,16 +10,20 @@ describe('Token Authentication Middleware', () => {
         const loginres = await request("http://localhost:8080").post('/user/login').send(userpacket)
 
         // Mock a valid token value
-        const tokenValue = loginres.body.token;
+        const token = loginres.body.token;
 
         // Mock a request object with the token cookie
         const req = {
-            body: {
-                token: tokenValue
-            }
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${token}`
+              },
         };
 
-        const res = {};
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
         const next = jest.fn();
         await tokenAuth(req, res, next);
         expect(next).toHaveBeenCalled();  
@@ -28,7 +32,8 @@ describe('Token Authentication Middleware', () => {
     test('Unauthenticated Request without Token', async () => {
         const req = {
             body: {},
-            cookies: {}
+            cookies: {},
+            headers:{'authentication': " "}
         };
         const res = {
             status: jest.fn().mockReturnThis(),

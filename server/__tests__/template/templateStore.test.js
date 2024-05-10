@@ -29,18 +29,25 @@ describe("Storing template variables", ()=>{
 
 	test("Return error if NGO already exists", async ()=>{
 		// ngo already exists. Duplicate ngo names from same user are not allowed.
-		packet = { 
-			token:loginres.body.token, 
-			logo: "logo",
-		    ngoName: "MM Nagarjuna",
-		    heroImages: "heroImages",
-		    aboutUsText: "aboutUsText",
-		    aboutUsImage2: "aboutUsImage2",
-		    recentEvents: "recentEvents",
-		    email: "email",
-		    phoneNumber: "phoneNumber",
-		    contactImage: "contactImage"
-		}
+		const packet = {
+            name : "Testing Ngo",
+            visionText:"visionText",
+			image_status: [],
+            aboutUsText: "aboutUsText",
+            eventBottomText: "eventBottomText",
+            logo:"logo",
+            main:"main",
+            aboutUsImage:"default_images[2]",
+            aboutUsImage2:"default_images[3]",
+            contactImage:"default_images[4]",
+            eventImages:[],
+            eventDescriptions:"eventDescriptions",
+            email:"email",
+            phoneNumber:"phoneNumber",
+            instahandle:"instahandle",
+            xhandle:"xhandle",
+        }
+		
 		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet).set('Authorization', `Bearer ${token}`)
 
 
@@ -51,26 +58,25 @@ describe("Storing template variables", ()=>{
 	// In this, after creation deletion is not done. So works only once.
 	test("Successful creation of new NGO", async ()=>{
 		// New creation of ngo.
-		packet = { 
-			token:loginres.body.token, 
-			logo: "logo",
-		    ngoName: "MM Nagarjuna Nannagaru",
-		    heroImages: [
-		        { id: 1, image: "image1.jpg" },
-		        { id: 2, image: "image2.jpg" },
-		        { id: 3, image: "image3.jpg" }
-		    ],
-		    aboutUsText: "aboutUsText",
-		    aboutUsImage2: "aboutUsImage2",
-		    recentEvents: [
-		        { id: 1, image: "event1.jpg", description: "Description of event 1" },
-		        { id: 2, image: "event2.jpg", description: "Description of event 2" },
-		        { id: 3, image: "event3.jpg", description: "Description of event 3" }
-		    ],
-		    email: "email",
-		    phoneNumber: "phoneNumber",
-		    contactImage: "contactImage"
-		}
+		const packet = {
+            name : "Testing",
+			image_status : [],
+            visionText:"visionText",
+            aboutUsText: "aboutUsText",
+            eventBottomText: "eventBottomText",
+            logo:"logo",
+            main:"main",
+            aboutUsImage:"default_images[2]",
+            aboutUsImage2:"default_images[3]",
+            contactImage:"default_images[4]",
+            eventImages:[],
+            eventDescriptions:"eventDescriptions",
+            email:"email",
+            phoneNumber:"phoneNumber",
+            instahandle:"instahandle",
+            xhandle:"xhandle",
+        }
+		
 		const res = await request("http://localhost:8080").post('/templates/storetemplate').send(packet).set('Authorization', `Bearer ${token}`)
 
 		expect(res.status).toBe(201);

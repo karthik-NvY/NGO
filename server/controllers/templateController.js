@@ -27,7 +27,12 @@ class TemplateHandler{
         } = req.body;
         const eventDescriptions = req.body.eventDescriptions;
 
-
+        if(!name || !visionText ){
+            return res.status(400).json({
+                success: false,
+                error: "Missing NGO template variables",
+            });
+        }
         const ngo_id = await Ngohandler.addNgo(name, req.name);
         if(!ngo_id){
             return res.status(400).json({
