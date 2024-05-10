@@ -133,6 +133,34 @@ class UserTaskhandler{
         }
     }
 
+	static deleteUserTask = async (req, res) => {
+        const { task_id, user_id } = req.body;
+
+        try {
+            const deletedTask = await VolunteerChoiceModel.findOneAndDelete({ user_id: user_id, chosenTask: task_id });
+
+            if (!deletedTask) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No task found with the provided ID"
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Task user deleted successfully",
+                deletedTask
+            });
+        } catch (error) {
+            console.error("Error:", error.message);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error while deleting task user"
+            });
+        }
+    }
+
+
 
 	static assignUser = async(req, res) => {
 		try {
