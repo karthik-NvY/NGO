@@ -8,7 +8,11 @@ const tokenMiddle = require("../middleware/tokenMiddle");
 
 const router = new express.Router();
 
-router.post('/storetemplate', tokenMiddle, TemplateHandler.storeTemplate);
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+router.post('/storetemplate', tokenMiddle, upload.array('images'), TemplateHandler.storeTemplate);
 router.post('/fetchtemplate', tokenMiddle, TemplateHandler.fetchTemplate);
+router.post("/ngoBack", tokenMiddle, TemplateHandler.fetchNgoBack);
 
 module.exports = router;

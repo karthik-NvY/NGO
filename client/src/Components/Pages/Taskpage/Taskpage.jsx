@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Taskpage.css";
-import NavBar from "../Dashboard/NavBar/NavBar";
+import { useNavigate } from "react-router-dom";
+import NGONavbar from "../NgoView/NGONavbar/NGONavbar";
 
 export const Taskpage = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const navigate = useNavigate();
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
@@ -31,8 +32,8 @@ export const Taskpage = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${apiUrl}/task/storeInfo`,
-        { token, ngo_id, title, description, date, no_volunteer },
-        { withCredentials: true }
+        { ngo_id, title, description, date, no_volunteer },
+        { withCredentials: true ,headers: {'Authorization': `Bearer ${token}`}}
       );
       console.log("Task created:", response.data);
       setTaskData({
@@ -41,62 +42,66 @@ export const Taskpage = () => {
         date: "",
         no_volunteer: "",
       });
+      navigate(-1);
     } catch (error) {
       console.error("Failed to create task:", error);
     }
   };
 
   return (
-    <div className="main">
-      <div className="task-box">
-        <form onSubmit={handleSubmit}>
-          <div className="input-taking">
-            <input
-              type="text"
-              placeholder="Title"
-              name="title"
-              value={taskData.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-taking">
-            <input
-              type="text"
-              placeholder="Description"
-              name="description"
-              value={taskData.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-taking">
-            <input
-              type="date"
-              placeholder="Date"
-              name="date"
-              value={taskData.date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-taking">
-            <input
-              type="text"
-              placeholder="no_volunteer"
-              name="no_volunteer"
-              value={taskData.no_volunteer}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="button-container">
-            <button type="submit" className="TaskButton">
-              Create Task
-            </button>
-          </div>
-        </form>
+    <>
+      <NGONavbar name={localStorage.getItem("ngo_name")} logo={localStorage.getItem("ngo_logo")} id={localStorage.getItem("ngo_id")}/>
+      <div className="main">
+        <div className="task-box">
+          <form onSubmit={handleSubmit}>
+            <div className="input-taking">
+              <input
+                type="text"
+                placeholder="Title"
+                name="title"
+                value={taskData.title}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-taking">
+              <input
+                type="text"
+                placeholder="Description"
+                name="description"
+                value={taskData.description}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-taking">
+              <input
+                type="date"
+                placeholder="Date"
+                name="date"
+                value={taskData.date}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-taking">
+              <input
+                type="text"
+                placeholder="no_volunteer"
+                name="no_volunteer"
+                value={taskData.no_volunteer}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="button-container">
+              <button type="submit" className="TaskButton">
+                Create Task
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

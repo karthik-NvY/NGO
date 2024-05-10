@@ -15,8 +15,14 @@ const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const DbConnect = require("./configs/mongo");
 require("dotenv").config();
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// Parse application/json
+app.use(bodyParser.json());
 
 app.use(express.json()); // For json parsing
 app.use(express.urlencoded({ extended: false }));

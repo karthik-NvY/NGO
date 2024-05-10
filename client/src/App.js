@@ -10,10 +10,11 @@ import Register from "./Components/Pages/Register/Register";
 import Verification from "./Components/Pages/Verification/Verification";
 import Homepage from "./Components/Pages/Homepage/Homepage";
 import { TemplateView } from "./Components/Pages/TemplateView/TemplateView";
-import Template1edit  from "./Components/Pages/Template1edit/Template1edit";
+import TemplateEdit  from "./Components/Pages/TemplateEdit/TemplateEdit";
 import AllTasks from "./Components/Pages/AllTasks/AllTasks";
 
 import TaskAssign from "./Components/Pages/TaskAssign/TaskAssign";
+import ExecSignUp from "./Components/Pages/ExecSignUpPage/ExecSignUp";
 
 function App() {
   return (
@@ -31,9 +32,10 @@ function App() {
         <Route path="/Verification" element={<Verification />} />
         <Route path="/NavBar" element={<NavBar />} />
         <Route path="/Home" element={<Homepage />} />
-        <Route path="/templateview" element={<TemplateView />} />
-        <Route path="/template1edit" element={<Template1edit />} />
-        <Route path="/AllTasks" element={<AllTasks />} />
+        // <Route path="/templateview" element={<TemplateView />} />
+        <Route path="/TemplateEdit" element={<TemplateEdit />} />
+        <Route path="/AllTasks/:userRole" element={<AllTasks />} />
+        <Route path="/ExecSign/:userRole" element={<ExecSignUp />} />
         <Route path ="/taskassign" element = {<TaskAssign/>} />
       </Routes>
     </BrowserRouter>

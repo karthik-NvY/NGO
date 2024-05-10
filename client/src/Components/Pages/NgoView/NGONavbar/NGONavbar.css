@@ -1,0 +1,40 @@
+.logo1 {
+  display: inline-flex; /* Use inline-flex to make sure logo and nav items align horizontally */
+  align-items: center; /* Center items vertically */
+  gap:2%;
+}
+
+.logopic1 {
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-img1{
+  height: 8vh;
+  width: 6vw;
+  object-fit: contain;
+}
+
+.logo-name1 textarea {
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+  font-size: 20px;
+  width: 400px;
+  /* max-width: calc(100% - 10px); */
+  height: 30px;
+  resize: none;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.logo-name1{
+  overflow: hidden;
+  font-size: 150%;
+  font-weight: 600;
+}
+
+.navbar_head{
+  width: 100%;
+}

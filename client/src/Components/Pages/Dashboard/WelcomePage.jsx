@@ -7,8 +7,8 @@ function WelcomePage() {
   return (
     <div className="container-welcome">
       <div className="nav-bar">
-        <div className="logo">
-          <img src={logo} alt="" className="logoimg" />
+        <div className="welcomelogo">
+          <img src={logo} alt="" className="welcomelogoimg" />
           <h1>CauseCraft</h1>
                 
         </div>
@@ -23,12 +23,14 @@ function WelcomePage() {
       </div>
       <div className="main-container">
         {/* <img src={welcome} alt="" /> */}
-        <div className="matter">
-          <p>
-            "Empower NGO's worldwide with an intuitive website hosting platform,
-            where simplicity meets impact."
-          </p>
-        </div>
+       
+          <span className="first-line">
+            <p>
+              "Empower NGO's worldwide with an intuitive website hosting platform
+                where simplicity meets impact"
+            </p>
+          </span >
+  
       </div>
 
       {/* About Us */}

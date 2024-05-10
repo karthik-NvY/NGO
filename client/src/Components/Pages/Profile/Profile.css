@@ -8,7 +8,7 @@
   display: flex;
   height: 320px;
   width: 100%;
-  background-color: rgb(224, 222, 222);
+  background-color:azure;
 }
 .profile-pic {
   display: flex;
@@ -69,6 +69,10 @@
   display: flex;
   justify-content: space-between;
   padding: 25px 40px 0px 40px;
+  /* background-color: #6fb3bb; */
+  background-image: linear-gradient(#a1cdd2,#378f99);
+  border-radius: 10px;
+  padding-bottom: 20px;
   /* align-items: center; */
 }
 
@@ -78,11 +82,13 @@
   /* margin: 25px 40px 0px 40px; */
   margin-right: 1%;
   height: 500px;
-  background-color: white;
+  background-color:azure;
   border: 3px solid white;
   border-radius: 10px;
   box-shadow: 0 -4px 8px 0 rgba(96, 96, 96, 0.2),
     0 6px 20px 0 rgba(96, 96, 96, 0.2);
+    
+  padding-bottom: 20px;
 }
 
 .About p {
@@ -92,11 +98,14 @@
 }
 
 .rightpart {
+  background-color:rgb(227, 255, 255);
   display: flex;
+  align-items: center;
   flex-direction: column;
   margin-left: 3%;
   width: 73%;
   justify-content: space-between;
+  border-radius: 10px;
 }
 
 .rightpart p {
@@ -105,4 +114,45 @@
 }
 .camera-icon {
   font-size: 38px; /* Adjust the size as needed */
+}
+.roles{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #598d93;
+  font-size: 30px;
+  text-decoration: underline;
+}
+.right-volunteer a{
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+.right-donor a{
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+.right-executive a{
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+.ngo_v{
+  width: 70vb;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%;
+}
+
+.ngo_v:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+  background-color: #6fb3bb;
 }
