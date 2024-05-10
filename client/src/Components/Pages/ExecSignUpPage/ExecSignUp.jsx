@@ -133,7 +133,7 @@ const ExecSignUp = () => {
                 { ngo_id , user_id },
                 { withCredentials: true, headers: {'Authorization': `Bearer ${token}`} }
             );
-            if(res.status==200 && res.data.message=="Request deleted successfully"){
+            if(res2.status==200 && res2.data.message=="Request deleted successfully"){
                 alert("Accepted user as executive");
                 const tmp = {...userdata};
                 setuserdata(Object.values(tmp).filter(item => item._id !== user_id))
