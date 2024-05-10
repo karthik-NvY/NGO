@@ -10,3 +10,10 @@
     margin-top: 20px; /* Adjust margin as needed */
   }
   
+.name_list{
+    position: absolute;
+    top:10%;
+    color:black;
+    background:black;
+    z-index:100;
+}
