@@ -79,6 +79,7 @@ function WelcomePage() {
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
