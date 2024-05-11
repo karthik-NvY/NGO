@@ -9,6 +9,8 @@ function WelcomePage() {
       <div className="nav-bar">
         <div className="welcomelogo">
           <img src={logo} alt="" className="welcomelogoimg" />
+        <div className="welcomelogo">
+          <img src={logo} alt="" className="welcomelogoimg" />
           <h1>CauseCraft</h1>
         </div>
         <div className="login-signup">

@@ -17,6 +17,11 @@ router.post("/fetch", tokenMiddle, waitlisthandler.fetchRequests); //Route  /api
 router.post("/add", tokenMiddle, waitlisthandler.storeRequest);    //Route  /api/add
 router.post("/delete", tokenMiddle, waitlisthandler.deleteRequest); //Route /api/delete
 router.post("/updateRole", tokenMiddle, waitlisthandler.updateRole);//Route /api/updaterole
+router.post("/admindelete", tokenMiddle, waitlisthandler.admindeleteRequest);
+
+router.post("/fetchOpening", tokenMiddle, requestwindowHandler.fetchReqOpening ); //Route  /api/fetchOpening
+router.post("/openRequests", tokenMiddle,requestwindowHandler.openRequest);    //Route  /api/openRequests
+router.post("/closeRequests", tokenMiddle,requestwindowHandler.closeRequest); //Route /api/closerequests
 
 router.post("/fetchOpening", tokenMiddle, requestwindowHandler.fetchReqOpening ); //Route  /api/fetchOpening
 router.post("/openRequests", tokenMiddle,requestwindowHandler.openRequest);    //Route  /api/openRequests

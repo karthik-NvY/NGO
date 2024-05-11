@@ -140,15 +140,13 @@ class UserTaskhandler{
 			const user_id = req.user_id;
 
 			const existingrequest = await AssignedModel.find( { task_id : task_id, user_id : user_id});
-	
 			// If user already requested for a task.......
-			if (existingrequest) {
+			if (existingrequest.length) {
 	            return res.status(404).json({
 	                success: false,
 	                message: "user already assigned for the task"
 	            });
 	        }
-
 			// Creates new entry by user for the task .
 	        const newrequest = await AssignedModel.create({
             	user_id:user_id, task_id:task_id

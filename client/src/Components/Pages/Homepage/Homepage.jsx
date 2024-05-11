@@ -9,6 +9,7 @@ import setAuthHeaders from "../../Utils/setAuthHeaders";
 const Homepage = () => {
   const [ngos, setNgos] = useState([]);
   const [ngoback, setNgoback] = useState([]);
+  const [ngoback, setNgoback] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -75,6 +76,7 @@ const Homepage = () => {
         }
         console.error("Error fetching NGOs:", error);
       }
+
     };
 
     fetchNgos();
@@ -123,6 +125,14 @@ const Homepage = () => {
         </div>
       </div>
       <div className="build">
+        <div className="markngo">
+          <p>Want to mark your NGO ?</p>
+        </div>
+        <div className="buildbuttondiv">
+          <Link to="/templateEdit">
+            <button>Build your own NGO</button>
+          </Link>
+        </div>
         <div className="markngo">
           <p>Want to mark your NGO ?</p>
         </div>

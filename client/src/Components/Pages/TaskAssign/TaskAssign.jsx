@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./TaskAssign.css";
-import NavBar from "../Dashboard/NavBar/NavBar"; // Optional NavBar component
+import NGONavbar from "../NgoView/NGONavbar/NGONavbar"; // Optional NavBar component
 import { FaCheck, FaTimes } from "react-icons/fa";
 import fetchAPI from "../../Utils/FetchAPI";
 
 const port_address = process.env.REACT_APP_API_URL;
 
-
-const task_id = "66026442e2b18cac8fdda359";
 
 const TaskAssign = () => {
   // State to hold task list fetched from backend
@@ -18,8 +16,8 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const ngo_id = localStorage.getItem("ngo_id");;
-      let response = await fetchAPI(`${port_address}/api/ngoTask`, { ngo_id: ngo_id }, "POST", true);console.log(response);
+      const ngo_id = localStorage.getItem("ngo_id");
+      let response = await fetchAPI(`${port_address}/api/ngoTask`, { ngo_id: ngo_id }, "POST", true);
       if (response.success) {
         setTaskList(response.Ngo_tasks);
         // setTaskInfo(response.Ngo_tasks);
@@ -36,7 +34,6 @@ const TaskAssign = () => {
   useEffect(() => {
     const fetchTaskInfo = async (taskId) => {
       let response = await fetchAPI(`${port_address}/task/fetchInfo`, { id: taskId }, "POST", true);
-      console.log(response);
       return response.success ? response.taskinfo : null;
     };
 
@@ -51,7 +48,7 @@ const TaskAssign = () => {
 
   useEffect(() => {
     const fetchTaskUsers = async (taskId) => {
-      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { task_id:taskId }, "POST", true);console.log(response);
+      let response = await fetchAPI(`${port_address}/taskuser/fetch_task`, { task_id:taskId }, "POST", true);
       if (response.success) {
         return response.users;
       } else {
@@ -64,8 +61,9 @@ const TaskAssign = () => {
     };
 
     const fetchUserDetails = async (userId) => {
-      let response = await fetchAPI(`${port_address}/user/fetchInfo`, { id: userId }, "POST", true);console.log(response);
-      return response.success ? response.user : null;
+      let response = await fetchAPI(`${port_address}/user/fetch_user`, { user_id: userId }, "POST", true);
+      // console.log("user: ", response)
+      return response.success ? response.data : null;
     };
 
     const fetchUsersForTasks = async () => {
@@ -89,7 +87,7 @@ const TaskAssign = () => {
 
   // Function to handle selection of a user for a task
   const handleUserSelect = async (taskId, userId) => {
-    let response = await fetchAPI(`${port_address}/taskuser/add_task`, { taskId, userId }, "POST", true);
+    let response = await fetchAPI(`${port_address}/taskuser/assign_user`, { task_id:taskId, userId }, "POST", true);
     if (response.success) {
       const updatedTaskList = taskList.map((task) => {
         if (task.task === taskId) {
@@ -101,6 +99,7 @@ const TaskAssign = () => {
         return task;
       }).filter(task => task !== null);
       setTaskList(updatedTaskList);
+      alert("Accepted user");
     } else {
       console.log("Error updating user:", response.message);
     }
@@ -119,6 +118,7 @@ const TaskAssign = () => {
         return task;
       }).filter(task => task !== null);
       setTaskList(updatedTaskList);
+      alert("Rejected User")
     } else {
       console.log("Error removing user:", response.message);
     }
@@ -127,7 +127,7 @@ const TaskAssign = () => {
   return (
     <div className="taskAssignpage">
       {/* Optional: Add NavBar component here */}
-      <NavBar />
+      <NGONavbar logo={localStorage.getItem('ngo_logo')} name={localStorage.getItem('ngo_name')}/>
 
       <div className="taskassign-container">
         <h1>Task Assign</h1>

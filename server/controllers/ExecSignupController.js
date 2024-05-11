@@ -111,9 +111,44 @@ class waitlisthandler{
 	        });
 	    }
 	}
+
+	static admindeleteRequest = async(req, res) => {
+		const { user_id } = req.body;
+		const {ngo_id} = req.body;
+	      if (!user_id){
+				return res.status(400).json({
+					success: false,
+					message: "Missing input data",
+				});
+			}
+		try {
+			// Fetch all Task records from the database
+			const deletedrequest = await waitlist.findOneAndDelete({user_id:user_id, ngo_id: ngo_id});
+	        // if the provided ID is not there in the schema
+			if (!deletedrequest) {
+                return res.status(404).json({
+                    success: false,
+                    message: "No Request found with the provided ID"
+                });
+            }
+            // task has been deleted
+            return res.status(200).json({
+                success: true,
+                message: "Request deleted successfully",
+                deletedrequest
+            });
+		}
+		catch (error) {
+	        console.error("Error:", error.message);
+	        return res.status(500).json({
+	            success: false,
+	            message: "Internal server error while deleting request",
+	        });
+	    }
+	}
 	static updateRole = async(req, res) => {
-		const { ngo_id} = req.body;
-		const user_id = req.user_id;
+		const { ngo_id } = req.body;
+		const { user_id } = req.body;
 		if (!user_id || !ngo_id){
 			return res.status(400).json({
 				success: false,
@@ -123,10 +158,11 @@ class waitlisthandler{
 			// Fetch all Task records from the database
 			
 			const updatedRole = await Roles.findOneAndUpdate(
-                { user_id: user_id,user_id: ngo_id  },
+                { user_id: user_id, ngo_id: ngo_id  },
                 {  $set: { role: "Executive" } },
                 { new: true }
             );
+            console.log(updatedRole);
 	        // if the provided ID is not there in the schema
 			if (!updatedRole) {
                 return res.status(404).json({

@@ -690,12 +690,7 @@ nav ul li a:hover {
   font-size: 100%; 
 }
 
-.volunteer-button1:hover{
-  background-color:bisque;
-  color: #000;
-}
-
-.publish-button1 {
+.contact-buttons {
   position: fixed;
   bottom: 3vh;
   right: 5vw;
@@ -716,53 +711,21 @@ nav ul li a:hover {
 }
 .publish-text1{
   color: white;
-  width: 0%;
-  font-size: 200%;
-  padding-left: 5%;
-  padding-right: 5%;
-  overflow: hidden;
-}
-
-.list-icon{
-  position: fixed;
-  bottom: 3vh;
-  color: #000000;
-  right: 5vw;
-  background-color: white; /* Button background color */
-  border: none; /* Remove button border */
-  border-radius: 10px;
-  cursor: pointer;
+  padding: 15px 25px;
   text-align: center;
-  display: flex;
-  font-size: 250%;
-  z-index: 10;
-  padding: 1%;
-
-
-}
-
-.manage-icon{
-  position: fixed;
-  bottom: 3vh;
-  color: #000000;
-  left: 5vw;
-  background-color:white; /* Button background color */
-  border: none; /* Remove button border */
-  border-radius: 10px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
+  border: none;
   cursor: pointer;
-  text-align: center;
-  display: flex;
-  font-size: 250%;
-  z-index: 10;
-  padding: 1%;
-
-
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
 }
-title{
-  font-size: larger;
-}
-.list-icon:hover{
-  /* background-color:bisque; */
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
-  color: #000;
+
+.volunteer-button:hover,
+.donor-button:hover {
+  background-color: #ffff;
+  color: black;
 }
